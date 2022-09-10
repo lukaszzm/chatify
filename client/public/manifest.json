@@ -1,0 +1,10 @@
+{
+  "short_name": "Chatify",
+  "name": "Chatify - Chat with your friends",
+  "icons": [
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4E5AEA",
+  "background_color": "#ffffff"
+}

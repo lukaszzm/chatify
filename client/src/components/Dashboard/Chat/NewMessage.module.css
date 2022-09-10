@@ -1,0 +1,35 @@
+.wrapper {
+    padding: 15px;
+    border-top: 1px solid #c7c7c7;
+    -webkit-box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
+    box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
+}
+
+.form {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.input {
+    padding: 14px;
+    margin-right: 10px;
+}
+
+.button {
+    padding: 10px;
+}
+
+.icon {
+    filter: invert(98%) sepia(2%) saturate(127%) hue-rotate(6deg) brightness(115%) contrast(100%);
+}
+
+.error {
+    color:#ff4e4e;
+    text-align: left;
+    margin-left: 2%;
+}

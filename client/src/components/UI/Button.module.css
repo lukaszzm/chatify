@@ -1,0 +1,36 @@
+.button {
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: #3a49eb;
+    cursor: pointer;
+    transition: .1s;
+    color: #fff;
+    padding: 10px;
+    letter-spacing: 0.6px;
+    border: 1px solid #3a49eb;
+}
+
+.button:hover {
+    background-color: #313ec9;
+    border-color:#313ec9;
+}
+
+.outline {
+    background-color: #fff;
+    color: #3a49eb;
+    border: 1px solid #3a49eb;
+}
+
+.outline:hover {
+    color: #fff;
+    background-color: #3a49eb;
+}
+
+.button:disabled {
+    background-color: #666666;
+    border: 1px solid #666666;
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}

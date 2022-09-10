@@ -1,0 +1,56 @@
+.form {
+    width: 80%;
+    max-width: 500px;
+    margin-top: 0px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid #acacac;
+}
+
+.form h1 {
+    font-size: 2.5rem;
+    text-align: left;
+}
+.form label {
+    display: block;
+    text-align: left;
+    margin-left: 2%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.field {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: 1px solid #555555;
+}
+
+.field-error {
+    border: 1px solid #ff3535;
+}
+
+.field-error:focus {
+    outline: 1px solid #ff3535;
+}
+
+.button {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1rem;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.error {
+    color: #ff3535;
+}
+
+.fetch-error {
+    color: #ff3535;
+    font-weight: 600;
+    padding-top: 10px;
+}
