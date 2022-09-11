@@ -48,7 +48,7 @@ const RecentMessages = () => {
       ) : error ? (
         <p>Something went wrong.</p>
       ) : testMessages.length === 0 ? (
-        <p>You don't have any chats.</p>
+        <p>You don't have any chats. Search user above and start chatting.</p>
       ) : (
         testMessages.map(({ _id, userInfo, text, createdAt, fromId }) => (
           <RecentMessage

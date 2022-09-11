@@ -2,15 +2,6 @@ const Users = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-module.exports.getAllUsers = async (req, res, next) => {
-  try {
-    const users = await Users.find({ _id: { $ne: req.body.id } });
-    return res.json(users);
-  } catch (err) {
-    next(err);
-  }
-};
-
 module.exports.getUserById = async (req, res, next) => {
   try {
     const user = await Users.find({ _id: req.params.id }, {_id: 1, firstName: 1, lastName: 1, profilePath: 1});
