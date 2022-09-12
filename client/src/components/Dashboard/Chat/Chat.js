@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import NewMessage from "./NewMessage";
 import ChatBox from "./ChatBox";
 import ChatInfo from "./ChatInfo";
+import Content from "../../UI/Content";
 
 const Chat = () => {
   const { ID } = useParams();
 
   return (
-    <section className={styles.wrapper}>
+    <Content>
       {ID ? (
         <>
           <ChatInfo />
@@ -18,7 +19,7 @@ const Chat = () => {
       ) : (
         <p className={styles.notification}>Select user to start chatting.</p>
       )}
-    </section>
+    </Content>
   );
 };
 

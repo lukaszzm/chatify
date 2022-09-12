@@ -1,16 +1,15 @@
-import styles from './Chats.module.css';
+import Sidebar from '../../UI/Sidebar';
 import RecentMessages from './RecentMessages';
 import SearchBar from './SearchBar';
 
 const Chats = () => {
-
     return (
-        <section className={styles.wrapper}>
+        <Sidebar>
             <h1>Chats</h1>
             <SearchBar/>
             <h4>Recent</h4>
             <RecentMessages />
-        </section>
+        </Sidebar>
     )
 }
 

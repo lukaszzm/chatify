@@ -5,12 +5,10 @@ import { useAxios } from "../../../hooks/useAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "../../../store/chatSlice";
 import AuthContext from "../../../store/auth-context";
-import { Link } from "react-router-dom";
-import backIcon from "../../../assets/back.svg";
 import LoadingImage from "../../UI/LoadingImage";
 import LoadingText from "../../UI/LoadingText";
 import ProfileImage from "../../UI/ProfileImage";
-import Icon from "../../UI/Icon";
+import Topbar from "../../UI/Topbar";
 
 const ChatInfo = () => {
   const { token } = useContext(AuthContext);
@@ -38,19 +36,13 @@ const ChatInfo = () => {
   }
 
   return (
-    <div className={styles["top-bar"]}>
+    <Topbar backTo="/dashboard">
       {loading ? (
-        <>
           <div className={styles["user"]}>
             <LoadingImage className={styles["loading-image"]} />
             <LoadingText className={styles["loading-text"]} />
           </div>
-        </>
       ) : (
-        <>
-          <Link className={styles.back} to="/dashboard">
-            <Icon icon={backIcon} />
-          </Link>
           <div className={styles["user"]}>
             <ProfileImage
               className={styles["user-image"]}
@@ -60,9 +52,8 @@ const ChatInfo = () => {
               {`${userInfo.firstName} ${userInfo.lastName}`}
             </h4>
           </div>
-        </>
       )}
-    </div>
+    </Topbar>
   );
 };
 
