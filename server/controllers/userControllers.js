@@ -103,3 +103,25 @@ module.exports.register = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.updateFirstName = async (req, res, next) => {
+  try {
+    const id = req.body.id;
+    const newFirstName = req.params.firstName;
+    const user = await Users.findByIdAndUpdate(id, { firstName: newFirstName });
+    res.send("Success! Your first name has been updated.");
+  } catch(err) {
+    next(err);
+  }
+}
+
+module.exports.updateLastName = async (req, res, next) => {
+  try {
+    const id = req.body.id;
+    const newLastName = req.params.lastName;
+    const user = await Users.findByIdAndUpdate(id, { lastName: newLastName })
+    res.send("Success! Your last name has been updated.");
+  } catch(err) {
+    next(err);
+  }
+}
