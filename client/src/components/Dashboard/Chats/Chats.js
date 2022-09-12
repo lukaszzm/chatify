@@ -6,9 +6,9 @@ const Chats = () => {
 
     return (
         <section className={styles.wrapper}>
-            <h1 className={styles.title}>Chats</h1>
+            <h1>Chats</h1>
             <SearchBar/>
-            <h4 className={styles.subtitle}>Recent</h4>
+            <h4>Recent</h4>
             <RecentMessages />
         </section>
     )

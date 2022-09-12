@@ -32,14 +32,19 @@ const Dashboard = () => {
       if(ID) {
         content = <Chat />;
       } else {
-        content = <><Chats /> <Navigation /></>;
+        content = <><Chats /></>;
       }
     } else {
-      content = <><Navigation/><Chats/><Chat /></>;
+      content = <><Chats/> <Chat/></>;
     }
   }
   
-  return content;
+  return (
+    <>
+    <Navigation />
+    {content}
+    </>
+  );
 };
 
 export default Dashboard;

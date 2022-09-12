@@ -2,6 +2,7 @@ import styles from "./Navigation.module.css";
 import { useContext, useEffect } from "react";
 import { useAxios } from "../../../hooks/useAxios";
 import { NavLink } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
 import AuthContext from "../../../store/auth-context";
 import ProfileImage from "../../UI/ProfileImage";
 import Icon from "../../UI/Icon";
@@ -40,53 +41,63 @@ const Navigation = () => {
     <nav className={styles["navigation-panel"]}>
       <img src={logoIcon} className={styles.logo} alt="logo" />
       <div className={styles.links}>
-        <NavLink
-          className={(navData) => (navData.isActive ? "active" : "")}
-          to="/dashboard"
-        >
-          <Icon icon={chatIcon}>Chat</Icon>
-        </NavLink>
-        <NavLink
-          className={(navData) => (navData.isActive ? "active" : "")}
-          to="/friends"
-        >
-          <Icon icon={peopleIcon}>People</Icon>
-        </NavLink>
-        <NavLink
-          className={(navData) => (navData.isActive ? "active" : "")}
-          to="/groups"
-        >
-          <Icon icon={locationIcon}>Location</Icon>
-        </NavLink>
-        <NavLink
-          className={(navData) => (navData.isActive ? "active" : "")}
-          to="/settings"
-        >
-          <Icon icon={settingsIcon}>Settings</Icon>
-        </NavLink>
-        <button
-          className={styles["logout-mobile-button"]}
-          onClick={logoutHandler}
-        >
-          <Icon icon={logoutIcon}>Logout</Icon>
-        </button>
+        <Tooltip title="dashboard" placement="right">
+          <NavLink
+            className={(navData) => (navData.isActive ? "active" : "")}
+            to="/dashboard"
+          >
+            <Icon icon={chatIcon}>Chat</Icon>
+          </NavLink>
+        </Tooltip>
+        <Tooltip title="friends" placement="right">
+          <NavLink
+            className={(navData) => (navData.isActive ? "active" : "")}
+            to="/friends"
+          >
+            <Icon icon={peopleIcon}>People</Icon>
+          </NavLink>
+        </Tooltip>
+        <Tooltip title="groups" placement="right">
+          <NavLink
+            className={(navData) => (navData.isActive ? "active" : "")}
+            to="/groups"
+          >
+            <Icon icon={locationIcon}>Location</Icon>
+          </NavLink>
+        </Tooltip>
+        <Tooltip title="settings" placement="right">
+          <NavLink
+            className={(navData) => (navData.isActive ? "active" : "")}
+            to="/settings"
+          >
+            <Icon icon={settingsIcon}>Settings</Icon>
+          </NavLink>
+        </Tooltip>
+        <Tooltip title="logout" placement="right">
+          <button
+            className={styles["logout-mobile-button"]}
+            onClick={logoutHandler}
+          >
+            <Icon icon={logoutIcon}>Logout</Icon>
+          </button>
+        </Tooltip>
       </div>
       <div className={styles.changers}>
         {profilePath && (
-          <>
-            <ProfileImage
-              className={styles["profile-image"]}
-              src={profilePath}
-              alt=""
-            />
-          </>
+              <ProfileImage
+                className={styles["profile-image"]}
+                src={profilePath}
+                alt=""
+              />
         )}
-        <button
-          className={styles["logout-desktop-button"]}
-          onClick={logoutHandler}
-        >
-          <Icon icon={logoutIcon}>Logout</Icon>
-        </button>
+        <Tooltip title="logout" placement="right">
+          <button
+            className={styles["logout-desktop-button"]}
+            onClick={logoutHandler}
+          >
+            <Icon icon={logoutIcon}>Logout</Icon>
+          </button>
+        </Tooltip>
       </div>
     </nav>
   );
