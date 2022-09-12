@@ -39,6 +39,9 @@ h1 {
   font-weight: 500;
 }
 
+h3 {
+  padding: 0px 10px 0px 10px;
+}
 h4 {
   color: #383838;
 }

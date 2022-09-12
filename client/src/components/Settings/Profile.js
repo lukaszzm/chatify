@@ -1,8 +1,16 @@
 import styles from "./Profile.module.css";
 import Topbar from "../UI/Topbar";
+import ProfileInfo from "./ProfileInfo";
 
 const Profile = () => {
-    return <Topbar backTo="/settings"><h1 className={styles.header}>Profile Settings</h1></Topbar>
-}
+  return (
+    <>
+      <Topbar backTo="/settings">
+        <h3>Profile Settings</h3>
+      </Topbar>
+      <ProfileInfo />
+    </>
+  );
+};
 
 export default Profile;
