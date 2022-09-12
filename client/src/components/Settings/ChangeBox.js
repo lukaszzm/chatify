@@ -21,7 +21,7 @@ const ChangeBox = ({initialValue, value, url}) => {
         e.preventDefault();
         setIsTouched(false);
         if(inputValue.trim() !== "") {
-          const request = await axios.patch(`${url}/${inputValue.trim()}`, {
+          const request = await axios.post(`${url}/${inputValue.trim()}`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           console.log(request);
