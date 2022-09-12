@@ -1,9 +1,12 @@
 import styles from "./ChangeBox.module.css";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Input from "../UI/Input";
 import Button from "../UI/Button";
+import axios from 'axios';
+import AuthContext from "../../store/auth-context";
 
-const ChangeBox = ({initialValue, value}) => {
+const ChangeBox = ({initialValue, value, url}) => {
+    const { token } = useContext(AuthContext);
     const [isTouched, setIsTouched] = useState(false);
     const [inputValue, setInputValue] = useState(initialValue);
     const [error, setError] = useState(null);
@@ -14,10 +17,14 @@ const ChangeBox = ({initialValue, value}) => {
         setInputValue(e.target.value);
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
         setIsTouched(false);
         if(inputValue.trim() !== "") {
+          const request = await axios.patch(`${url}/${inputValue.trim()}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          console.log(request);
         setError("Something went wrong. Try again.")
         setSuccess(`Success. Your ${value.toLowerCase()} was changed.`)
         } else {

@@ -2,9 +2,10 @@ import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import styles from "./ProfileInfo.module.css";
 import ProfileImage from "../UI/ProfileImage";
-import Input from "../UI/Input";
-import Button from "../UI/Button";
 import ChangeBox from "./ChangeBox";
+
+const updateFirstNameUrl = `${process.env.REACT_APP_API_URL}/auth/update-first-name`;
+const updateLastNameUrl = `${process.env.REACT_APP_API_URL}/auth/update-last-name`;
 
 const ProfileInfo = () => {
   const { profilePath, firstName, lastName } = useContext(AuthContext);
@@ -12,8 +13,8 @@ const ProfileInfo = () => {
   return (
     <div className={styles.wrapper}>
       <ProfileImage src={profilePath} className={styles["profile-image"]} />
-      <ChangeBox initialValue={firstName} value="First name" />
-      <ChangeBox initialValue={lastName} value="Last name" />
+      <ChangeBox initialValue={firstName} value="First name" url={updateFirstNameUrl}/>
+      <ChangeBox initialValue={lastName} value="Last name" url={updateLastNameUrl}/>
     </div>
   );
 };
