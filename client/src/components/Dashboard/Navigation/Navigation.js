@@ -28,10 +28,10 @@ const Navigation = () => {
     if (error) logout();
 
     if (userData) {
-      const [user] = userData;
-      setUserInfo(user);
+      setUserInfo(userData[0]);
     }
-  }, [userData, logout, setUserInfo, error]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const logoutHandler = () => {
     logout();
@@ -84,11 +84,11 @@ const Navigation = () => {
       </div>
       <div className={styles.changers}>
         {profilePath && (
-              <ProfileImage
-                className={styles["profile-image"]}
-                src={profilePath}
-                alt=""
-              />
+          <ProfileImage
+            className={styles["profile-image"]}
+            src={profilePath}
+            alt=""
+          />
         )}
         <Tooltip title="logout" placement="right">
           <button

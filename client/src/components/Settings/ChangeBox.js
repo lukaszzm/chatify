@@ -6,7 +6,7 @@ import axios from 'axios';
 import AuthContext from "../../store/auth-context";
 
 const ChangeBox = ({initialValue, value, url}) => {
-    const { token } = useContext(AuthContext);
+    const { token, setUserInfo, firstName, lastName, profilePath} = useContext(AuthContext);
     const [isTouched, setIsTouched] = useState(false);
     const [inputValue, setInputValue] = useState(initialValue);
     const [error, setError] = useState(null);
@@ -14,19 +14,27 @@ const ChangeBox = ({initialValue, value, url}) => {
 
     const changeHandler = (e) => {
         setIsTouched(true);
+        setError(null);
+        setSuccess(null);
         setInputValue(e.target.value);
     }
 
     const submitHandler = async (e) => {
         e.preventDefault();
         setIsTouched(false);
-        if(inputValue.trim() !== "") {
-          const request = await axios.post(`${url}/${inputValue.trim()}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          console.log(request);
-        setError("Something went wrong. Try again.")
-        setSuccess(`Success. Your ${value.toLowerCase()} was changed.`)
+        const fixedValue = inputValue.trim();
+        if(fixedValue !== "") {
+          try {
+            await axios.patch(`${url}/${fixedValue}`, null, {
+              headers: { Authorization: `Bearer ${token}` },
+            })
+            if (value === "First name")  setUserInfo({firstName: fixedValue, lastName, profilePath });
+            if (value === "Last name")  setUserInfo({firstName, lastName: fixedValue, profilePath });
+            setSuccess(`Success. Your ${value.toLowerCase()} was changed.`);
+
+          } catch (err) {
+            setError("Something went wrong. Try again.")
+          }
         } else {
         setError(`Your ${value.toLowerCase()} cannot be empty string.`)
         }

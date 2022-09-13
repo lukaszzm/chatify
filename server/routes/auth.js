@@ -17,8 +17,8 @@ router.post("/register/", register)
 router.use(auth);
 router.get("/user-by-id/:id", getUserById);
 router.get("/user-by-name/:input", getUserByName);
-router.post("/update-first-name/:firstName", updateFirstName);
-router.post("/update-last-name/:lastName", updateLastName);
+router.patch("/update-first-name/:firstName", updateFirstName);
+router.patch("/update-last-name/:lastName", updateLastName);
 
 
 

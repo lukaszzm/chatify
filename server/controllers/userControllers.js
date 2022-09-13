@@ -108,20 +108,20 @@ module.exports.updateFirstName = async (req, res, next) => {
   try {
     const id = req.body.id;
     const newFirstName = req.params.firstName;
-    const user = await Users.findByIdAndUpdate(id, { firstName: newFirstName });
-    res.send("Success! Your first name has been updated.");
+    await Users.findByIdAndUpdate(id, { firstName: newFirstName });
   } catch(err) {
     next(err);
   }
+  return res.send("Success! Your first name has been updated.");
 }
 
 module.exports.updateLastName = async (req, res, next) => {
   try {
     const id = req.body.id;
     const newLastName = req.params.lastName;
-    const user = await Users.findByIdAndUpdate(id, { lastName: newLastName })
-    res.send("Success! Your last name has been updated.");
+    await Users.findByIdAndUpdate(id, { lastName: newLastName })
   } catch(err) {
     next(err);
   }
+  return res.send("Success! Your last name has been updated.");
 }

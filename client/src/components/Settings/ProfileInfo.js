@@ -9,7 +9,7 @@ const updateLastNameUrl = `${process.env.REACT_APP_API_URL}/auth/update-last-nam
 
 const ProfileInfo = () => {
   const { profilePath, firstName, lastName } = useContext(AuthContext);
-
+  
   return (
     <div className={styles.wrapper}>
       <ProfileImage src={profilePath} className={styles["profile-image"]} />
