@@ -39,15 +39,15 @@ const Password = () => {
           return;
         } else {
           try {
-            await axios.patch(URL, { currentPassword, newPassword }, {
+            setIsCurrentPasswordTouched(false);
+            setIsNewPasswordTouched(false);
+            await axios.patch(URL, { currentPassword: currentPassword, newPassword: newPassword }, {
               headers: { Authorization: `Bearer ${token}` }});
             setSuccess("Success! Your password has been changed.")
             
           } catch (err) {
-            setError(err);
-          } finally {
-            setIsCurrentPasswordTouched(false);
-            setIsNewPasswordTouched(false);
+            setIsNewPasswordTouched(true);
+            setError(err.response.data);
           }
         }
     }
