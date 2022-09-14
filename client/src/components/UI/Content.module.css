@@ -10,6 +10,10 @@
     box-shadow: -8px 7px 17px -22px rgba(66, 68, 90, 1);
 }
 
+.left {
+    align-items: flex-start;
+}
+
 @media screen and (max-width: 768px) {
     .container {
         max-width: 100%;

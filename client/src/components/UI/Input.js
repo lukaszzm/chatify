@@ -1,14 +1,15 @@
 import React from 'react';
 import styles from "./Input.module.css";
 
-const Input = React.forwardRef(({ className, placeholder, onChange, value, isError }, ref) => {
+const Input = React.forwardRef(({ className, placeholder, onChange, value, isError, id, type }, ref) => {
   const classes = isError
     ? `${styles.input} ${styles.error} ${className}`
     : `${styles.input} ${className}`;
 
   return (
     <input
-      type="text"
+      id={id}
+      type={type || "text"}
       placeholder={placeholder}
       onChange={onChange}
       className={classes}

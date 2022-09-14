@@ -3,6 +3,7 @@ const {
   getUserByName,
   updateFirstName,
   updateLastName,
+  updatePassword,
   login,
   register
 } = require("../controllers/userControllers");
@@ -19,6 +20,7 @@ router.get("/user-by-id/:id", getUserById);
 router.get("/user-by-name/:input", getUserByName);
 router.patch("/update-first-name/:firstName", updateFirstName);
 router.patch("/update-last-name/:lastName", updateLastName);
+router.patch("/update-password/", updatePassword);
 
 
 

@@ -33,7 +33,7 @@ const Settings = () => {
 
   if (isMobile) {
     if (sid) {
-      content = <Content>{context}</Content>;
+      content = <Content position="left">{context}</Content>;
     } else {
       content = (
         <>
@@ -47,7 +47,7 @@ const Settings = () => {
       <>
         <Navigation />
         <SettingsBar active={sid || ""} />
-        <Content>{context}</Content>
+        <Content position="left">{context}</Content>
       </>
     );
   }
