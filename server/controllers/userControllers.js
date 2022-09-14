@@ -130,17 +130,16 @@ module.exports.updatePassword = async (req, res, next) => {
   try {
     const { id, currentPassword, newPassword } = req.body;
     const user = await Users.findOne({ _id: id });
-
     if (user) {
       const match = await bcrypt.compare(currentPassword, user.password);
       if (match) {
         await Users.findByIdAndUpdate(id, { password: bcrypt.hashSync(newPassword, 12)});
-        res.send("Succesful. Your password has been changed.");
+        return res.send("Succesfull. Your password has been changed.");
       } else {
         return res.status(400).send("Your password is incorrect.");
       }
     } else {
-      throw Error;
+      return res.status(400).send("Something went wrong.");
     }
   } catch (err) {
     next(err);
