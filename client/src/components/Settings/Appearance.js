@@ -1,6 +1,7 @@
 import styles from "./Appearance.module.css";
 import Topbar from "../UI/Topbar";
 import Switch from "../UI/Switch";
+import Label from "../UI/Label";
 
 const Appearance = () => {
   return (
@@ -8,13 +9,10 @@ const Appearance = () => {
       <Topbar backTo="/settings">
         <h3>Appearance Settings</h3>
       </Topbar>
-      <div className={styles.container}>
-      <label htmlFor="" className={styles.label}>
+      <Label htmlFor="switch">
         Dark mode
-      </label>
-      <Switch className={styles.switch} labels/>
-      </div>
-      
+      </Label>
+      <Switch withLabels/>
     </>
   );
 };

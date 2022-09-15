@@ -8,14 +8,6 @@
     margin-left: 15px;
 }
 
-.label {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #494949;
-    text-align: left;
-    margin-bottom: 4px;
-}
-
 .input {
     font-size: 1.1rem;
     padding-top: 5px;
@@ -27,26 +19,4 @@
     width: 90px;
     padding: 8px;
     margin-top: 5px;
-}
-
-.error-alert {
-    margin: 5px;
-    padding: 10px;
-    background-color: #ff3939c5;
-    border-radius: 5px;
-}
-
-.success-alert {
-    margin: 5px;
-    padding: 10px;
-    background-color: #7dff78c5;
-    border-radius: 5px;
-}
-
-.error-alert p {
-    color: #fff;
-}
-
-.success-alert p {
-    color: #161616;
 }

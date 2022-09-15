@@ -9,6 +9,8 @@ import {
   initMessages,
   addRecentMessage,
 } from "../../../store/recentMessagesSlice";
+import Container from "../../UI/Container";
+import LoadingSpinner from "../../UI/LoadingSpinner";
 
 const RecentMessages = () => {
   const { token, _id: userId, socket } = useContext(AuthContext);
@@ -42,9 +44,9 @@ const RecentMessages = () => {
   }, [socket, dispatch]);
 
   return (
-    <div className={styles.container}>
+    <Container>
       {loading ? (
-        <p className={styles.loading}>Loading...</p>
+        <LoadingSpinner/>
       ) : error ? (
         <p>Something went wrong.</p>
       ) : testMessages.length === 0 ? (
@@ -64,7 +66,7 @@ const RecentMessages = () => {
           />
         ))
       )}
-    </div>
+    </Container>
   );
 };
 

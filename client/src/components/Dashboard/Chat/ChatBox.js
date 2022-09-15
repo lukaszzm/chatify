@@ -6,6 +6,7 @@ import AuthContext from "../../../store/auth-context";
 import { addMessage, initMessages } from "../../../store/chatSlice";
 import Message from "./Message";
 import { useParams } from "react-router-dom";
+import LoadingSpinner from "../../UI/LoadingSpinner";
 
 const scrollToEnd = (ref) => {
   ref.current.scrollIntoView();
@@ -55,7 +56,7 @@ const ChatBox = () => {
     <section className={styles.container}>
       <div className={styles["chat-box"]}>
         {loading ? (
-          <p>Loading...</p>
+          <LoadingSpinner />
         ) : error ? (
           <p>Something went wrong!</p>
         ) : messages.length === 0 ? (

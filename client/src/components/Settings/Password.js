@@ -4,6 +4,8 @@ import axios from 'axios';
 import Topbar from "../UI/Topbar";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
+import Alert from "../UI/Alert";
+import Label from "../UI/Label";
 import AuthContext from "../../store/auth-context";
 
 const URL = `${process.env.REACT_APP_API_URL}/auth/update-password`;
@@ -58,9 +60,9 @@ const Password = () => {
       </Topbar>
       <div className={styles.container}>
         <form className={styles.form} onSubmit={submitHandler}>
-          <label className={styles.label} htmlFor="currentPassoword">
+          <Label htmlFor="currentPassword">
             Current password
-          </label>
+          </Label>
           <Input
             onChange={currentChangeHandler}
             id="currentPassword"
@@ -68,9 +70,9 @@ const Password = () => {
             className={styles.input}
             type="password"
           ></Input>
-          <label className={styles.label} htmlFor="newPassoword">
-            New password
-          </label>
+          <Label htmlFor="newPassword">
+          New Password
+          </Label>
           <Input
             onChange={newChangeHandler}
             id="newPassword"
@@ -78,8 +80,8 @@ const Password = () => {
             className={styles.input}
             type="password"
           ></Input>
-          {error ? <div className={styles['error-alert']}><p>{error}</p></div> : null}
-          {success ? <div className={styles['success-alert']}><p>{success}</p></div> : null}
+          {error && <Alert error>{error}</Alert>}
+          {success && <Alert>{success}</Alert>}
           <Button className={styles.button} disabled={!isCurrentPasswordTouched || !isNewPasswordTouched} type="submit">
             Save
           </Button>

@@ -1,0 +1,22 @@
+.alert {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #7dff78c5;
+}
+
+.success p {
+    color: #161616;
+}
+
+.error {
+    background-color: #ff3939c5;
+    color: #fff;
+}
+
+.error p {
+    color: #fff;
+}

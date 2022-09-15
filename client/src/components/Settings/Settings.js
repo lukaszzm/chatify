@@ -9,13 +9,14 @@ const Settings = () => {
   const sid = url?.params.SID;
   const isMobile = useMediaQuery({ query: "(max-width:768px)" });
 
+  console.log(sid);
   let content = "";
 
   if (isMobile) {
     if (sid) {
       content = (
-        <Content position="left">
-          <Outlet />
+        <Content>
+            <Outlet />
         </Content>
       );
     } else {
@@ -31,8 +32,8 @@ const Settings = () => {
       <>
         <Navigation />
         <SettingsBar active={sid || ""} />
-        <Content position="left">
-          <Outlet />
+        <Content>
+            <Outlet />
         </Content>
       </>
     );

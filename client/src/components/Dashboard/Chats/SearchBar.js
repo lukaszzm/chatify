@@ -5,6 +5,7 @@ import axios from "axios";
 import SearchedUser from "./SearchedUser";
 import Input from "../../UI/Input";
 import searchIcon from "../../../assets/search.svg";
+import LoadingSpinner from "../../UI/LoadingSpinner";
 
 const SearchBar = () => {
   const searchInputRef = useRef();
@@ -16,17 +17,23 @@ const SearchBar = () => {
   const { token } = useContext(AuthContext);
 
   const changeHandler = (e) => {
-    setIsTouched(true);
+    if (searchInputRef.current.value.trim() === "") {
+      setIsTouched(false);
+    } else {
+      setIsTouched(true);
+    }
     setSearchInput(searchInputRef.current.value.trim());
   };
 
   const resetInput = () => {
     searchInputRef.current.value = '';
     setSearchInput("");
+    setIsTouched(false);
   }
 
   useEffect( () => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/user-by-name/${searchInput}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -59,10 +66,10 @@ const SearchBar = () => {
         />
       </div>
       <div className={styles["results-wrapper"]}>
-        {loading ? <p>Loading...</p> :
+        {loading ? <LoadingSpinner /> :
         error ? <p>Something went wrong.</p> :
-        result.length > 0 ?
-        result.map(({_id, firstName, lastName, profilePath}) => (
+        result.length === 0 && isTouched ? <p>No results.</p> :
+        isTouched && result.map(({_id, firstName, lastName, profilePath}) => (
           <SearchedUser
             key={_id}
             id={_id}
@@ -71,7 +78,7 @@ const SearchBar = () => {
             profilePath={profilePath}
             onClick={resetInput}
           />
-        )) : null}
+        ))}
       </div>
     </>
   );
