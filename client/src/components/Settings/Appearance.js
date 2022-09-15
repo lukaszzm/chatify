@@ -12,7 +12,7 @@ const Appearance = () => {
       <label htmlFor="" className={styles.label}>
         Dark mode
       </label>
-      <Switch labels/>
+      <Switch className={styles.switch} labels/>
       </div>
       
     </>

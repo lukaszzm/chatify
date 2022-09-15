@@ -13,3 +13,15 @@
   color: #494949;
   text-align: left;
 }
+
+@media screen and (max-width: 768px) { 
+  .container {
+      margin: 0 auto;
+      width: 90%;
+      margin-bottom: 50px;
+  }
+
+  .switch {
+    width: 120px;
+  }
+}

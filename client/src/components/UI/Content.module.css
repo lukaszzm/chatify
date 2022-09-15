@@ -8,6 +8,7 @@
     -webkit-box-shadow: -8px 7px 17px -22px rgba(66, 68, 90, 1);
     -moz-box-shadow: -8px 7px 17px -22px rgba(66, 68, 90, 1);
     box-shadow: -8px 7px 17px -22px rgba(66, 68, 90, 1);
+    overflow-y: auto;
 }
 
 .left {
