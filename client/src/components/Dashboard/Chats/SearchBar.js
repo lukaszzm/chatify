@@ -66,10 +66,11 @@ const SearchBar = () => {
         />
       </div>
       <div className={styles["results-wrapper"]}>
-        {loading ? <LoadingSpinner /> :
+        {!isTouched ? null :
+        loading ? <LoadingSpinner /> :
         error ? <p>Something went wrong.</p> :
-        result.length === 0 && isTouched ? <p>No results.</p> :
-        isTouched && result.map(({_id, firstName, lastName, profilePath}) => (
+        result.length === 0 ? <p>No results.</p> :
+         result.map(({_id, firstName, lastName, profilePath}) => (
           <SearchedUser
             key={_id}
             id={_id}
