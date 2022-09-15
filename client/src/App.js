@@ -11,6 +11,9 @@ import Settings from "./components/Settings/Settings";
 
 import Form from "./components/Login/Form";
 import UnderConstruction from "./pages/UnderConstruction";
+import Profile from "./components/Settings/Profile";
+import Password from "./components/Settings/Password";
+import Appearance from "./components/Settings/Appearance";
 
 const App = () => {
   const auth = useContext(AuthContext);
@@ -40,9 +43,9 @@ const App = () => {
           auth.isLoggedIn ? <Settings /> : <Navigate to="/" replace />
         }
       >
-        <Route path="profile" element={null} />
-        <Route path="password" element={null} />
-        <Route path="appearance" element={null} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="password" element={<Password />} />
+        <Route path="appearance" element={<Appearance />} />
       </Route>
       <Route
         path="/"
