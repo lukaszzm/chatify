@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         maxLength: 25
     },
-    profilePath: {
+    profileImage: {
         type: String, 
         required: false
     },

@@ -1,0 +1,9 @@
+.input-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.button {
+    justify-self: flex-start;
+}

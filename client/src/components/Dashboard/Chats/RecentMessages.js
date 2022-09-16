@@ -56,7 +56,7 @@ const RecentMessages = () => {
             id={userInfo[0]._id}
             firstName={userInfo[0].firstName}
             lastName={userInfo[0].lastName}
-            profileImage={userInfo[0].profilePath}
+            profileImage={userInfo[0].profileImage}
             isActive={ID === userInfo[0]._id ? true : false}
             message={text}
             createdAt={createdAt}

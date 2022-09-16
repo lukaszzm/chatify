@@ -5,6 +5,8 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const messageRoutes = require("./routes/messages");
 const bodyParser = require("body-parser");
+const path = require("path");
+const fs = require("fs");
 
 const port = process.env.PORT || 8000;
 const app = express();
@@ -17,7 +19,7 @@ const server = app.listen(port, () => console.log(`SERVER STARTED ON ${port}`));
 
 const io = socket(server, {
   cors: {
-    origin: '*',
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,
@@ -31,6 +33,8 @@ mongoose
     console.log("DB CONNECTED");
   })
   .catch((err) => console.log(err));
+
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
@@ -52,9 +56,15 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use((err, res) => {
-  if (err) {
-    res.status(500).send("Something went wrong. Try again later.");
+app.use(( err, req, res, next) => {
+  if (req.file) {
+    fs.unlink(req.file.path, (err) => {
+      return;
+    })
   }
-  res.status(404).send("Not Found.");
+  if (err) {
+    console.log(err);
+    return res.status(500).send(err.message || "Something went wrong. Try again later.");
+  }
+  return res.status(404).send("Not Found.");
 });

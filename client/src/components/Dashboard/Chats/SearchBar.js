@@ -70,13 +70,13 @@ const SearchBar = () => {
         loading ? <LoadingSpinner /> :
         error ? <p>Something went wrong.</p> :
         result.length === 0 ? <p>No results.</p> :
-         result.map(({_id, firstName, lastName, profilePath}) => (
+         result.map(({_id, firstName, lastName, profileImage}) => (
           <SearchedUser
             key={_id}
             id={_id}
             firstName={firstName}
             lastName={lastName}
-            profilePath={profilePath}
+            profileImage={profileImage}
             onClick={resetInput}
           />
         ))}

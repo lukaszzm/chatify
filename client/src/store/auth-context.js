@@ -11,7 +11,7 @@ const AuthContext = React.createContext({
   _id: null,
   firstName: null,
   lastName: null,
-  profilePath: null,
+  profileImage: null,
   login: (token) => {},
   logout: () => {},
   register: (user) => {},
@@ -22,7 +22,7 @@ export const AuthContextProvider = (props) => {
   const [id, setId] = useState(null);
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
-  const [profilePath, setProfilePath] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
@@ -66,16 +66,17 @@ export const AuthContextProvider = (props) => {
     password,
     firstName,
     lastName,
-    profilePath,
+    profileImage,
   }) => {
     try {
-      const response = await axios.post(`${URL}/register`, {
-        email,
-        password,
-        firstName,
-        lastName,
-        profilePath,
-      });
+      let formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("profileImage", profileImage);
+      // ${URL}/register
+      const response = await axios.post(`http://localhost:8000/api/auth/register`, formData);
       const { id, token } = response.data;
       setToken(token);
       setId(id);
@@ -88,10 +89,10 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  const setUserInfo = ({ firstName, lastName, profilePath }) => {
+  const setUserInfo = ({ firstName, lastName, profileImage }) => {
     setFirstName(firstName);
     setLastName(lastName);
-    setProfilePath(profilePath);
+    setProfileImage(profileImage);
   };
 
   const authValue = {
@@ -101,7 +102,7 @@ export const AuthContextProvider = (props) => {
     _id: id,
     firstName: firstName,
     lastName: lastName,
-    profilePath: profilePath,
+    profileImage: profileImage,
     setSocket: setSocket,
     setUserInfo: setUserInfo,
     login: loginHandler,

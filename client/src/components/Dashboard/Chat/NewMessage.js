@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 const NewMessage = () => {
   const { ID } = useParams();
   const userInfo = useSelector((state) => state.chat.userInfo);
-  const { token, socket, _id, firstName, lastName, profilePath } =
+  const { token, socket, _id, firstName, lastName, profileImage } =
     useContext(AuthContext);
   const [input, setInput] = useState("");
   const [error, setError] = useState(null);
@@ -58,7 +58,7 @@ const NewMessage = () => {
               _id: _id,
               firstName: firstName,
               lastName: lastName,
-              profilePath: profilePath,
+              profileImage: profileImage,
             },
           ],
         });

@@ -25,8 +25,8 @@ const ChatInfo = () => {
 
   useEffect(() => {
     if (userData) {
-      const { firstName, lastName, profilePath } = userData[0];
-      dispatch(setUserInfo({ firstName, lastName, profilePath }));
+      const { firstName, lastName, profileImage } = userData[0];
+      dispatch(setUserInfo({ firstName, lastName, profileImage }));
     }
   }, [userData, dispatch]);
 
@@ -45,7 +45,7 @@ const ChatInfo = () => {
           <div className={styles["user"]}>
             <ProfileImage
               className={styles["user-image"]}
-              src={userInfo.profilePath}
+              src={userInfo.profileImage}
             />
             <h4 className={styles["user-text"]}>
               {`${userInfo.firstName} ${userInfo.lastName}`}

@@ -7,7 +7,7 @@ const chatSlice = createSlice({
         userInfo: {
             firstName: null,
             lastName: null,
-            profilePath: null
+            profileImage: null
         },
         messages: []
     },

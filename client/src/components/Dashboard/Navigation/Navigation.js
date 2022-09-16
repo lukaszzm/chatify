@@ -14,7 +14,7 @@ import settingsIcon from "../../../assets/settings.svg";
 import logoutIcon from "../../../assets/logout.svg";
 
 const Navigation = () => {
-  const { logout, _id, setUserInfo, token, profilePath } =
+  const { logout, _id, setUserInfo, token, profileImage } =
     useContext(AuthContext);
   const [userData, error] = useAxios(
     {
@@ -82,10 +82,10 @@ const Navigation = () => {
         </Tooltip>
       </div>
       <div className={styles.changers}>
-        {profilePath && (
+        {profileImage && (
           <ProfileImage
             className={styles["profile-image"]}
-            src={profilePath}
+            src={profileImage}
             alt=""
           />
         )}

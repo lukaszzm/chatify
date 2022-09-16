@@ -8,7 +8,7 @@ import Alert from "../UI/Alert";
 import Label from "../UI/Label";
 
 const ChangeBox = ({ initialValue, value, url }) => {
-  const { token, setUserInfo, firstName, lastName, profilePath } =
+  const { token, setUserInfo, firstName, lastName, profileImage } =
     useContext(AuthContext);
   const [isTouched, setIsTouched] = useState(false);
   const [inputValue, setInputValue] = useState(initialValue);
@@ -32,9 +32,9 @@ const ChangeBox = ({ initialValue, value, url }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (value === "First name")
-          setUserInfo({ firstName: fixedValue, lastName, profilePath });
+          setUserInfo({ firstName: fixedValue, lastName, profileImage });
         if (value === "Last name")
-          setUserInfo({ firstName, lastName: fixedValue, profilePath });
+          setUserInfo({ firstName, lastName: fixedValue, profileImage });
         setSuccess(`Success. Your ${value.toLowerCase()} was changed.`);
       } catch (err) {
         setError("Something went wrong. Try again.");

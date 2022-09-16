@@ -4,6 +4,7 @@ import { registerSchema } from "../../schemas/schemas";
 import Button from "../UI/Button";
 import AuthContext from "../../store/auth-context";
 import { useContext, useState } from "react";
+import ImageInput from "../UI/ImageInput";
 
 const RegisterForm = () => {
   const { register } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const RegisterForm = () => {
       initialValues={{
         email: "",
         password: "",
+        profileImage: null,
         firstName: "",
         lastName: "",
       }}
@@ -28,7 +30,7 @@ const RegisterForm = () => {
         }
       }}
     >
-      {({ errors, touched, isSubmitting }) => (
+      {({ errors, touched, isSubmitting, setFieldValue }) => (
         <Form className={styles.form}>
           <h1>Register</h1>
           <label htmlFor="email">Email</label>
@@ -59,7 +61,10 @@ const RegisterForm = () => {
             className={styles.error}
             name="password"
           />
-
+          <label htmlFor="profileImage">Profile Image</label>
+          <ImageInput name="profileImage" onChange={file => {
+            setFieldValue("profileImage", file);
+            }}/>
           <label htmlFor="firstName">First Name</label>
           <Field
             className={

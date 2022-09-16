@@ -10,9 +10,10 @@ const {
 
 const auth = require("../middleware/auth");
 const router = require('express').Router();
+const fileUpload = require("../middleware/uploadImage");
 
 router.post("/login/", login)
-router.post("/register/", register)
+router.post("/register/", fileUpload.single('profileImage'), register)
 
 
 router.use(auth);

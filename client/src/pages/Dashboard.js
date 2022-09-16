@@ -13,7 +13,7 @@ const Dashboard = () => {
   const isMobile = useMediaQuery({ query: '(max-width:768px)' });
 
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_SOCKET_URL, {});
+    const newSocket = io(process.env.REACT_APP_URL, {});
     setSocket(() => {
       return newSocket;
     });

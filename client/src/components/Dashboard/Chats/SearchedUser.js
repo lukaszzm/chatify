@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import ProfileImage from "../../UI/ProfileImage";
 import Button from "../../UI/Button";
 
-const SearchedUser = ({ id, firstName, lastName, profilePath, onClick}) => {
+const SearchedUser = ({ id, firstName, lastName, profileImage, onClick}) => {
 
   return (
     <div className={styles.container}>
       <ProfileImage
-        src={profilePath}
+        src={profileImage}
         alt="user_image"
       />
       <p className={styles.text}>

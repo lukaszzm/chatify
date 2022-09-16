@@ -9,7 +9,7 @@ const updateFirstNameUrl = `${process.env.REACT_APP_API_URL}/auth/update-first-n
 const updateLastNameUrl = `${process.env.REACT_APP_API_URL}/auth/update-last-name`;
 
 const Profile = () => {
-  const { profilePath, firstName, lastName } = useContext(AuthContext);
+  const { profileImage, firstName, lastName } = useContext(AuthContext);
 
   return (
     <>
@@ -17,7 +17,7 @@ const Profile = () => {
         <h3>Profile Settings</h3>
       </Topbar>
       <div className={styles.container}>
-        <ProfileImage src={profilePath} className={styles["profile-image"]} />
+        <ProfileImage size='large' src={profileImage} />
         <ChangeBox
           initialValue={firstName}
           value="First name"

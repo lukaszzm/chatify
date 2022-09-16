@@ -1,10 +1,11 @@
 const Users = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 module.exports.getUserById = async (req, res, next) => {
   try {
-    const user = await Users.find({ _id: req.params.id }, {_id: 1, firstName: 1, lastName: 1, profilePath: 1});
+    const user = await Users.find({ _id: req.params.id }, {_id: 1, firstName: 1, lastName: 1, profileImage: 1});
     return res.json(user);
   } catch (err) {
     next(err);
@@ -35,7 +36,7 @@ module.exports.getUserByName = async (req, res, next) => {
           },
         ],
       },
-      { firstName: 1, lastName: 1, profilePath: 1 }
+      { firstName: 1, lastName: 1, profileImage: 1 }
     );
     return res.json(users);
   } catch (err) {
@@ -75,19 +76,16 @@ module.exports.register = async (req, res, next) => {
   try {
     const email = req.body.email.toLowerCase();
     const user = await Users.findOne({ email: email });
-    if (user) {
-      res.status(400).send("This email is already used!");
-      return;
-    }
+    if (user) throw new Error("This email is already used!");
+    let profileImage = process.env.DEFAULT_PROFILE_PATH;
+    if (req.file) profileImage = req.file.path;
 
     const newUser = new Users({
       email: email,
       password: bcrypt.hashSync(req.body.password, 12),
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      profilePath:
-        req.body.profilePath ||
-        process.env.PROFILE_PATH,
+      profileImage: profileImage,
     });
 
     newUser.save();
@@ -96,7 +94,7 @@ module.exports.register = async (req, res, next) => {
     try {
       token = jwt.sign(id, process.env.JWT_TOKEN);
     } catch (err) {
-      res.status(400).send("Something went wrong.");
+      return res.status(400).send("Something went wrong.");
     }
     return res.send({ id, token});
   } catch (err) {
