@@ -9,10 +9,6 @@
     width: 100%;
 }
 
-.photo {
-    margin: 0;
-}
-
 .text {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -20,8 +16,5 @@
 }
 
 .button {
-    width: 100%;
     padding: 8px 20px 8px 20px;  
-    font-size: 0.8rem;
-    font-weight: 600;
 }

@@ -20,8 +20,7 @@ const Navigation = () => {
     {
       url: `/auth/user-by-id/${_id}`,
       headers: { Authorization: `Bearer ${token}` },
-    },
-    true
+    }
   );
 
   useEffect(() => {

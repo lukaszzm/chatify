@@ -1,12 +1,11 @@
-.wrapper {
+.search-wrapper {
     display: flex;
-    grid-template-columns: 1fr 7fr;
     width: 100%;
     background-color: #8587a041;
     border-radius: 5px;
 }
 
-.wrapper img {
+.search-wrapper img {
     padding-left: 8px;
     width: 16px;
     filter: invert(23%) sepia(2%) saturate(0%) hue-rotate(209deg) brightness(97%) contrast(84%);
@@ -23,17 +22,3 @@
 .search-bar {
     padding: 12px;
 }
-
-.loading-text {
-    width: 4rem;
-    height: 1.5rem;
-    margin-top: 8px;
-}
-
-.loading-image {
-    margin: 0 auto;
-    width: 3rem;
-    height: 3rem;
-    margin-top: 3px;
-}
-

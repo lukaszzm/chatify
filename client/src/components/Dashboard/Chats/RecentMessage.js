@@ -2,11 +2,11 @@ import styles from "./RecentMessage.module.css";
 import { Link } from "react-router-dom";
 import formatTime from "../../../utils/format-time";
 import ProfileImage from "../../UI/ProfileImage";
+import Card from "../../UI/Card";
 
 const RecentMessage = ({
   createdAt,
   isActive,
-  className,
   message,
   id,
   profileImage,
@@ -16,16 +16,12 @@ const RecentMessage = ({
 }) => {
   let formattedTime = formatTime(createdAt);
 
-  const classes = isActive
-    ? `${styles.wrapper} ${className} ${styles.active}`
-    : `${styles.wrapper} ${className}`;
-
   const formattedMessage =
     message.length > 14 ? message.substring(0, 13) + ".." : message;
 
   return (
     <Link to={id}>
-      <div className={classes}>
+      <Card isActive={isActive} className={styles.wrapper}>
         <div className={styles["inner-wrapper"]}>
           <ProfileImage
             className={styles["profile-image"]}
@@ -44,7 +40,7 @@ const RecentMessage = ({
         <div className={styles["timer-wrapper"]}>
           <p className={styles.timer}>{formattedTime}</p>
         </div>
-      </div>
+      </Card>
     </Link>
   );
 };

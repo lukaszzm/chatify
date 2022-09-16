@@ -3,7 +3,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
-export const useAxios = (params, immediate, dependencies) => {
+export const useAxios = (params, dependencies) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState(null);
@@ -21,11 +21,9 @@ export const useAxios = (params, immediate, dependencies) => {
   };
 
   useEffect(() => {
-    if (immediate) {
       fetchData();
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dependencies, immediate]);
+  }, [dependencies]);
 
-  return [response, error, loading, fetchData];
+  return [response, error, loading];
 };

@@ -1,4 +1,3 @@
-import styles from "./Appearance.module.css";
 import Topbar from "../UI/Topbar";
 import Switch from "../UI/Switch";
 import Label from "../UI/Label";

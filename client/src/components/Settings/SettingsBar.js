@@ -1,4 +1,3 @@
-import styles from "./SettingsBar.module.css";
 import { Link } from "react-router-dom";
 import Card from "../UI/Card";
 import Icon from "../UI/Icon";
@@ -15,20 +14,20 @@ const SettingsBar = ({active}) => {
       <h1>Settings</h1>
       <Container>
         <Link to="/settings/profile">
-          <Card className={styles.card} isActive={active === 'profile'}>
-          <Icon noColor className={styles.icon} icon={profileIcon} />
+          <Card isActive={active === 'profile'}>
+          <Icon noColor icon={profileIcon} />
             <h4>Profile</h4>
           </Card>
         </Link>
         <Link to="/settings/password">
-          <Card className={styles.card} isActive={active === 'password'}>
-          <Icon noColor className={styles.icon} icon={passwordIcon} />
+          <Card isActive={active === 'password'}>
+          <Icon noColor icon={passwordIcon} />
             <h4>Password</h4>
           </Card>
         </Link>
         <Link to="/settings/appearance">
-          <Card className={styles.card} isActive={active === 'appearance'}>
-            <Icon noColor className={styles.icon} icon={appearanceIcon} />
+          <Card isActive={active === 'appearance'}>
+            <Icon noColor icon={appearanceIcon} />
             <h4>Appearance</h4>
           </Card>
         </Link>

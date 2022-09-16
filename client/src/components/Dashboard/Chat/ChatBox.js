@@ -24,7 +24,6 @@ const ChatBox = () => {
       url: `/messages/get-messages/${ID}`,
       headers: { Authorization: `Bearer ${token}` },
     },
-    true,
     ID
   );
 

@@ -18,7 +18,6 @@ const ChatInfo = () => {
       url: `/auth/user-by-id/${ID}`,
       headers: { Authorization: `Bearer ${token}` },
     },
-    true,
     ID
   );
   const dispatch = useDispatch();

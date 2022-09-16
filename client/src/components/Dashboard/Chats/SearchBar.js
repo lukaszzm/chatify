@@ -56,7 +56,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className={styles['search-wrapper']}>
         <img src={searchIcon} alt="Search Icon." />
         <Input
           className={styles["search-bar"]}

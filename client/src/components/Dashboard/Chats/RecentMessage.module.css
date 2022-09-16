@@ -1,16 +1,5 @@
 .wrapper {
-    width: 100%;
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    transition: .2s;
-}
-
-.wrapper:hover {
-    background-color: #949dff1f;
 }
 
 .inner-wrapper {
@@ -39,14 +28,6 @@
 
 .timer {
     font-size: 0.7rem;
-}
-
-.active {
-    background-color: #949dff4d;
-}
-
-.active:hover {
-    background-color: #949dff4d;
 }
 
 .span {

@@ -1,4 +1,3 @@
-import styles from "./RecentMessages.module.css";
 import { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useAxios } from "../../../hooks/useAxios";
@@ -19,8 +18,7 @@ const RecentMessages = () => {
     {
       url: `/messages/get-recent-messages`,
       headers: { Authorization: `Bearer ${token}` },
-    },
-    true
+    }
   );
   const testMessages = useSelector((state) => state.recentMessages.messages);
   const dispatch = useDispatch();

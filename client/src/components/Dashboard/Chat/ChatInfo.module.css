@@ -20,9 +20,3 @@
     height: 30px;
     margin-left: 15px;
 }
-
-@media screen and (min-width: 769px) {
-    .back {
-        display: none;
-    }
-}

@@ -8,7 +8,6 @@ const SearchedUser = ({ id, firstName, lastName, profilePath, onClick}) => {
   return (
     <div className={styles.container}>
       <ProfileImage
-        className={styles.photo}
         src={profilePath}
         alt="user_image"
       />
