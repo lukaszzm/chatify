@@ -3,10 +3,9 @@ import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
 import Topbar from "../UI/Topbar";
 import ChangeBox from "./ChangeBox";
-import ProfileImage from "../UI/ProfileImage";
+import ChangeImage from "./ChangeImage";
 
-const updateFirstNameUrl = `${process.env.REACT_APP_API_URL}/auth/update-first-name`;
-const updateLastNameUrl = `${process.env.REACT_APP_API_URL}/auth/update-last-name`;
+const API_URL = `${process.env.REACT_APP_API_URL}/auth`;
 
 const Profile = () => {
   const { profileImage, firstName, lastName } = useContext(AuthContext);
@@ -17,16 +16,16 @@ const Profile = () => {
         <h3>Profile Settings</h3>
       </Topbar>
       <div className={styles.container}>
-        <ProfileImage size='large' src={profileImage} />
+        <ChangeImage defaultImage={profileImage} url={API_URL} />
         <ChangeBox
           initialValue={firstName}
           value="First name"
-          url={updateFirstNameUrl}
+          url={`${API_URL}/update-first-name`}
         />
         <ChangeBox
           initialValue={lastName}
           value="Last name"
-          url={updateLastNameUrl}
+          url={`${API_URL}/update-last-name`}
         />
       </div>
     </>

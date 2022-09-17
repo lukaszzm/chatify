@@ -2,10 +2,14 @@ const Users = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const { findById } = require("../models/users");
 
 module.exports.getUserById = async (req, res, next) => {
   try {
-    const user = await Users.find({ _id: req.params.id }, {_id: 1, firstName: 1, lastName: 1, profileImage: 1});
+    const user = await Users.find(
+      { _id: req.params.id },
+      { _id: 1, firstName: 1, lastName: 1, profileImage: 1 }
+    );
     return res.json(user);
   } catch (err) {
     next(err);
@@ -96,7 +100,7 @@ module.exports.register = async (req, res, next) => {
     } catch (err) {
       return res.status(400).send("Something went wrong.");
     }
-    return res.send({ id, token});
+    return res.send({ id, token });
   } catch (err) {
     next(err);
   }
@@ -107,22 +111,22 @@ module.exports.updateFirstName = async (req, res, next) => {
     const id = req.body.id;
     const newFirstName = req.params.firstName;
     await Users.findByIdAndUpdate(id, { firstName: newFirstName });
-  } catch(err) {
+  } catch (err) {
     next(err);
   }
   return res.send("Success! Your first name has been updated.");
-}
+};
 
 module.exports.updateLastName = async (req, res, next) => {
   try {
     const id = req.body.id;
     const newLastName = req.params.lastName;
-    await Users.findByIdAndUpdate(id, { lastName: newLastName })
-  } catch(err) {
+    await Users.findByIdAndUpdate(id, { lastName: newLastName });
+  } catch (err) {
     next(err);
   }
   return res.send("Success! Your last name has been updated.");
-}
+};
 
 module.exports.updatePassword = async (req, res, next) => {
   try {
@@ -131,7 +135,9 @@ module.exports.updatePassword = async (req, res, next) => {
     if (user) {
       const match = await bcrypt.compare(currentPassword, user.password);
       if (match) {
-        await Users.findByIdAndUpdate(id, { password: bcrypt.hashSync(newPassword, 12)});
+        await Users.findByIdAndUpdate(id, {
+          password: bcrypt.hashSync(newPassword, 12),
+        });
         return res.send("Succesfull. Your password has been changed.");
       } else {
         return res.status(400).send("Your password is incorrect.");
@@ -142,4 +148,15 @@ module.exports.updatePassword = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-}
+};
+
+module.exports.updateProfileImage = async (req, res, next) => {
+  try {
+    const { id } = req.body;
+    const newFilePath = req.file.path;
+    await Users.findByIdAndUpdate(id, { profileImage: newFilePath });
+    return res.send(newFilePath);
+  } catch (err) {
+    next(err);
+  }
+};

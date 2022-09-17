@@ -75,8 +75,7 @@ export const AuthContextProvider = (props) => {
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
       formData.append("profileImage", profileImage);
-      // ${URL}/register
-      const response = await axios.post(`http://localhost:8000/api/auth/register`, formData);
+      const response = await axios.post(`${URL}/register`, formData);
       const { id, token } = response.data;
       setToken(token);
       setId(id);

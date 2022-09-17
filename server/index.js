@@ -12,7 +12,7 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 const server = app.listen(port, () => console.log(`SERVER STARTED ON ${port}`));

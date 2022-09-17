@@ -9,7 +9,6 @@ const Settings = () => {
   const sid = url?.params.SID;
   const isMobile = useMediaQuery({ query: "(max-width:768px)" });
 
-  console.log(sid);
   let content = "";
 
   if (isMobile) {

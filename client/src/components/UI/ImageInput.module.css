@@ -1,9 +1,37 @@
 .input-container {
     display: flex;
+    position: relative;
     width: 100%;
+    max-width: 400px;
     flex-direction: column;
 }
 
 .button {
     justify-self: flex-start;
+}
+
+.edit-button {
+    position: absolute;
+    top: 75%;
+    left: 65%;
+    background-color: #3A49EB;
+    border: 1px solid #3A49EB;
+    border-radius: 50%;
+    width: 50px;
+    margin: 0;
+    padding: 1px;
+    transition: .2s;
+}
+
+.edit-button:hover {
+    background-color: #2c35ad;
+    border: 1px solid #2c35ad;
+}
+
+.icon {
+    filter: invert(99%) sepia(0%) saturate(702%) hue-rotate(276deg) brightness(113%) contrast(100%);
+}
+
+.icon:hover {
+    filter: invert(99%) sepia(0%) saturate(702%) hue-rotate(276deg) brightness(113%) contrast(100%);
 }
