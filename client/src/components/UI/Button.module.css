@@ -2,29 +2,29 @@
     border: none;
     outline: none;
     border-radius: 10px;
-    background-color: #3a49eb;
+    background-color: var(--accent);
     cursor: pointer;
     transition: .1s;
     color: #fff;
     padding: 10px;
     letter-spacing: 0.6px;
-    border: 1px solid #3a49eb;
+    border: 1px solid var(--accent);
 }
 
 .button:hover {
-    background-color: #313ec9;
-    border-color:#313ec9;
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
 }
 
 .outline {
-    background-color: #fff;
-    color: #3a49eb;
-    border: 1px solid #3a49eb;
+    background-color: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
 }
 
 .outline:hover {
     color: #fff;
-    background-color: #3a49eb;
+    background-color: var(--accent-hover);
 }
 
 .button:disabled {

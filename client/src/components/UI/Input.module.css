@@ -1,13 +1,13 @@
 .input {
     width: 100%;
-    background-color: #dadae7;
-    color: #1a1a1a;
-    border: 1px solid #dadae7;
+    background-color: var(--input-background);
+    color: var(--text-primary);
+    border: 1px solid var(--input-background);
     outline: none;
     border-radius: 5px;
     font-size: 0.9rem;
 }
 
 .error {
-    border: 1px solid #FF5656;
+    border: 1px solid var(--error);
 }

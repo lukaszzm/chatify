@@ -9,13 +9,13 @@
 }
 
 .wrapper:hover {
-    background-color: #949dff1f;
+    background-color: var(--background-secondary-hover);
 }
 
 .active {
-    background-color: #949dff4d;
+    background-color: var(--background-secondary-active);
 }
 
 .active:hover {
-    background-color: #949dff4d;
+    background-color: var(--background-secondary-active);
 }

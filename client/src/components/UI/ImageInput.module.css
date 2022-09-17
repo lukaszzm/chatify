@@ -14,8 +14,8 @@
     position: absolute;
     top: 75%;
     left: 65%;
-    background-color: #3A49EB;
-    border: 1px solid #3A49EB;
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
     border-radius: 50%;
     width: 50px;
     margin: 0;
@@ -24,8 +24,8 @@
 }
 
 .edit-button:hover {
-    background-color: #2c35ad;
-    border: 1px solid #2c35ad;
+    background-color: var(--accent-hover);
+    border: 1px solid var(--accent-hover);
 }
 
 .icon {

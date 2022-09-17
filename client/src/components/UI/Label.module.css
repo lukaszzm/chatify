@@ -1,7 +1,7 @@
 .label {
     font-size: 1rem;
     font-weight: 600;
-    color: #494949;
+    color: var(--text-secondary);
     text-align: left;
     margin-bottom: 4px;
 }

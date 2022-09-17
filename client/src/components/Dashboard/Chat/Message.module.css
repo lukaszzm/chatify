@@ -7,7 +7,7 @@
 
 .container.mine {
     border-radius: 20px 3px 3px 20px;
-    background: #4e5aea;
+    background: var(--accent);
     margin-left: auto;
 }
 
@@ -18,17 +18,16 @@
 }
 
 .container.mine .text {
-    color: #ffffff;
+    color: #fff;
 }
 
 .container.not-mine .text {
-    color: #202020;
+    color: var(--text-primary);
 }
 
 .container.not-mine {
     border-radius: 3px 20px 20px 3px;
-    background: #f1f1f1;
-    color: #555;
+    background: var(--background-grey);
     margin-right: auto;
 }
 
@@ -47,7 +46,7 @@
     font-size: 0.7rem;
     position: absolute;
     bottom: 100%;
-    color: #888;
+    color: var(--text-tertiary);
     white-space: nowrap;
     display: none;
 }

@@ -5,16 +5,15 @@
 }
 
 .success {
-    background-color: #7dff78c5;
+    background-color: var(--success);
 }
 
 .success p {
-    color: #161616;
+    color: #131313;
 }
 
 .error {
-    background-color: #ff3939c5;
-    color: #fff;
+    background-color: var(--error);
 }
 
 .error p {

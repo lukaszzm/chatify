@@ -3,7 +3,7 @@
     max-width: 500px;
     margin-top: 0px;
     padding-bottom: 35px;
-    border-bottom: 1px solid #acacac;
+    border-bottom: 1px solid var(--background-dark-grey);
 }
 
 .form h1 {
@@ -26,15 +26,15 @@
     margin-bottom: 5px;
     font-size: 1.2rem;
     border-radius: 10px;
-    border: 1px solid #555555;
+    border: 1px solid var(--background-dark-grey);
 }
 
 .field-error {
-    border: 1px solid #ff3535;
+    border: 1px solid var(--error);
 }
 
 .field-error:focus {
-    outline: 1px solid #ff3535;
+    outline: 1px solid var(--error);
 }
 
 .button {
@@ -46,11 +46,11 @@
 }
 
 .error {
-    color: #ff3535;
+    color: var(--error);
 }
 
 .fetch-error {
-    color: #ff3535;
+    color: var(--error);
     font-weight: 600;
     padding-top: 10px;
 }
