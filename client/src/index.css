@@ -34,7 +34,7 @@
   --text-secondary: #e9e9e9;
   --text-tertiary: #adadad;
   --icon-filter-dark: invert(21%) sepia(16%) saturate(703%) hue-rotate(192deg) brightness(94%) contrast(81%);
-  --icon-filter-text: invert(96%) sepia(0%) saturate(0%) hue-rotate(168deg) brightness(94%) contrast(90%);
+  --icon-filter-text: invert(100%) sepia(2%) saturate(4787%) hue-rotate(185deg) brightness(113%) contrast(83%);
   --icon-filter-placeholder: invert(98%) sepia(0%) saturate(0%) hue-rotate(237deg) brightness(85%) contrast(81%);
   --shadow: #242424;
 }
