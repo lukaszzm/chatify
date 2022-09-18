@@ -3,7 +3,7 @@
     max-width: 500px;
     margin-top: 0px;
     padding-bottom: 35px;
-    border-bottom: 1px solid var(--background-dark-grey);
+    border-bottom: 1px solid var(--text-tertiary);
 }
 
 .form h1 {
@@ -26,7 +26,8 @@
     margin-bottom: 5px;
     font-size: 1.2rem;
     border-radius: 10px;
-    border: 1px solid var(--background-dark-grey);
+    background-color: var(--input-background);
+    border: 1px solid var(--input-background);
 }
 
 .field-error {

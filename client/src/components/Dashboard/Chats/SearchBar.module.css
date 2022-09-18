@@ -8,7 +8,7 @@
 .search-wrapper img {
     padding-left: 8px;
     width: 16px;
-    filter: invert(23%) sepia(2%) saturate(0%) hue-rotate(209deg) brightness(97%) contrast(84%);
+    filter: var(--icon-filter-placeholder);
 }
 
 .results-wrapper {

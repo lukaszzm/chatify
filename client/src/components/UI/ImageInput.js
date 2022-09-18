@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import ProfileImage from "./ProfileImage";
 import Button from "./Button";
 import Icon from "./Icon";
-import editIcon from "../../assets/edit.svg";
+import editIcon from "../../assets/icons/edit.svg";
 
 const ImageInput = ({ name, onChange, defaultImage }) => {
   const [selectedImage, setSelectedImage] = useState(null);

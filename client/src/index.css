@@ -15,19 +15,43 @@
   --accent-hover: #414cc4;
   --error: #ff4e4e;
   --success: #9bff98;
+  --icon-filter-accent: invert(29%) sepia(83%) saturate(1958%) hue-rotate(226deg) brightness(93%) contrast(96%);
+  --icon-filter-dark: invert(81%) sepia(1%) saturate(14%) hue-rotate(314deg) brightness(85%) contrast(85%);
+  --icon-filter-text: invert(29%) sepia(0%) saturate(19%) hue-rotate(172deg) brightness(96%) contrast(126%);
+  --icon-filter-placeholder: invert(34%) sepia(0%) saturate(5%) hue-rotate(265deg) brightness(96%) contrast(90%);
+  --shadow: #42445a;
 }
 
 [data-theme="dark"] {
-  --background: #1C1D25;
-  --background-secondary: #2A2B36;
-  --background-secondary-hover: #32333f;
-  --background-secondary-active: #3f4250;
+  --background: #161819;
+  --background-secondary: #1b1b1b;
+  --background-secondary-hover: #202020;
+  --background-secondary-active: #2e2e2e;
   --background-grey: #2A2B36;
-  --background-dark-grey: #31333d;
-  --input-background: #3f4250;
-  --text-primary: #f8f8f8;
-  --text-secondary: #dbdbdb;
-  --text-tertiary: #c5c5c5;
+  --background-dark-grey: #242424;
+  --input-background: #27292E;
+  --text-primary: #ffffff;
+  --text-secondary: #e9e9e9;
+  --text-tertiary: #adadad;
+  --icon-filter-dark: invert(21%) sepia(16%) saturate(703%) hue-rotate(192deg) brightness(94%) contrast(81%);
+  --icon-filter-text: invert(96%) sepia(0%) saturate(0%) hue-rotate(168deg) brightness(94%) contrast(90%);
+  --icon-filter-placeholder: invert(98%) sepia(0%) saturate(0%) hue-rotate(237deg) brightness(85%) contrast(81%);
+  --shadow: #242424;
+}
+
+::placeholder {
+  color: var(--text-tertiary);
+  opacity: 0.7; 
+}
+
+:-ms-input-placeholder {
+  color: var(--text-tertiary);
+  opacity: 0.7; 
+}
+
+::-ms-input-placeholder {
+  color: var(--text-tertiary);
+  opacity: 0.7; 
 }
 
 body {

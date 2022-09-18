@@ -7,11 +7,11 @@ import AuthContext from "../../../store/auth-context";
 import ProfileImage from "../../UI/ProfileImage";
 import Icon from "../../UI/Icon";
 import logoIcon from "../../../assets/logo.svg";
-import chatIcon from "../../../assets/chat.svg";
-import peopleIcon from "../../../assets/people.svg";
-import locationIcon from "../../../assets/location.svg";
-import settingsIcon from "../../../assets/settings.svg";
-import logoutIcon from "../../../assets/logout.svg";
+import chatIcon from "../../../assets/icons/chat.svg";
+import peopleIcon from "../../../assets/icons/people.svg";
+import listIcon from "../../../assets/icons/list.svg";
+import settingsIcon from "../../../assets/icons/settings.svg";
+import logoutIcon from "../../../assets/icons/logout.svg";
 
 const Navigation = () => {
   const { logout, _id, setUserInfo, token, profileImage } =
@@ -56,12 +56,12 @@ const Navigation = () => {
             <Icon icon={peopleIcon}>People</Icon>
           </NavLink>
         </Tooltip>
-        <Tooltip title="groups" placement="right">
+        <Tooltip title="tasks" placement="right">
           <NavLink
             className={(navData) => (navData.isActive ? "active" : "")}
-            to="/groups"
+            to="/tasks"
           >
-            <Icon icon={locationIcon}>Location</Icon>
+            <Icon icon={listIcon}>Tasks</Icon>
           </NavLink>
         </Tooltip>
         <Tooltip title="settings" placement="right">

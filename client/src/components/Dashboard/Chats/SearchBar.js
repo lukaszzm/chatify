@@ -4,7 +4,7 @@ import AuthContext from "../../../store/auth-context";
 import axios from "axios";
 import SearchedUser from "./SearchedUser";
 import Input from "../../UI/Input";
-import searchIcon from "../../../assets/search.svg";
+import searchIcon from "../../../assets/icons/search.svg";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 
 const SearchBar = () => {

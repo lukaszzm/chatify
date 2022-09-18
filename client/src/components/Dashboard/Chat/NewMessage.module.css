@@ -1,9 +1,9 @@
 .wrapper {
     padding: 15px;
     border-top: 1px solid var(--background-dark-grey);
-    -webkit-box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
-    -moz-box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
-    box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
+    -webkit-box-shadow: 8px 7px 17px -22px var(--shadow);
+    -moz-box-shadow: 8px 7px 17px -22px var(--shadow);
+    box-shadow: 8px 7px 17px -22px var(--shadow);
 }
 
 .form {
@@ -26,6 +26,7 @@
 
 .icon {
     filter: invert(98%) sepia(2%) saturate(127%) hue-rotate(6deg) brightness(115%) contrast(100%);
+    width: 23px;
 }
 
 .error {

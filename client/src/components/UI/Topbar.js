@@ -1,7 +1,7 @@
 import styles from "./Topbar.module.css";
 import { Link } from 'react-router-dom';
 import Icon from './Icon';
-import backIcon from '../../assets/back.svg';
+import backIcon from '../../assets/icons/back.svg';
 
 const Topbar = ({ children, backTo }) => {
 

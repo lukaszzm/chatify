@@ -6,9 +6,9 @@
     height: 100%;
     border-right: 1px solid var(--background-dark-grey);
     background-color: var(--background);
-    -webkit-box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
-    -moz-box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
-    box-shadow: 8px 7px 17px -22px rgba(66, 68, 90, 1);
+    -webkit-box-shadow: 8px 7px 17px -22px var(--shadow);
+    -moz-box-shadow: 8px 7px 17px -22px var(--shadow);
+    box-shadow: 8px 7px 17px -22px var(--shadow);
 }
 
 .links {
