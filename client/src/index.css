@@ -23,13 +23,13 @@
 }
 
 [data-theme="dark"] {
-  --background: #161819;
-  --background-secondary: #1c1f20;
+  --background: #121212;
+  --background-secondary: #181818;
   --background-secondary-hover: #202020;
-  --background-secondary-active: #2e2e2e;
-  --background-grey: #2A2B36;
-  --background-dark-grey: #242424;
-  --input-background: #27292E;
+  --background-secondary-active: #404040;
+  --background-grey: #2c2c2c;
+  --background-dark-grey: #202020;
+  --input-background: #2c2c2c;
   --text-primary: #ffffff;
   --text-secondary: #e9e9e9;
   --text-tertiary: #adadad;

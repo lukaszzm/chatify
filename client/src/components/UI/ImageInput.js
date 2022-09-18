@@ -49,7 +49,6 @@ const ImageInput = ({ name, onChange, defaultImage }) => {
           outline
           type="button"
           onClick={clickHandler}
-          className={styles.button}
         >
           Upload Profile Image
         </Button>

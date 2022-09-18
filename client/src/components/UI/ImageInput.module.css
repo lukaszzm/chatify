@@ -6,10 +6,6 @@
     flex-direction: column;
 }
 
-.button {
-    justify-self: flex-start;
-}
-
 .edit-button {
     position: absolute;
     top: 75%;
