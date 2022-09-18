@@ -1,34 +1,42 @@
 import React, { useState, useEffect } from "react";
 
+const isBrowserDefaultDark = () =>
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 const ThemeContext = React.createContext({
-    theme: 'light',
-    changeTheme: () => {}
-})
+  theme: "light",
+  changeTheme: () => {},
+});
 
-export const ThemeContextProvider = ( { children }) => {
-    const [theme, setTheme] = useState('light');
+export const ThemeContextProvider = ({ children }) => {
+  let initTheme = "light";
+  const preferredTheme = localStorage.getItem("theme");
+  if (preferredTheme) {
+    initTheme = preferredTheme;
+  } else {
+    initTheme = isBrowserDefaultDark ? "dark" : "light";
+  }
+  const [theme, setTheme] = useState(initTheme);
 
-    const toggleTheme = () => {
-        if(theme === 'light') {
-            setTheme('dark');
-            document.documentElement.setAttribute("data-theme", 'dark');
-        } else {
-            setTheme('light');
-            document.documentElement.setAttribute("data-theme", 'light');
-        }
+  const toggleTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      setTheme("light");
+      localStorage.setItem("theme", "light");
     }
+  };
 
-    useEffect(() => {
-        document.body.className = theme;
-    }, [theme]);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
-    return (
-        <ThemeContext.Provider value={{theme, toggleTheme}}>
-            { children }
-        </ThemeContext.Provider>
-    )
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
 export default ThemeContext;
-

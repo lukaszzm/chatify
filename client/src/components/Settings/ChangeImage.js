@@ -1,4 +1,3 @@
-import styles from "./ChangeImage.module.css";
 import { useContext, useState } from "react";
 import axios from "axios";
 import ImageInput from "../UI/ImageInput";
@@ -39,7 +38,7 @@ const ChangeImage = ({ defaultImage, url }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
+    <form onSubmit={submitHandler}>
       <ImageInput
         defaultImage={defaultImage}
         name="profileImage"
@@ -47,7 +46,7 @@ const ChangeImage = ({ defaultImage, url }) => {
       />
       {error && <Alert error>{error}</Alert>}
       {success && <Alert>{success}</Alert>}
-      <Button type="submit" className={styles.button} disabled={!isTouched}>
+      <Button maxWidth="160px" type="submit" disabled={!isTouched}>
         Save new image
       </Button>
     </form>

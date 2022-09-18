@@ -17,8 +17,8 @@
     background-color: var(--accent);
     border: 1px solid var(--accent);
     border-radius: 50%;
-    width: 50px;
     margin: 0;
+    width: 50px;
     padding: 1px;
     transition: .2s;
 }

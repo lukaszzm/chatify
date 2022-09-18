@@ -1,4 +1,3 @@
-import styles from "./ChangeBox.module.css";
 import { useContext, useState } from "react";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
@@ -45,16 +44,15 @@ const ChangeBox = ({ initialValue, value, url }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
+    <form onSubmit={submitHandler}>
       <Label htmlFor={value}> {value} </Label>
       <Input
         onChange={changeHandler}
-        className={styles.input}
         value={inputValue}
       ></Input>
       {error && <Alert error>{error}</Alert>}
       {success && <Alert>{success}</Alert>}
-      <Button className={styles.button} disabled={!isTouched} type="submit">
+      <Button maxWidth="80px" disabled={!isTouched} type="submit">
         Save
       </Button>
     </form>
