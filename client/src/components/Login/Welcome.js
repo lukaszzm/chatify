@@ -1,5 +1,5 @@
 import styles from "./Welcome.module.css";
-import welcomeImg from "../../assets/welcome2.png";
+import textingImg from "../../assets/texting.svg";
 
 const Welcome = () => {
   return (
@@ -8,7 +8,7 @@ const Welcome = () => {
         Talk with your friends on <span className={styles.logo}>Chatify.</span>
       </h1>
       <img
-        src={welcomeImg}
+        src={textingImg}
         alt="Man chatting with friend."
         className={styles.img}
       />

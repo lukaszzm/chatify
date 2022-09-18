@@ -19,6 +19,10 @@
     font-size: 1.2rem;
 }
 
+.form input {
+    color: var(--text-primary);
+}
+
 .field {
     box-sizing: border-box;
     width: 100%;
@@ -29,6 +33,8 @@
     background-color: var(--input-background);
     border: 1px solid var(--input-background);
 }
+
+
 
 .field-error {
     border: 1px solid var(--error);

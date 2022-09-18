@@ -16,7 +16,7 @@
 }
 
 .logo {
-    color: #3a49eb;
+    color: var(--accent);
     font-weight: 600;
 }
 
