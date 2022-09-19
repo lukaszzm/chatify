@@ -10,7 +10,7 @@ const Appearance = () => {
 
   return (
     <>
-      <Topbar backTo="/settings">
+      <Topbar backTo="/dashboard/settings">
         <h3>Appearance Settings</h3>
       </Topbar>
       <SettingsContainer>

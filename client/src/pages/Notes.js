@@ -5,7 +5,7 @@ const UnderConstruction = () => {
   return (
     <div className="centered">
       <div>
-        <h2>This page is under construction. Try again Later.</h2>
+        <h2>Notes</h2>
         <Link to="/">
           <Button>Go to main page.</Button>
         </Link>

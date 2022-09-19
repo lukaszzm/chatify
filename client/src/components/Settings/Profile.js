@@ -12,7 +12,7 @@ const Profile = () => {
 
   return (
     <>
-      <Topbar backTo="/settings">
+      <Topbar backTo="/dashboard/settings">
         <h3>Profile Settings</h3>
       </Topbar>
       <SettingsContainer>

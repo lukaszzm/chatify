@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import io from "socket.io-client";
 import AuthContext from "../store/auth-context";
-import Navigation from "../components/Dashboard/Navigation/Navigation";
 import Chats from "../components/Dashboard/Chats/Chats";
 import Chat from "../components/Dashboard/Chat/Chat";
 
@@ -32,10 +31,10 @@ const Dashboard = () => {
       if(ID) {
         content = <Chat />;
       } else {
-        content = <><Chats /><Navigation /></>;
+        content = <><Chats /></>;
       }
     } else {
-      content = <><Navigation /><Chats/> <Chat/></>;
+      content = <><Chats/> <Chat/></>;
     }
   }
   

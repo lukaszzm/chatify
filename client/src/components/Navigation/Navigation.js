@@ -1,30 +1,33 @@
 import styles from "./Navigation.module.css";
 import { useContext, useEffect } from "react";
-import { useAxios } from "../../../hooks/useAxios";
-import { NavLink } from "react-router-dom";
+import { useAxios } from "../../hooks/useAxios";
+import { NavLink, useMatch } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
-import AuthContext from "../../../store/auth-context";
-import ProfileImage from "../../UI/ProfileImage";
-import Icon from "../../UI/Icon";
-import logoIcon from "../../../assets/logo.svg";
-import chatIcon from "../../../assets/icons/chat.svg";
-import peopleIcon from "../../../assets/icons/people.svg";
-import listIcon from "../../../assets/icons/list.svg";
-import settingsIcon from "../../../assets/icons/settings.svg";
-import logoutIcon from "../../../assets/icons/logout.svg";
+import AuthContext from "../../store/auth-context";
+import ProfileImage from "../UI/ProfileImage";
+import Icon from "../UI/Icon";
+import logoIcon from "../../assets/logo.svg";
+import chatIcon from "../../assets/icons/chat.svg";
+import listIcon from "../../assets/icons/list.svg";
+import settingsIcon from "../../assets/icons/settings.svg";
+import logoutIcon from "../../assets/icons/logout.svg";
+import { useMediaQuery } from "react-responsive";
 
 const Navigation = () => {
   const { logout, _id, setUserInfo, token, profileImage } =
     useContext(AuthContext);
-  const [userData, error] = useAxios(
-    {
-      url: `/auth/user-by-id/${_id}`,
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  const isFirstNested = useMatch("dashboard/:id");
+  const isMobile = useMediaQuery({ query: '(max-width:768px)' });
+
+  const [userData, error] = useAxios({
+    url: `/auth/user-by-id/${_id}`,
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   useEffect(() => {
-    if (error) logout();
+    if (error) {
+      console.log(error);
+    }
 
     if (userData) {
       setUserInfo(userData[0]);
@@ -37,37 +40,32 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={styles["navigation-panel"]}>
+    <nav
+      className={styles["navigation-panel"]}
+      style={{ display: isMobile && !isFirstNested ? "none" : "flex" }}
+    >
       <img src={logoIcon} className={styles.logo} alt="logo" />
       <div className={styles.links}>
-        <Tooltip title="dashboard" placement="right">
+        <Tooltip title="chat" placement="right">
           <NavLink
             className={(navData) => (navData.isActive ? "active" : "")}
-            to="/dashboard"
+            to="chat"
           >
             <Icon icon={chatIcon}>Chat</Icon>
           </NavLink>
         </Tooltip>
-        <Tooltip title="friends" placement="right">
+        <Tooltip title="notes" placement="right">
           <NavLink
             className={(navData) => (navData.isActive ? "active" : "")}
-            to="/friends"
+            to="notes"
           >
-            <Icon icon={peopleIcon}>People</Icon>
-          </NavLink>
-        </Tooltip>
-        <Tooltip title="tasks" placement="right">
-          <NavLink
-            className={(navData) => (navData.isActive ? "active" : "")}
-            to="/tasks"
-          >
-            <Icon icon={listIcon}>Tasks</Icon>
+            <Icon icon={listIcon}>Notes</Icon>
           </NavLink>
         </Tooltip>
         <Tooltip title="settings" placement="right">
           <NavLink
             className={(navData) => (navData.isActive ? "active" : "")}
-            to="/settings"
+            to="settings"
           >
             <Icon icon={settingsIcon}>Settings</Icon>
           </NavLink>

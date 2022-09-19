@@ -35,7 +35,7 @@ const ChatInfo = () => {
   }
 
   return (
-    <Topbar backTo="/dashboard">
+    <Topbar backTo="/dashboard/chat">
       {loading ? (
           <div className={styles["user"]}>
             <LoadingImage className={styles["loading-image"]} />

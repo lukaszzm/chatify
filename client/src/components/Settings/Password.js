@@ -55,7 +55,7 @@ const Password = () => {
     }
   return (
     <>
-      <Topbar backTo="/settings">
+      <Topbar backTo="/dashboard/settings">
         <h3>Password Settings</h3>
       </Topbar>
       <SettingsContainer>
