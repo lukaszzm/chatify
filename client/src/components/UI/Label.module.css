@@ -3,5 +3,6 @@
     font-weight: 600;
     color: var(--text-secondary);
     text-align: left;
-    margin-bottom: 4px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
