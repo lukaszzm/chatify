@@ -1,8 +1,6 @@
 const Users = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
-const { findById } = require("../models/users");
 
 module.exports.getUserById = async (req, res, next) => {
   try {

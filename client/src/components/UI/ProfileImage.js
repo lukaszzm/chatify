@@ -8,7 +8,7 @@ const ProfileImage = ({ src, className, size, localFile }) => {
 
   return (
     <div className={classes}>
-      <img src={localFile ? `${src}` : `${process.env.REACT_APP_URL}${src}`} alt="avatar" />
+      <img src={localFile ? `${src}` : `${process.env.REACT_APP_IMAGE_URL}${src}${process.env.REACT_APP_IMAGE_SUFFIX}`} alt="avatar" />
     </div>
   );
 };

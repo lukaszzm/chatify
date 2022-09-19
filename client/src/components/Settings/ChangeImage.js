@@ -26,7 +26,8 @@ const ChangeImage = ({ defaultImage, url }) => {
       const formData = new FormData();
       formData.append("id", _id);
       formData.append("profileImage", selectedFile);
-      const request = await axios.patch(`${url}/update-profile-image/`, formData, {
+      // ${url}
+      const request = await axios.patch(`http://localhost:8000/api/auth/update-profile-image/`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const newPath = request.data;
