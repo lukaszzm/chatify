@@ -1,5 +1,5 @@
 import styles from "./Navigation.module.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAxios } from "../../hooks/useAxios";
 import { NavLink, useMatch } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
@@ -12,12 +12,14 @@ import listIcon from "../../assets/icons/list.svg";
 import settingsIcon from "../../assets/icons/settings.svg";
 import logoutIcon from "../../assets/icons/logout.svg";
 import { useMediaQuery } from "react-responsive";
+import Modal from "../UI/Modal";
 
 const Navigation = () => {
   const { logout, _id, setUserInfo, token, profileImage } =
     useContext(AuthContext);
   const isFirstNested = useMatch("dashboard/:id");
   const isMobile = useMediaQuery({ query: '(max-width:768px)' });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [userData, error] = useAxios({
     url: `/auth/user-by-id/${_id}`,
@@ -90,12 +92,15 @@ const Navigation = () => {
         <Tooltip title="logout" placement="right">
           <button
             className={styles["logout-desktop-button"]}
-            onClick={logoutHandler}
+            onClick={() => {setIsModalOpen(true)}}
           >
             <Icon icon={logoutIcon}>Logout</Icon>
           </button>
         </Tooltip>
       </div>
+      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+        <p>Are you sure are you want to log out</p>
+      </Modal>
     </nav>
   );
 };
