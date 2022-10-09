@@ -13,12 +13,13 @@ import settingsIcon from "../../assets/icons/settings.svg";
 import logoutIcon from "../../assets/icons/logout.svg";
 import { useMediaQuery } from "react-responsive";
 import Modal from "../UI/Modal";
+import ReactDOM from "react-dom";
 
 const Navigation = () => {
   const { logout, _id, setUserInfo, token, profileImage } =
     useContext(AuthContext);
   const isFirstNested = useMatch("dashboard/:id");
-  const isMobile = useMediaQuery({ query: '(max-width:768px)' });
+  const isMobile = useMediaQuery({ query: "(max-width:768px)" });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [userData, error] = useAxios({
@@ -37,9 +38,9 @@ const Navigation = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
-  const logoutHandler = () => {
-    logout();
-  };
+  // const logoutHandler = () => {
+  //   logout();
+  // };
 
   return (
     <nav
@@ -75,7 +76,9 @@ const Navigation = () => {
         <Tooltip title="logout" placement="right">
           <button
             className={styles["logout-mobile-button"]}
-            onClick={logoutHandler}
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
           >
             <Icon icon={logoutIcon}>Logout</Icon>
           </button>
@@ -92,15 +95,26 @@ const Navigation = () => {
         <Tooltip title="logout" placement="right">
           <button
             className={styles["logout-desktop-button"]}
-            onClick={() => {setIsModalOpen(true)}}
+            onClick={() => {
+              setIsModalOpen(true);
+            }}
           >
             <Icon icon={logoutIcon}>Logout</Icon>
           </button>
         </Tooltip>
       </div>
-      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
-        <p>Are you sure are you want to log out</p>
-      </Modal>
+      {isModalOpen &&
+        ReactDOM.createPortal(
+          <Modal
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+            title="log out"
+            onConfirm={logout}
+          >
+            <p>Are you sure are you want to log out</p>
+          </Modal>,
+          document.getElementById("modals")
+        )}
     </nav>
   );
 };

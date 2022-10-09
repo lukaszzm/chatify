@@ -1,17 +1,16 @@
 .backdrop {
-    background-color: rgba(0, 0, 0, 0.748);
-    width: 100vw;
-    height: 100vh;
-    top: 50%;
-    left: 50%;
-    z-index: 1;
-    transform: translate(-50%, -50%);
-    position: absolute;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 2;
 }
 
 .modal {
     background-color: var(--background);
-    z-index: 2;
+    z-index: 10;
     width: 90%;
     max-width: 250px;
     margin: 0 auto;
@@ -21,4 +20,25 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 15px;
 }
+
+.title h2 {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.content {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttons button {
+    margin: 5px;
+}
+

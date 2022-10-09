@@ -2,6 +2,7 @@
   filter: var(--icon-filter-dark);
   width: 1.8rem;
   padding: 10px 10px 6px 10px;
+  z-index: 0;
 }
 
 .icon:hover {
@@ -10,6 +11,7 @@
 
 .no-color {
   filter: var(--icon-filter-text);
+  z-index: 0;
 }
 
 .no-color:hover {
