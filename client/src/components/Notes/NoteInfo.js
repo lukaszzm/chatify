@@ -18,7 +18,7 @@ const NoteInfo = () => {
   );
 
   return loading ? (
-    <LoadingSpinner />
+    <LoadingSpinner center />
   ) : error ? (
     <p>Something went wrong</p>
   ) : (

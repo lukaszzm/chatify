@@ -11,6 +11,7 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import NewNote from "./NewNote.js";
 import { useDispatch, useSelector } from "react-redux";
 import { initNotes } from "../../store/notesSlice";
+import ReactDOM from 'react-dom';
 
 const NotesList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,7 +52,10 @@ const NotesList = () => {
           ))
         ) : null}
       </Container>
-      <NewNote isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      {isModalOpen && ReactDOM.createPortal(
+          <NewNote isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />,
+          document.getElementById("modals"))}
+      
     </Sidebar>
   );
 };

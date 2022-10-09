@@ -1,13 +1,17 @@
 import styles from "./LoadingSpinner.module.css";
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ center }) => {
+  const classes = center
+    ? `${styles.spinner} ${styles.centered}`
+    : `${styles.spinner}`;
+
   return (
-      <div className={styles.spinner}>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+    <div className={classes}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   );
 };
 
