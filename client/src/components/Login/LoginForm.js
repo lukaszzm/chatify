@@ -7,7 +7,7 @@ import { useContext, useState } from "react";
 
 const LoginForm = () => {
   const { login } = useContext(AuthContext);
-  const [fetchError, setFetchError] = useState(null);
+  const [axiosError, setAxiosError] = useState(null);
   return (
     <Formik
       initialValues={{
@@ -16,13 +16,13 @@ const LoginForm = () => {
       }}
       validationSchema={loginSchema}
       onSubmit={async (values) => {
-        setFetchError(null);
+        setAxiosError(null);
         try {
           await login(values);
         } catch (err) {
           err.message
-            ? setFetchError(err.message)
-            : setFetchError("Something went wrong.");
+            ? setAxiosError(err.message)
+            : setAxiosError("Something went wrong.");
         }
       }}
     >
@@ -57,7 +57,7 @@ const LoginForm = () => {
             className={styles.error}
             name="password"
           />
-          {fetchError && <p className={styles["fetch-error"]}>{fetchError}</p>}
+          {axiosError && <p className={styles["fetch-error"]}>{axiosError}</p>}
           <Button
             disabled={isSubmitting}
             className={styles.button}

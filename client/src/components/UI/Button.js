@@ -8,6 +8,7 @@ const Button = ({
   outline,
   disabled,
   maxWidth,
+  form
 }) => {
   const classes = outline
     ? `${styles.button} ${styles.outline} ${className}`
@@ -21,6 +22,7 @@ const Button = ({
       className={classes}
       type={buttonType}
       style={{ maxWidth: maxWidth }}
+      form={form}
     >
       {children}
     </button>

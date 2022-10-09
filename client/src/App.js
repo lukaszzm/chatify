@@ -10,11 +10,12 @@ import NotFound from "./pages/NotFound";
 import Settings from "./pages/Settings";
 
 import Form from "./components/Login/Form";
-import UnderConstruction from "./pages/Notes";
 import Profile from "./components/Settings/Profile";
 import Password from "./components/Settings/Password";
 import Appearance from "./components/Settings/Appearance";
 import Layout from "./pages/Layout";
+import Notes from "./pages/Notes";
+import NoteInfo from "./components/Notes/NoteInfo";
 
 const App = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -25,9 +26,11 @@ const App = () => {
         element={isLoggedIn ? <Layout /> : <Navigate to="/" />}
       >
         <Route path="chat" element={<Dashboard />}>
-          <Route path=":ID" element={<Chat />} />
+          <Route path=":ID" element={<Chat/>} />
         </Route>
-        <Route path="notes" element={<UnderConstruction />} />
+        <Route path="notes" element={<Notes />}>
+          <Route path=":ID" element={<NoteInfo/>}/>
+        </Route>
         <Route
           path="settings"
           element={<Settings />}

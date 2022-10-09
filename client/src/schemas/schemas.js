@@ -29,3 +29,14 @@ export const registerSchema = yup.object().shape({
     .max(25, "Your last name must be less than 25 characters long.")
     .required("Required"),
 });
+
+export const noteSchema = yup.object().shape({
+  title: yup
+    .string()
+    .max(50, "Your title must be less than 50 characters long.")
+    .required("Required."),
+  text: yup
+    .string()
+    .max(1000, "Your text must be less than 1000 characters long.")
+    .required("Required."),
+});

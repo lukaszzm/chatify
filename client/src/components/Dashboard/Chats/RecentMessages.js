@@ -24,9 +24,7 @@ const RecentMessages = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (messages) {
-      dispatch(initMessages(messages));
-    }
+    if (messages) dispatch(initMessages(messages));
   }, [messages, dispatch]);
 
   useEffect(() => {

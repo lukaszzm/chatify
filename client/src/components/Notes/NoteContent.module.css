@@ -1,0 +1,14 @@
+.container {
+    padding: 15px;
+    text-align: left;
+}
+
+.date {
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--background-dark-grey)
+}
+
+.text {
+    padding-top: 10px;
+    word-wrap: break-word;
+}

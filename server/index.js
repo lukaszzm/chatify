@@ -4,6 +4,7 @@ const socket = require("socket.io");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const messageRoutes = require("./routes/messages");
+const noteRoutes = require("./routes/notes");
 const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
@@ -38,6 +39,7 @@ app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/notes", noteRoutes)
 
 global.onlineUsers = new Map();
 

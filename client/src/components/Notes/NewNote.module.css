@@ -1,0 +1,33 @@
+.field {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--text-quaternary);
+    transition: .1s;
+    font-family: "Inter", sans-serif;
+}
+
+.field:focus {
+    outline: none;
+    border-bottom: 1px solid var(--text-primary);
+}
+
+.field:nth-child(2) {
+    height: 100px;
+}
+
+.field-error {
+    border-bottom: 1px solid var(--error);
+}
+
+.field-error:focus {
+    border-bottom: 1px solid var(--error);
+}
+
+.error {
+    color: var(--error);
+}
