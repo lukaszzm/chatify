@@ -7,13 +7,14 @@ const MIME_TYPE_MAP = {
   "image/jpeg": "jpeg",
 };
 
+
 const fileUpload = multer({
   limits: 5000000,
   storage: FirebaseStorage({
     bucketName: process.env.FIREBASE_BUCKET,
     credentials: {
       clientEmail: process.env.FIREBASE_EMAIL,
-      privateKey: process.env.FIREBASE_KEY,
+      privateKey: process.env.FIREBASE_KEY.replace(/\\n/g, '\n'),
       projectId: process.env.FIREBASE_ID,
     },
     public: true,
