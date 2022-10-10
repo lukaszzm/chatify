@@ -38,9 +38,6 @@ const Navigation = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
-  // const logoutHandler = () => {
-  //   logout();
-  // };
 
   return (
     <nav

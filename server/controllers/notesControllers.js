@@ -38,6 +38,17 @@ module.exports.addNote = async (req, res, next) => {
     }
 };
 
-module.exports.deleteNote = async (req,res,next) => {
-    const id = req.body.id;
+module.exports.deleteNote = async (req, res, next) => {
+    const userId = req.body.id;
+    const noteId = req.params.id;
+    
+    try {
+      const note = await Notes.findById(noteId);
+      if (!note) throw new Error("This note does not exist!")
+      if (note.fromId !== userId) throw new Error("This note does not belong to this user!");
+      note.remove()
+      res.send("Success!")
+    } catch (err) {
+        next(err);
+    }
 }

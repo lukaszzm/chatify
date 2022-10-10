@@ -16,13 +16,7 @@ const NewNote = ({ isModalOpen, setIsModalOpen }) => {
   const { token } = useContext(AuthContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [axiosError, setAxiosError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const dispatch = useDispatch();
-
-  const clearAlerts = () => {
-    setSuccess(null);
-    setAxiosError(null);
-  };
 
   return (
     <Modal
@@ -39,22 +33,17 @@ const NewNote = ({ isModalOpen, setIsModalOpen }) => {
           text: "",
         }}
         validationSchema={noteSchema}
-        onSubmit={async ({ title, text }, { resetForm }) => {
+        onSubmit={async ({ title, text }) => {
           setIsSubmitting(true);
-          clearAlerts();
+          setAxiosError(null);
           try {
             const createdAt = Date.now();
-            const newNote = {title, text, createdAt};
-            const response = await axios.post(
-              `${URL}`,
-              newNote,
-              {
-                headers: { Authorization: `Bearer ${token}` },
-              }
-            );
-            dispatch(addNote(response.data))
-            setSuccess("Success! Your note has been created.");
-            resetForm();
+            const newNote = { title, text, createdAt };
+            const response = await axios.post(`${URL}`, newNote, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            dispatch(addNote(response.data));
+            setIsModalOpen(false);
           } catch (err) {
             setAxiosError("Something went wrong.");
           } finally {
@@ -63,7 +52,11 @@ const NewNote = ({ isModalOpen, setIsModalOpen }) => {
         }}
       >
         {({ errors, touched }) => (
-          <Form id="newNote" className={styles.form} onChange={clearAlerts}>
+          <Form
+            id="newNote"
+            className={styles.form}
+            onChange={() => setAxiosError(null)}
+          >
             <Field
               className={
                 errors.title && touched.title
@@ -89,9 +82,11 @@ const NewNote = ({ isModalOpen, setIsModalOpen }) => {
           </Form>
         )}
       </Formik>
-      {isSubmitting && <LoadingSpinner />}
-      {success && <Alert>{success}</Alert>}
-      {axiosError && <Alert error>{axiosError}</Alert>}
+      {isSubmitting ? (
+        <LoadingSpinner />
+      ) : axiosError ? (
+        <Alert error>{axiosError}</Alert>
+      ) : null}
     </Modal>
   );
 };
