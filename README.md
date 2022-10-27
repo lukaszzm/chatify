@@ -6,12 +6,7 @@ Chatufy is a real-time chat app created with React/NodeJS.
 
 Click on this [link](https://chatify-ccec7.web.app/) to see a live app preview.
 
-- Login with first account.
-- Open new tab. (in incognito)
-- Login with second account.
-- Start chatting. (John Smith - Anna Wiliams)
-
-*The server is hosted on Heroku, so the first request may take longer.
+*The server is hosted on Heroku, so the first request may take a little longer.
 
 ## Login Details
 
@@ -25,7 +20,15 @@ Click on this [link](https://chatify-ccec7.web.app/) to see a live app preview.
 
 or
 
-You can **register** your account.
+You can **register** with your own credentials!
+
+## Features
+
+ - User authentication
+ - Real-time messaging
+ - Uploading images (as user avatar) 
+ - Toggle light/dark mode
+ - Searching users in the database
 
 ## Tech Stack
 
@@ -34,11 +37,6 @@ You can **register** your account.
 **Backend:** NodeJS (express, socket.io)
 
 **Database:** MongoDB
-
-## Features
- - User authentication (with registration)
- - Real-time sending and getting messages
- - Searching users in the database
 
 ## License
 MIT
