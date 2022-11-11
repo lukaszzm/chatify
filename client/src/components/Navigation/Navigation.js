@@ -1,5 +1,5 @@
 import styles from "./Navigation.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useAxios } from "../../hooks/useAxios";
 import { NavLink, useMatch } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
@@ -14,14 +14,14 @@ import logoutIcon from "../../assets/icons/logout.svg";
 import { useMediaQuery } from "react-responsive";
 import Modal from "../UI/Modal";
 import ReactDOM from "react-dom";
+import { useModal } from "../../hooks/useModal";
 
 const Navigation = () => {
   const { logout, _id, setUserInfo, token, profileImage } =
     useContext(AuthContext);
   const isFirstNested = useMatch("dashboard/:id");
   const isMobile = useMediaQuery({ query: "(max-width:768px)" });
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const {isModalOpen, openModal, closeModal } = useModal();
   const [userData, error] = useAxios({
     url: `/auth/user-by-id/${_id}`,
     headers: { Authorization: `Bearer ${token}` },
@@ -73,9 +73,7 @@ const Navigation = () => {
         <Tooltip title="logout" placement="right">
           <button
             className={styles["logout-mobile-button"]}
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
+            onClick={openModal}
           >
             <Icon icon={logoutIcon}>Logout</Icon>
           </button>
@@ -92,9 +90,7 @@ const Navigation = () => {
         <Tooltip title="logout" placement="right">
           <button
             className={styles["logout-desktop-button"]}
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
+            onClick={openModal}
           >
             <Icon icon={logoutIcon}>Logout</Icon>
           </button>
@@ -104,7 +100,7 @@ const Navigation = () => {
         ReactDOM.createPortal(
           <Modal
             isOpen={isModalOpen}
-            setIsOpen={setIsModalOpen}
+            closeModal={closeModal}
             title="log out"
             onConfirm={logout}
           >

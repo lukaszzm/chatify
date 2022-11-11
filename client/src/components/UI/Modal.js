@@ -4,7 +4,7 @@ import Button from "./Button";
 const Modal = ({
   children,
   isOpen,
-  setIsOpen,
+  closeModal,
   title,
   onConfirm,
   confirmLabel,
@@ -14,14 +14,14 @@ const Modal = ({
   return (
     isOpen && (
       <>
-        <div className={styles.backdrop} onClick={() => setIsOpen(false)} />
+        <div className={styles.backdrop} onClick={closeModal} />
         <div className={styles.modal}>
           <div className={styles.title}>
             <h2>{title}</h2>
           </div>
           <div className={styles.content}>{children}</div>
           <div className={styles.buttons}>
-            <Button outline onClick={() => setIsOpen(false)}>
+            <Button outline onClick={closeModal}>
               Cancel
             </Button>
             <Button disabled={isDisabledConfirm} form={form} onClick={onConfirm}>

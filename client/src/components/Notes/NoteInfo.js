@@ -15,9 +15,10 @@ import axios from "axios";
 import Alert from '../UI/Alert';
 import { useDispatch } from 'react-redux';
 import { deleteNote } from "../../store/notesSlice";
+import { useModal } from "../../hooks/useModal";
 
 const NoteInfo = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
   const [isDeleting, setIsDeleting] = useState(false);
   const [axiosError, setAxiosError] = useState(false);
   const { ID } = useParams();
@@ -62,9 +63,7 @@ const NoteInfo = () => {
         <h3>{note.title}</h3>
         <Button
           className={styles.button}
-          onClick={() => {
-            setIsModalOpen(true);
-          }}
+          onClick={openModal}
         >
           <Icon className={styles["delete-icon"]} icon={deleteIcon}>
             Delete Note{" "}
@@ -76,7 +75,7 @@ const NoteInfo = () => {
         ReactDOM.createPortal(
           <Modal
             isOpen={isModalOpen}
-            setIsOpen={setIsModalOpen}
+            closeModal={closeModal}
             title="Delete Note"
             onConfirm={deleteNoteHandler}
             isDisabledConfirm={isDeleting}

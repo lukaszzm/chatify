@@ -12,7 +12,7 @@ import { addNote } from "../../store/notesSlice";
 
 const URL = `${process.env.REACT_APP_API_URL}/notes/add-note`;
 
-const NewNote = ({ isModalOpen, setIsModalOpen }) => {
+const NewNote = ({ isModalOpen, closeModal }) => {
   const { token } = useContext(AuthContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [axiosError, setAxiosError] = useState(null);
@@ -21,7 +21,7 @@ const NewNote = ({ isModalOpen, setIsModalOpen }) => {
   return (
     <Modal
       isOpen={isModalOpen}
-      setIsOpen={setIsModalOpen}
+      closeModal={closeModal}
       title="New Note"
       confirmLabel="Create Note"
       isDisabledConfirm={isSubmitting}
@@ -43,7 +43,7 @@ const NewNote = ({ isModalOpen, setIsModalOpen }) => {
               headers: { Authorization: `Bearer ${token}` },
             });
             dispatch(addNote(response.data));
-            setIsModalOpen(false);
+            closeModal();
           } catch (err) {
             setAxiosError("Something went wrong.");
           } finally {

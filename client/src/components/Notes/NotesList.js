@@ -5,16 +5,17 @@ import { useParams } from "react-router-dom";
 import Button from "../UI/Button";
 import Note from "./Note";
 import { useAxios } from "../../hooks/useAxios";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../../store/auth-context";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import NewNote from "./NewNote.js";
 import { useDispatch, useSelector } from "react-redux";
 import { initNotes } from "../../store/notesSlice";
 import ReactDOM from 'react-dom';
+import { useModal } from "../../hooks/useModal";
 
 const NotesList = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
   const { token } = useContext(AuthContext);
   const { ID } = useParams();
   const [data, error, loading] = useAxios({
@@ -33,9 +34,7 @@ const NotesList = () => {
       <h1>Your notes</h1>
       <Button
         className={styles.button}
-        onClick={() => {
-          setIsModalOpen(true);
-        }}
+        onClick={openModal}
       >
         Create new note
       </Button>
@@ -53,7 +52,7 @@ const NotesList = () => {
         ) : null}
       </Container>
       {isModalOpen && ReactDOM.createPortal(
-          <NewNote isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />,
+          <NewNote isModalOpen={isModalOpen} closeModal={closeModal} />,
           document.getElementById("modals"))}
       
     </Sidebar>
