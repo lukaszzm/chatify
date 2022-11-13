@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
+
 import AuthContext from "./store/auth-context";
 
 import Chat from "./components/Dashboard/Chat/Chat";
@@ -16,6 +17,7 @@ import Appearance from "./components/Settings/Appearance";
 import Layout from "./pages/Layout";
 import Notes from "./pages/Notes";
 import NoteInfo from "./components/Notes/NoteInfo";
+
 
 const App = () => {
   const { isLoggedIn } = useContext(AuthContext);

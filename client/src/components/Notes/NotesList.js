@@ -4,30 +4,18 @@ import Container from "../UI/Container";
 import { useParams } from "react-router-dom";
 import Button from "../UI/Button";
 import Note from "./Note";
-import { useAxios } from "../../hooks/useAxios";
-import { useContext, useEffect } from "react";
-import AuthContext from "../../store/auth-context";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import NewNote from "./NewNote.js";
-import { useDispatch, useSelector } from "react-redux";
-import { initNotes } from "../../store/notesSlice";
 import ReactDOM from 'react-dom';
 import { useModal } from "../../hooks/useModal";
+import { useQuery } from "@tanstack/react-query";
+import { getNotes } from "../../api";
 
 const NotesList = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
-  const { token } = useContext(AuthContext);
   const { ID } = useParams();
-  const [data, error, loading] = useAxios({
-    url: `/notes/get-all-notes`,
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  const dispatch = useDispatch();
-  const notes = useSelector((state) => state.notes.notes);
 
-  useEffect(() => {
-    if (data) dispatch(initNotes(data));
-  }, [data, dispatch]);
+  const { data, isLoading, isError } = useQuery(['notes'], getNotes)
 
   return (
     <Sidebar>
@@ -39,14 +27,14 @@ const NotesList = () => {
         Create new note
       </Button>
       <Container>
-        {loading ? (
+        {isLoading ? (
           <LoadingSpinner />
-        ) : error ? (
+        ) : isError ? (
           <p>Something went wrong. can't load your notes.</p>
-        ) : notes.length === 0 ? (
+        ) : data.length === 0 ? (
           <p>You don't have any notes yet.</p>
-        ) : notes.length > 0 ? (
-          notes.map(({ title, _id }) => (
+        ) : data.length > 0 ? (
+          data.map(({ title, _id }) => (
             <Note key={_id} id={_id} title={title} isActive={ID === _id} />
           ))
         ) : null}
