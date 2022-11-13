@@ -12,12 +12,26 @@ export const getNotes = async () => {
 };
 
 export const newNote = async ({ title, text }) => {
-    const token = localStorage.getItem("token");
-    const note = {title: title, text: text, createdAt: Date.now()}
-    const result = await axios.post(
-        `/notes/add-not`,
-        note,
-        { headers: { Authorization: `Bearer ${token}` } }
-    );
-    return result.data;
+  const token = localStorage.getItem("token");
+  const note = { title: title, text: text, createdAt: Date.now() };
+  const result = await axios.post(`/notes/add-note`, note, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return result.data;
+};
+
+export const getNoteInfo = async (ID) => {
+  const token = localStorage.getItem("token");
+  const result = await axios.get(`/notes/get-note/${ID}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return result.data;
+};
+
+export const deleteNote = async (ID) => {
+  const token = localStorage.getItem("token");
+  const result = await axios.delete(`/notes/delete-note/${ID}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return result.data;
 };

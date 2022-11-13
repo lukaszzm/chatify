@@ -6,7 +6,7 @@ import Button from "../UI/Button";
 import Note from "./Note";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import NewNote from "./NewNote.js";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import { useModal } from "../../hooks/useModal";
 import { useQuery } from "@tanstack/react-query";
 import { getNotes } from "../../api";
@@ -15,15 +15,12 @@ const NotesList = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const { ID } = useParams();
 
-  const { data, isLoading, isError } = useQuery(['notes'], getNotes)
+  const { data, isLoading, isError } = useQuery(["notes"], getNotes);
 
   return (
     <Sidebar>
       <h1>Your notes</h1>
-      <Button
-        className={styles.button}
-        onClick={openModal}
-      >
+      <Button className={styles.button} onClick={openModal}>
         Create new note
       </Button>
       <Container>
@@ -39,10 +36,12 @@ const NotesList = () => {
           ))
         ) : null}
       </Container>
-      {isModalOpen && ReactDOM.createPortal(
-          <NewNote isModalOpen={isModalOpen} closeModal={closeModal} />,
-          document.getElementById("modals"))}
-      
+      {isModalOpen
+        ? ReactDOM.createPortal(
+            <NewNote isModalOpen={isModalOpen} closeModal={closeModal} />,
+            document.getElementById("modals")
+          )
+        : null}
     </Sidebar>
   );
 };

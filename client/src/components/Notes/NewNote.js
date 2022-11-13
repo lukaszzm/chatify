@@ -8,12 +8,16 @@ import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../..";
 import { newNote } from "../../api";
 
-
 const NewNote = ({ isModalOpen, closeModal }) => {
-  const { mutate, isLoading, isError } = useMutation(({ title, text }) => newNote({ title, text }), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['notes']);
-    }});
+  const { mutate, isLoading, isError } = useMutation(
+    ({ title, text }) => newNote({ title, text }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["notes"]);
+        closeModal();
+      },
+    }
+  );
 
   return (
     <Modal
