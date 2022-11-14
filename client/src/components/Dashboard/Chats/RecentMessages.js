@@ -1,53 +1,47 @@
 import { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { useAxios } from "../../../hooks/useAxios";
 import RecentMessage from "./RecentMessage";
 import AuthContext from "../../../store/auth-context";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  initMessages,
-  addRecentMessage,
-} from "../../../store/recentMessagesSlice";
 import { Container, LoadingSpinner } from "../../UI";
+import { useQuery } from "@tanstack/react-query";
+import { getRecentMessages } from "../../../api";
+import { queryClient } from "../../..";
 
 const RecentMessages = () => {
-  const { token, _id: userId, socket } = useContext(AuthContext);
+  const { _id: userId, socket } = useContext(AuthContext);
   const { ID } = useParams();
-  const [messages, error, loading] = useAxios(
-    {
-      url: `/messages/get-recent-messages`,
-      headers: { Authorization: `Bearer ${token}` },
-    }
+  const { data, isLoading, isError } = useQuery(
+    ["recent-messages"],
+    getRecentMessages
   );
-  const testMessages = useSelector((state) => state.recentMessages.messages);
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (messages) dispatch(initMessages(messages));
-  }, [messages, dispatch]);
-
-  useEffect(() => {
-    const receiveHandler = (message) => {
-      dispatch(addRecentMessage(message));
+    const receiveMessageHandler = (message) => {
+      const prevMessages = queryClient.getQueryData(["recent-messages"]);
+      const newMessages = prevMessages.filter(
+        (el) => el.userInfo[0]._id !== message.userInfo[0]._id
+      );
+      newMessages.unshift(message);
+      queryClient.setQueryData(["recent-messages"], newMessages);
     };
 
-    socket.on("receive-message", receiveHandler);
+    socket.on("receive-message", receiveMessageHandler);
 
     return () => {
-      socket.off("receive-message", receiveHandler);
+      socket.off("receive-message", receiveMessageHandler);
     };
-  }, [socket, dispatch]);
+  }, [socket]);
 
   return (
     <Container>
-      {loading ? (
-        <LoadingSpinner/>
-      ) : error ? (
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : isError ? (
         <p>Something went wrong.</p>
-      ) : testMessages.length === 0 ? (
+      ) : data.length === 0 ? (
         <p>You don't have any chats yet.</p>
       ) : (
-        testMessages.map(({ _id, userInfo, text, createdAt, fromId }) => (
+        data.map(({ _id, userInfo, text, createdAt, fromId }) => (
           <RecentMessage
             key={_id}
             id={userInfo[0]._id}
