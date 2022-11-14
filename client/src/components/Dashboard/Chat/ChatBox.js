@@ -6,7 +6,7 @@ import AuthContext from "../../../store/auth-context";
 import { addMessage, initMessages } from "../../../store/chatSlice";
 import Message from "./Message";
 import { useParams } from "react-router-dom";
-import LoadingSpinner from "../../UI/LoadingSpinner";
+import { LoadingSpinner } from "../../UI";
 
 const scrollToEnd = (ref) => {
   ref.current.scrollIntoView();

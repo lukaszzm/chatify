@@ -4,17 +4,15 @@ import { useAxios } from "../../hooks/useAxios";
 import { NavLink, useMatch } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import AuthContext from "../../store/auth-context";
-import ProfileImage from "../UI/ProfileImage";
-import Icon from "../UI/Icon";
 import logoIcon from "../../assets/logo.svg";
 import chatIcon from "../../assets/icons/chat.svg";
 import listIcon from "../../assets/icons/list.svg";
 import settingsIcon from "../../assets/icons/settings.svg";
 import logoutIcon from "../../assets/icons/logout.svg";
 import { useMediaQuery } from "react-responsive";
-import Modal from "../UI/Modal";
 import ReactDOM from "react-dom";
 import { useModal } from "../../hooks/useModal";
+import { ProfileImage, Icon, Modal } from "../UI";
 
 const Navigation = () => {
   const { logout, _id, setUserInfo, token, profileImage } =

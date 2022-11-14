@@ -1,10 +1,9 @@
 import styles from "./DeleteNote.module.css";
-import Modal from "../UI/Modal";
 import { useMutation } from "@tanstack/react-query";
 import { deleteNote } from "../../api";
 import { queryClient } from "../..";
 import { useNavigate } from "react-router-dom";
-import Alert from "../UI/Alert";
+import { Modal, Alert } from "../UI";
 
 const DeleteNote = ({ noteId, isModalOpen, closeModal }) => {
   const navigate = useNavigate();

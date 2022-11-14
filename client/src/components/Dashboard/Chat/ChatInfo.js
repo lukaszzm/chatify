@@ -5,10 +5,7 @@ import { useAxios } from "../../../hooks/useAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "../../../store/chatSlice";
 import AuthContext from "../../../store/auth-context";
-import LoadingImage from "../../UI/LoadingImage";
-import LoadingText from "../../UI/LoadingText";
-import ProfileImage from "../../UI/ProfileImage";
-import Topbar from "../../UI/Topbar";
+import { LoadingImage, LoadingText, ProfileImage, Topbar } from "../../UI";
 
 const ChatInfo = () => {
   const { token } = useContext(AuthContext);

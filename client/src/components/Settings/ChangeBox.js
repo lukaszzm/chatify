@@ -1,10 +1,7 @@
 import { useContext, useState } from "react";
-import Input from "../UI/Input";
-import Button from "../UI/Button";
 import axios from "axios";
 import AuthContext from "../../store/auth-context";
-import Alert from "../UI/Alert";
-import Label from "../UI/Label";
+import { Alert, Input, Button, Label } from "../UI";
 
 const ChangeBox = ({ initialValue, value, url }) => {
   const { token, setUserInfo, firstName, lastName, profileImage } =

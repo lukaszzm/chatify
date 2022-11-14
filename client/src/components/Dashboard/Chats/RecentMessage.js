@@ -1,8 +1,7 @@
 import styles from "./RecentMessage.module.css";
 import { Link } from "react-router-dom";
 import formatTime from "../../../utils/format-time";
-import ProfileImage from "../../UI/ProfileImage";
-import Card from "../../UI/Card";
+import { ProfileImage, Card } from "../../UI";
 
 const RecentMessage = ({
   createdAt,

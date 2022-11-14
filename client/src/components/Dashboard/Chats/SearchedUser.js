@@ -1,7 +1,6 @@
 import styles from "./SearchedUser.module.css";
 import { Link } from "react-router-dom";
-import ProfileImage from "../../UI/ProfileImage";
-import Button from "../../UI/Button";
+import { ProfileImage, Button } from "../../UI";
 
 const SearchedUser = ({ id, firstName, lastName, profileImage, onClick}) => {
 

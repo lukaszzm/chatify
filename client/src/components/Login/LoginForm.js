@@ -1,9 +1,9 @@
 import styles from "./LoginForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { loginSchema } from "../../schemas/schemas";
-import Button from "../UI/Button";
 import AuthContext from "../../store/auth-context";
 import { useContext, useState } from "react";
+import { Button } from "../UI";
 
 const LoginForm = () => {
   const { login } = useContext(AuthContext);

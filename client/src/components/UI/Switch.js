@@ -1,6 +1,6 @@
 import styles from "./Switch.module.css";
 
-const Switch = ({ withLabels, className, onChange, checked }) => {
+export const Switch = ({ withLabels, className, onChange, checked }) => {
   return (
     <div className={`${styles['switch-wrapper']} ${className}`}>
       {withLabels && <p className={styles.off}>OFF</p>}
@@ -12,5 +12,3 @@ const Switch = ({ withLabels, className, onChange, checked }) => {
     </div>
   );
 };
-
-export default Switch;

@@ -1,6 +1,6 @@
 import styles from "./LoadingSpinner.module.css";
 
-const LoadingSpinner = ({ center }) => {
+export const LoadingSpinner = ({ center }) => {
   const classes = center
     ? `${styles.spinner} ${styles.centered}`
     : `${styles.spinner}`;
@@ -15,4 +15,3 @@ const LoadingSpinner = ({ center }) => {
   );
 };
 
-export default LoadingSpinner;

@@ -3,9 +3,8 @@ import { useContext, useEffect, useState, useRef } from "react";
 import AuthContext from "../../../store/auth-context";
 import axios from "axios";
 import SearchedUser from "./SearchedUser";
-import Input from "../../UI/Input";
 import searchIcon from "../../../assets/icons/search.svg";
-import LoadingSpinner from "../../UI/LoadingSpinner";
+import { Input, LoadingSpinner } from "../../UI";
 
 const SearchBar = () => {
   const searchInputRef = useRef();

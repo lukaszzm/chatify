@@ -1,12 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import axios from 'axios';
-import Topbar from "../UI/Topbar";
-import Input from "../UI/Input";
-import Button from "../UI/Button";
-import Alert from "../UI/Alert";
-import Label from "../UI/Label";
 import AuthContext from "../../store/auth-context";
-import SettingsContainer from "../UI/SettingsContainer";
+import { Topbar, Input, Button, Alert, Label, SettingsContainer} from "../UI";
 
 const URL = `${process.env.REACT_APP_API_URL}/auth/update-password`;
 

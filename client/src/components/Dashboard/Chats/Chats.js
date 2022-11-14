@@ -1,4 +1,4 @@
-import Sidebar from '../../UI/Sidebar';
+import { Sidebar } from '../../UI';
 import RecentMessages from './RecentMessages';
 import SearchBar from './SearchBar';
 

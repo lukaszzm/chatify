@@ -6,9 +6,8 @@ import { addMessage } from "../../../store/chatSlice";
 import AuthContext from "../../../store/auth-context";
 import { addRecentMessage } from "../../../store/recentMessagesSlice";
 import sendIcon from "../../../assets/icons/send.svg";
-import Input from "../../UI/Input";
-import Button from "../../UI/Button";
 import { useParams } from "react-router-dom";
+import { Input, Button } from "../../UI";
 
 const NewMessage = () => {
   const { ID } = useParams();

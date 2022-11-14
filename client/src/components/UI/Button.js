@@ -1,6 +1,6 @@
 import styles from "./Button.module.css";
 
-const Button = ({
+export const Button = ({
   className,
   children,
   onClick,
@@ -29,4 +29,3 @@ const Button = ({
   );
 };
 
-export default Button;

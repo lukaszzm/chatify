@@ -8,8 +8,7 @@ import {
   initMessages,
   addRecentMessage,
 } from "../../../store/recentMessagesSlice";
-import Container from "../../UI/Container";
-import LoadingSpinner from "../../UI/LoadingSpinner";
+import { Container, LoadingSpinner } from "../../UI";
 
 const RecentMessages = () => {
   const { token, _id: userId, socket } = useContext(AuthContext);

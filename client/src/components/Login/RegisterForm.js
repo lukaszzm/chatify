@@ -1,10 +1,9 @@
 import styles from "./LoginForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { registerSchema } from "../../schemas/schemas";
-import Button from "../UI/Button";
 import AuthContext from "../../store/auth-context";
 import { useContext, useState } from "react";
-import ImageInput from "../UI/ImageInput";
+import { Button, ImageInput } from "../UI";
 
 const RegisterForm = () => {
   const { register } = useContext(AuthContext);

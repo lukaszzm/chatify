@@ -28,6 +28,7 @@ export const AuthContextProvider = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("STARTING...")
     const localToken = localStorage.getItem("token");
     const localId = localStorage.getItem("id");
 

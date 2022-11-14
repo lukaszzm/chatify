@@ -1,11 +1,9 @@
 import styles from "./ImageInput.module.css";
 import { useRef, useState } from "react";
-import ProfileImage from "./ProfileImage";
-import Button from "./Button";
-import Icon from "./Icon";
 import editIcon from "../../assets/icons/edit.svg";
+import { Button, Icon, ProfileImage } from "../UI";
 
-const ImageInput = ({ name, onChange, defaultImage }) => {
+export const ImageInput = ({ name, onChange, defaultImage }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const inputRef = useRef();
 
@@ -57,4 +55,3 @@ const ImageInput = ({ name, onChange, defaultImage }) => {
   );
 };
 
-export default ImageInput;

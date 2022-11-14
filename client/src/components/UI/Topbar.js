@@ -1,9 +1,9 @@
 import styles from "./Topbar.module.css";
 import { Link } from 'react-router-dom';
-import Icon from './Icon';
+import { Icon } from '../UI';
 import backIcon from '../../assets/icons/back.svg';
 
-const Topbar = ({ children, backTo }) => {
+export const Topbar = ({ children, backTo }) => {
 
     return (
         <div className={styles.container}>
@@ -15,4 +15,3 @@ const Topbar = ({ children, backTo }) => {
     )
 }
 
-export default Topbar;

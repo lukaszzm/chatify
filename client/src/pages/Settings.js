@@ -1,7 +1,7 @@
 import SettingsBar from "../components/Settings/SettingsBar";
 import { Outlet, useMatch } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import Content from "../components/UI/Content";
+import { Content } from "../components/UI";
 
 const Settings = () => {
   const url = useMatch("dashboard/settings/:SID");

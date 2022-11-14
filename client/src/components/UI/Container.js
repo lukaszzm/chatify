@@ -1,6 +1,6 @@
 import styles from "./Container.module.css";
 
-const Container = ({children}) => {
+export const Container = ({children}) => {
     return (
         <div className={styles.container}>
             {children}
@@ -8,4 +8,3 @@ const Container = ({children}) => {
     )
 }
 
-export default Container;

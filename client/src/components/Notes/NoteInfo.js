@@ -1,16 +1,13 @@
 import styles from "./NoteInfo.module.css";
-import Topbar from "../UI/Topbar";
 import { useParams } from "react-router-dom";
 import NoteContent from "./NoteContent";
-import LoadingSpinner from "../UI/LoadingSpinner";
-import Icon from "../UI/Icon";
 import deleteIcon from "../../assets/icons/delete.svg";
-import Button from "../UI/Button";
 import { useQuery } from "@tanstack/react-query";
 import { getNoteInfo } from "../../api";
 import DeleteNote from "./DeleteNote";
 import { useModal } from "../../hooks/useModal";
 import ReactDOM from "react-dom";
+import { Topbar, LoadingSpinner, Icon, Button } from "../UI";
 
 const NoteInfo = () => {
   const { ID } = useParams();

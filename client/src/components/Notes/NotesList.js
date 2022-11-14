@@ -1,15 +1,12 @@
 import styles from "./NotesList.module.css";
-import Sidebar from "../UI/Sidebar";
-import Container from "../UI/Container";
 import { useParams } from "react-router-dom";
-import Button from "../UI/Button";
 import Note from "./Note";
-import LoadingSpinner from "../UI/LoadingSpinner";
 import NewNote from "./NewNote.js";
 import ReactDOM from "react-dom";
 import { useModal } from "../../hooks/useModal";
 import { useQuery } from "@tanstack/react-query";
 import { getNotes } from "../../api";
+import { Sidebar, Container, Button, LoadingSpinner } from "../UI";
 
 const NotesList = () => {
   const { isModalOpen, openModal, closeModal } = useModal();

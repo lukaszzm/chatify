@@ -1,7 +1,7 @@
 import styles from "./Modal.module.css";
-import Button from "./Button";
+import { Button } from "../UI";
 
-const Modal = ({
+export const Modal = ({
   children,
   isOpen,
   closeModal,
@@ -34,4 +34,3 @@ const Modal = ({
   );
 };
 
-export default Modal;

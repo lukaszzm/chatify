@@ -1,12 +1,10 @@
 import styles from "./NewNote.module.css";
-import Modal from "../UI/Modal";
-import Alert from "../UI/Alert";
-import LoadingSpinner from "../UI/LoadingSpinner";
 import { noteSchema } from "../../schemas/schemas";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../..";
 import { newNote } from "../../api";
+import { Modal, Alert, LoadingSpinner } from "../UI";
 
 const NewNote = ({ isModalOpen, closeModal }) => {
   const { mutate, isLoading, isError } = useMutation(

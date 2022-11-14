@@ -1,6 +1,6 @@
 import styles from "./Content.module.css";
 
-const Content = ({ children, position }) => {
+export const Content = ({ children, position }) => {
   const classes =
     position === "left"
       ? `${styles.container} ${styles.left}`
@@ -8,5 +8,3 @@ const Content = ({ children, position }) => {
 
   return <section className={classes}>{children}</section>;
 };
-
-export default Content;

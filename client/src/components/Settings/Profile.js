@@ -1,9 +1,8 @@
 import { useContext } from "react";
 import AuthContext from "../../store/auth-context";
-import Topbar from "../UI/Topbar";
 import ChangeBox from "./ChangeBox";
 import ChangeImage from "./ChangeImage";
-import SettingsContainer from "../UI/SettingsContainer";
+import { Topbar, SettingsContainer } from "../UI";
 
 const API_URL = `${process.env.REACT_APP_API_URL}/auth`;
 

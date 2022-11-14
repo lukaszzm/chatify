@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
-import Card from "../UI/Card";
-import Icon from "../UI/Icon";
 import appearanceIcon from "../../assets/icons/appearance.svg";
 import profileIcon from "../../assets/icons/profile.svg";
 import passwordIcon from "../../assets/icons/password.svg";
-import Sidebar from "../UI/Sidebar";
-import Container from "../UI/Container";
+import { Card, Icon, Sidebar, Container } from "../UI";
 
 const SettingsBar = ({active}) => {
 

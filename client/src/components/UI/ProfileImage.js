@@ -1,6 +1,6 @@
 import styles from "./ProfileImage.module.css";
 
-const ProfileImage = ({ src, className, size, localFile }) => {
+export const ProfileImage = ({ src, className, size, localFile }) => {
   const classes =
     size === "large"
       ? `${styles["image-container"]} ${styles.large} ${className}`
@@ -13,4 +13,3 @@ const ProfileImage = ({ src, className, size, localFile }) => {
   );
 };
 
-export default ProfileImage;

@@ -1,9 +1,6 @@
-import Topbar from "../UI/Topbar";
-import Switch from "../UI/Switch";
-import Label from "../UI/Label";
 import ThemeContext from "../../store/theme-context";
 import { useContext } from "react";
-import SettingsContainer from "../UI/SettingsContainer";
+import { Topbar, Switch, Label, SettingsContainer } from "../UI";
 
 const Appearance = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);

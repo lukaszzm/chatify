@@ -1,9 +1,7 @@
 import { useContext, useState } from "react";
 import axios from "axios";
-import ImageInput from "../UI/ImageInput";
-import Button from "../UI/Button";
-import Alert from "../UI/Alert";
 import AuthContext from "../../store/auth-context";
+import { Button, Alert, ImageInput} from "../UI";
 
 const ChangeImage = ({ defaultImage, url }) => {
   const { token, _id, setUserInfo, firstName, lastName } = useContext(AuthContext);

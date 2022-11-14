@@ -1,6 +1,6 @@
 import styles from "./Alert.module.css";
 
-const Alert = ({ children, error }) => {
+export const Alert = ({ children, error }) => {
   const classes = error
     ? `${styles.alert} ${styles.error}`
     : `${styles.alert} ${styles.success}`;
@@ -11,5 +11,3 @@ const Alert = ({ children, error }) => {
     </div>
   );
 };
-
-export default Alert;

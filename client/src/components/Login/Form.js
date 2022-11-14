@@ -1,9 +1,9 @@
 import styles from "./Form.module.css";
-import Button from "../UI/Button";
 import { Link } from "react-router-dom";
 import logoIcon from "../../assets/logo.svg";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import { Button } from "../UI";
 
 const Form = ({ isLogin }) => {
   return (
