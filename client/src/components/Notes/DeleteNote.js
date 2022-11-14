@@ -1,12 +1,12 @@
 import styles from "./DeleteNote.module.css";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteNote } from "../../api";
-import { queryClient } from "../..";
 import { useNavigate } from "react-router-dom";
 import { Modal, Alert } from "../UI";
 
 const DeleteNote = ({ noteId, isModalOpen, closeModal }) => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { mutate, isLoading, isError } = useMutation((ID) => deleteNote(ID), {
     onSuccess: () => {
       queryClient.invalidateQueries(["notes"]);

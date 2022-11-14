@@ -1,6 +1,5 @@
 import styles from "./Navigation.module.css";
-import { useContext, useEffect } from "react";
-import { useAxios } from "../../hooks/useAxios";
+import { useContext } from "react";
 import { NavLink, useMatch } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import AuthContext from "../../store/auth-context";
@@ -13,28 +12,18 @@ import { useMediaQuery } from "react-responsive";
 import ReactDOM from "react-dom";
 import { useModal } from "../../hooks/useModal";
 import { ProfileImage, Icon, Modal } from "../UI";
+import { useQuery } from "@tanstack/react-query";
+import { getUserInfo } from "../../api";
 
 const Navigation = () => {
-  const { logout, _id, setUserInfo, token, profileImage } =
+  const { logout, _id, setUserInfo, profileImage } =
     useContext(AuthContext);
   const isFirstNested = useMatch("dashboard/:id");
   const isMobile = useMediaQuery({ query: "(max-width:768px)" });
   const {isModalOpen, openModal, closeModal } = useModal();
-  const [userData, error] = useAxios({
-    url: `/auth/user-by-id/${_id}`,
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-
-    if (userData) {
-      setUserInfo(userData[0]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData]);
+  useQuery(["auth", _id], () =>
+  getUserInfo(_id), { onSuccess: (data) => setUserInfo(data[0]), onError: () => logout()}
+);
 
 
   return (

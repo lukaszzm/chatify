@@ -1,67 +1,39 @@
 import styles from "./ChatBox.module.css";
 import { useEffect, useContext, useRef } from "react";
-import { useAxios } from "../../../hooks/useAxios";
-import { useDispatch, useSelector } from "react-redux";
 import AuthContext from "../../../store/auth-context";
-import { addMessage, initMessages } from "../../../store/chatSlice";
 import Message from "./Message";
 import { useParams } from "react-router-dom";
 import { LoadingSpinner } from "../../UI";
+import { useQuery } from "@tanstack/react-query";
+import { getMessages } from "../../../api";
 
 const scrollToEnd = (ref) => {
   ref.current.scrollIntoView();
 };
 
 const ChatBox = () => {
-  const { token, _id, socket } = useContext(AuthContext);
+  const { _id } = useContext(AuthContext);
   const messagesEnd = useRef();
-  const dispatch = useDispatch();
   const { ID } = useParams();
-  const messages = useSelector((state) => state.chat.messages);
-
-  const [response, error, loading] = useAxios(
-    {
-      url: `/messages/get-messages/${ID}`,
-      headers: { Authorization: `Bearer ${token}` },
-    },
-    ID
+  const { data, isLoading, isError } = useQuery(["messages", ID], () =>
+    getMessages(ID)
   );
 
   useEffect(() => {
-    if (response) {
-      dispatch(initMessages(response));
-    }
-  }, [response, dispatch]);
-
-  useEffect(() => {
-    const receiveHandler = (message) => {
-      if (message.fromId === ID) {
-        dispatch(addMessage(message));
-      }
-    };
-
-    socket.on("receive-message", receiveHandler);
-
-    return () => {
-      socket.off("receive-message", receiveHandler);
-    };
-  }, [ID, token, socket, dispatch]);
-
-  useEffect(() => {
     scrollToEnd(messagesEnd);
-  }, [messages]);
+  }, [data]);
 
   return (
     <section className={styles.container}>
       <div className={styles["chat-box"]}>
-        {loading ? (
+        {isLoading ? (
           <LoadingSpinner />
-        ) : error ? (
+        ) : isError ? (
           <p>Something went wrong!</p>
-        ) : messages.length === 0 ? (
+        ) : data.length === 0 ? (
           <p>You don't have any messages with this user yet.</p>
         ) : (
-          messages.map(({ text, fromId, createdAt }, index) => (
+          data.map(({ text, fromId, createdAt }, index) => (
             <Message
               key={index}
               text={text}

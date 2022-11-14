@@ -1,12 +1,12 @@
 import styles from "./NewNote.module.css";
 import { noteSchema } from "../../schemas/schemas";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../..";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { newNote } from "../../api";
 import { Modal, Alert, LoadingSpinner } from "../UI";
 
 const NewNote = ({ isModalOpen, closeModal }) => {
+  const queryClient = useQueryClient();
   const { mutate, isLoading, isError } = useMutation(
     ({ title, text }) => newNote({ title, text }),
     {

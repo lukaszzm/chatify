@@ -46,8 +46,7 @@ module.exports.sendMessage = async (req, res, next) => {
       createdAt: Date.now(),
     });
 
-    if (data) return res.json("Message added successfully!");
-    else return res.json("Failed to add message to the database");
+    if (data) return res.json(data);
   } catch (err) {
     next(err);
   }

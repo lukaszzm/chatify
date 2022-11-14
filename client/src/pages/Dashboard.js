@@ -1,48 +1,35 @@
-import { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import io from "socket.io-client";
-import AuthContext from "../store/auth-context";
 import Chats from "../components/Dashboard/Chats/Chats";
 import Chat from "../components/Dashboard/Chat/Chat";
+import { useReactQuerySubscription } from "../hooks/useReactQuerySubscription";
 
 const Dashboard = () => {
-  const { _id, setSocket, socket } = useContext(AuthContext);
+  useReactQuerySubscription();
   const { ID } = useParams();
-  const isMobile = useMediaQuery({ query: '(max-width:768px)' });
+  const isMobile = useMediaQuery({ query: "(max-width:768px)" });
 
-  useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_URL, {});
-    setSocket(() => {
-      return newSocket;
-    });
+  let content = null;
 
-    return () => newSocket.close();
-  }, [setSocket]);
-
-  useEffect(() => {
-    if (socket) socket.emit("add-user", _id);
-  }, [socket, _id]);
-
-  let content = '';
-
-  if(socket) {
-    if(isMobile) {
-      if(ID) {
+    if (isMobile) {
+      if (ID) {
         content = <Chat />;
       } else {
-        content = <><Chats /></>;
+        content = (
+          <>
+            <Chats />
+          </>
+        );
       }
     } else {
-      content = <><Chats/> <Chat/></>;
+      content = (
+        <>
+          <Chats /> <Chat />
+        </>
+      );
     }
-  }
-  
-  return (
-    <>
-    {content}
-    </>
-  );
+
+  return <>{content}</>;
 };
 
 export default Dashboard;
