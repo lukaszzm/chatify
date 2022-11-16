@@ -3,7 +3,7 @@ import axios from "axios";
 import AuthContext from "../../store/auth-context";
 import { Button, Alert, ImageInput} from "../UI";
 
-const ChangeImage = ({ defaultImage, url }) => {
+const ChangeImage = ({ defaultImage }) => {
   const { token, _id, setUserInfo, firstName, lastName } = useContext(AuthContext);
   const [isTouched, setIsTouched] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
