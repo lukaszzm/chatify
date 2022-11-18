@@ -5,80 +5,83 @@ import axios from "axios";
 import SearchedUser from "./SearchedUser";
 import searchIcon from "../../../assets/icons/search.svg";
 import { Input, LoadingSpinner } from "../../UI";
+import { useDebounce } from "../../../hooks/useDebounce";
 
 const SearchBar = () => {
-  const searchInputRef = useRef();
-  const [searchInput, setSearchInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const inputRef = useRef();
+  const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
   const [isTouched, setIsTouched] = useState(false);
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState(null);
   const { token } = useContext(AuthContext);
+  const debouncedValue = useDebounce(inputValue, 300);
 
   const changeHandler = (e) => {
-    if (searchInputRef.current.value.trim() === "") {
-      setIsTouched(false);
-    } else {
-      setIsTouched(true);
-    }
-    setSearchInput(searchInputRef.current.value.trim());
+    inputRef.current.value.trim() !== ""
+      ? setIsTouched(true)
+      : setIsTouched(false);
+    setInputValue(inputRef.current.value.trim());
   };
 
   const resetInput = () => {
-    searchInputRef.current.value = '';
-    setSearchInput("");
+    inputRef.current.value = "";
+    setInputValue("");
     setIsTouched(false);
-  }
+  };
 
-  useEffect( () => {
-    const fetchData = async () => {
-      setLoading(true);
+  useEffect(() => {
+    const searchUsers = async (input) => {
+      setIsLoading(true);
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/user-by-name/${searchInput}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/auth/user-by-name/${input}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const users = response.data;
         users.length > 2 ? setResult(users.slice(0, 2)) : setResult(users);
-      } catch (err) {
-        setError(err);
+      } catch {
+        setIsError(true);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
-    }
-    
-    if (searchInput.trim() !== "") {
-      fetchData();
-    } else if (isTouched) {
-      setResult([]);
-    }
-  }, [searchInput, token, isTouched]);
+    };
+
+    if (debouncedValue.trim() !== "") searchUsers(debouncedValue);
+  }, [debouncedValue, token]);
 
   return (
     <>
-      <div className={styles['search-wrapper']}>
+      <div className={styles["search-wrapper"]}>
         <img src={searchIcon} alt="Search Icon." />
         <Input
           className={styles["search-bar"]}
           onChange={changeHandler}
           placeholder="Search user"
-          ref={searchInputRef}
+          ref={inputRef}
         />
       </div>
       <div className={styles["results-wrapper"]}>
-        {!isTouched ? null :
-        loading ? <LoadingSpinner /> :
-        error ? <p>Something went wrong.</p> :
-        result.length === 0 ? <p>No results.</p> :
-         result.map(({_id, firstName, lastName, profileImage}) => (
-          <SearchedUser
-            key={_id}
-            id={_id}
-            firstName={firstName}
-            lastName={lastName}
-            profileImage={profileImage}
-            onClick={resetInput}
-          />
-        ))}
+        {!isTouched ? null : isLoading ? (
+          <LoadingSpinner />
+        ) : isError ? (
+          <p>Something went wrong.</p>
+        ) : result?.length === 0 ? (
+          <p>No results.</p>
+        ) : (
+          result?.map(({ _id, firstName, lastName, profileImage }) => (
+            <SearchedUser
+              key={_id}
+              id={_id}
+              firstName={firstName}
+              lastName={lastName}
+              profileImage={profileImage}
+              onClick={resetInput}
+            />
+          ))
+        )}
       </div>
     </>
   );
