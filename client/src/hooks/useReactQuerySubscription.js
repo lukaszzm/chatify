@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
 import io from "socket.io-client";
-import AuthContext from "../store/auth-context";
+import AuthContext from "../contexts/auth-context";
 
 export const useReactQuerySubscription = () => {
 const [ socket, setSocket ] = useState(null);
