@@ -1,42 +1,37 @@
 import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
+import AuthContext from "./contexts/auth-context";
+import { Layout } from "./layout";
 
-import AuthContext from "./store/auth-context";
+import { Chat } from "./pages/Chat";
+import { ChatBox } from "./pages/Chat/ChatBox";
 
-import Chat from "./components/Dashboard/Chat/Chat";
-import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import Settings from "./pages/Settings";
+import { Home } from "./pages/Home";
+import { Form } from "./pages/Home/Form";
 
-import Form from "./components/Login/Form";
-import Profile from "./components/Settings/Profile";
-import Password from "./components/Settings/Password";
-import Appearance from "./components/Settings/Appearance";
-import Layout from "./pages/Layout";
-import Notes from "./pages/Notes";
-import NoteInfo from "./components/Notes/NoteInfo";
+import { NotFound } from "./pages/NotFound";
 
+import { Settings } from "./pages/Settings";
+import { Profile } from "./pages/Settings/Profile";
+import { Password } from "./pages/Settings/Password";
+import { Appearance } from "./pages/Settings/Appearance";
+
+import { Notes } from "./pages/Notes";
+import { NoteInfo } from "./pages/Notes/NoteInfo";
 
 const App = () => {
   const { isLoggedIn } = useContext(AuthContext);
   return (
     <Routes>
-      <Route
-        path="/dashboard"
-        element={isLoggedIn ? <Layout /> : <Navigate to="/" />}
-      >
-        <Route path="chat" element={<Dashboard />}>
-          <Route path=":ID" element={<Chat/>} />
+      <Route path="/dashboard" element={isLoggedIn ? <Layout /> : <Navigate to="/" />}>
+        <Route path="chat" element={<Chat />}>
+          <Route path=":ID" element={<ChatBox />} />
         </Route>
         <Route path="notes" element={<Notes />}>
-          <Route path=":ID" element={<NoteInfo/>}/>
+          <Route path=":ID" element={<NoteInfo />} />
         </Route>
-        <Route
-          path="settings"
-          element={<Settings />}
-        >
+        <Route path="settings" element={<Settings />}>
           <Route path="profile" element={<Profile />} />
           <Route path="password" element={<Password />} />
           <Route path="appearance" element={<Appearance />} />

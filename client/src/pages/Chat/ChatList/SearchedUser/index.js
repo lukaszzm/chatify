@@ -1,0 +1,1 @@
+export { SearchedUser } from "./SearchedUser";
