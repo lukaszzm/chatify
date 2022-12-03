@@ -46,4 +46,4 @@ You can <b>register</b> with your own credentials!
 
 ## 📌 License
 
-https://img.shields.io/github/license/lukaszzm/chatify.svg
+MIT
