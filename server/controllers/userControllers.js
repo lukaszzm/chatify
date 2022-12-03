@@ -62,7 +62,8 @@ module.exports.login = async (req, res, next) => {
         } catch (err) {
           res.status(400).send("Something went wrong.");
         }
-        res.send({ id, token });
+        const { firstName, lastName, profileImage } = user;
+        res.send({ id, token, firstName, lastName, profileImage });
       } else {
         res.status(400).send("Your password is incorrect.");
       }
@@ -98,7 +99,7 @@ module.exports.register = async (req, res, next) => {
     } catch (err) {
       return res.status(400).send("Something went wrong.");
     }
-    return res.send({ id, token });
+    return res.send({ id, token, firstName, lastName, profileImage });
   } catch (err) {
     next(err);
   }

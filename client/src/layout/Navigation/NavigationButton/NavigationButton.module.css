@@ -1,0 +1,17 @@
+.logout-desktop-button {
+    border: none; 
+    background-color: transparent;
+    margin-bottom: 15px;
+}
+
+.logout-mobile-button {
+    display: none;
+    border: none; 
+    background-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+    .logout-mobile-button {
+        display: block;
+    }
+}
