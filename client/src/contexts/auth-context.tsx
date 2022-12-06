@@ -74,7 +74,6 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
       setIsLoggedIn(true);
       localStorage.setItem("token", token);
       localStorage.setItem("id", id);
-      console.log(info);
       setInfo({ firstName, lastName, profileImage, _id: id });
       navigate("/");
     } catch (err: unknown) {

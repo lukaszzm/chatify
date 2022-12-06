@@ -29,7 +29,8 @@ export const newMessage = async (message: IMessage) => {
   const result = await axios.post(`/messages/send-message`, message, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  return result.data;
+
+  return { ...result.data, userInfo: message.userInfo };
 };
 
 export const getMessages = async (ID: string) => {

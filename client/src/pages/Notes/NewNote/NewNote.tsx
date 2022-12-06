@@ -41,11 +41,7 @@ export const NewNote: React.FC<NewNoteProps> = ({ closeModal }) => {
         }}
       >
         {({ errors, touched }) => (
-          <Form
-            id="newNote"
-            className={styles.form}
-            onChange={() => console.log()}
-          >
+          <Form id="newNote" className={styles.form}>
             <Field
               className={
                 errors.title && touched.title

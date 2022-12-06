@@ -17,7 +17,7 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
   const { socket } = useReactQuerySubscription();
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
-  const [isError, setIsError] = useState(true);
+  const [isError, setIsError] = useState(false);
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(
     (message: IMessage) => newMessage(message),
@@ -73,6 +73,7 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
           profileImage: info!.profileImage,
         },
       ],
+      test: "test",
     };
 
     mutate(message);
