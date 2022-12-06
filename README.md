@@ -10,7 +10,6 @@
 ## ️🔴 Live Preview
 Click on this <b>[link](https://chatify-ccec7.web.app/)</b> to see a live app preview.
 
-<b>*</b>The server is hosted on Heroku, so the first request may take a little longer.
 
 ## 🔐 Login Credentials
 
@@ -36,6 +35,7 @@ You can <b>register</b> with your own credentials!
 
 **Frontend:** 
 <p><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" /></p>
+<p><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" /></p>
 
 **Backend:** 
 <p>
@@ -45,4 +45,5 @@ You can <b>register</b> with your own credentials!
 <p><img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" /></p>
 
 ## 📌 License
+
 MIT
