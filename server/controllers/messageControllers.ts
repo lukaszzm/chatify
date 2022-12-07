@@ -1,10 +1,16 @@
-const Messages = require("../models/messages");
-const removeDuplications = require("../utils/removeDuplications");
+import { Messages } from "../models/messages";
+import { removeDuplications } from "../utils/removeDuplications";
+import { Request, Response, NextFunction } from "express";
+import { IMessage } from "../interfaces/IMessage.interface";
 
-module.exports.getMessages = async (req, res, next) => {
+export const getMessages = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const userID = req.body.id;
-    const chatID = req.params.id;
+    const userID: string = req.body.id;
+    const chatID: string = req.params.id;
     const messages = await Messages.find({
       $or: [
         {
@@ -35,9 +41,13 @@ module.exports.getMessages = async (req, res, next) => {
   }
 };
 
-module.exports.sendMessage = async (req, res, next) => {
+export const sendMessage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { text, fromId, toId } = req.body;
+    const { text, fromId, toId }: IMessage = req.body;
 
     const data = await Messages.create({
       text: text,
@@ -52,10 +62,14 @@ module.exports.sendMessage = async (req, res, next) => {
   }
 };
 
-module.exports.getRecentMessages = async (req, res, next) => {
+export const getRecentMessages = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const ID = req.body.id;
-    let recentMessages = await Messages.aggregate([
+    let recentMessages: IMessage[] = await Messages.aggregate([
       { $match: { $or: [{ fromId: ID }, { toId: ID }] } },
       { $sort: { createdAt: -1 } },
       {
@@ -117,6 +131,7 @@ module.exports.getRecentMessages = async (req, res, next) => {
         },
       },
     ]);
+
     recentMessages = removeDuplications(ID, recentMessages);
 
     recentMessages.map((el) => {
