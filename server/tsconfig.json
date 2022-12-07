@@ -6,6 +6,6 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "target": "esnext",
-    "noImplicitAny": false
+    "outDir": "./dist"
   }
 }
