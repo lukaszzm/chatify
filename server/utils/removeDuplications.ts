@@ -1,4 +1,9 @@
-const removeDuplications = (id, array) => {
+import { IMessage } from "../interfaces/IMessage.interface";
+
+export const removeDuplications = (
+  id: string,
+  array: IMessage[]
+): IMessage[] => {
   array.map((el) => {
     if (array.includes(el)) {
       if (el.fromId.toString() === id) {
@@ -14,5 +19,3 @@ const removeDuplications = (id, array) => {
   });
   return array;
 };
-
-module.exports = removeDuplications;

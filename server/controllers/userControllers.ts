@@ -1,8 +1,17 @@
-const Users = require("../models/users");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import { Users } from "../models/users";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
+import { IUser } from "../interfaces/IUser.interface";
 
-module.exports.getUserById = async (req, res, next) => {
+const JWT_TOKEN = process.env.JWT_TOKEN as string;
+const DEFAULT_PROFILE_PATH = process.env.DEFAULT_PROFILE_PATH as string;
+
+export const getUserById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const user = await Users.find(
       { _id: req.params.id },
@@ -14,9 +23,13 @@ module.exports.getUserById = async (req, res, next) => {
   }
 };
 
-module.exports.getUserByName = async (req, res, next) => {
+export const getUserByName = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const id = req.body.id;
+    const id: string = req.body.id;
     const input = req.params.input;
 
     const users = await Users.find(
@@ -46,9 +59,13 @@ module.exports.getUserByName = async (req, res, next) => {
   }
 };
 
-module.exports.login = async (req, res, next) => {
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { email, password } = req.body;
+    const { email, password }: { email: string; password: string } = req.body;
     let fixedEmail = email.toLowerCase();
     const user = await Users.findOne({ email: fixedEmail });
 
@@ -58,7 +75,7 @@ module.exports.login = async (req, res, next) => {
         const id = user._id.toString();
         let token;
         try {
-          token = jwt.sign(id, process.env.JWT_TOKEN);
+          token = jwt.sign(id, JWT_TOKEN);
         } catch (err) {
           res.status(400).send("Something went wrong.");
         }
@@ -75,19 +92,24 @@ module.exports.login = async (req, res, next) => {
   }
 };
 
-module.exports.register = async (req, res, next) => {
+export const register = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const email = req.body.email.toLowerCase();
+    const email: string = req.body.email.toLowerCase();
     const user = await Users.findOne({ email: email });
     if (user) throw new Error("This email is already used!");
-    let profileImage = process.env.DEFAULT_PROFILE_PATH;
+    let profileImage = DEFAULT_PROFILE_PATH;
     if (req.file) profileImage = req.file.path;
 
+    const { firstName, lastName }: IUser = req.body;
     const newUser = new Users({
       email: email,
       password: bcrypt.hashSync(req.body.password, 12),
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+      firstName: firstName,
+      lastName: lastName,
       profileImage: profileImage,
     });
 
@@ -95,7 +117,7 @@ module.exports.register = async (req, res, next) => {
     const id = newUser._id.toString();
     let token;
     try {
-      token = jwt.sign(id, process.env.JWT_TOKEN);
+      token = jwt.sign(id, JWT_TOKEN);
     } catch (err) {
       return res.status(400).send("Something went wrong.");
     }
@@ -105,9 +127,13 @@ module.exports.register = async (req, res, next) => {
   }
 };
 
-module.exports.updateFirstName = async (req, res, next) => {
+export const updateFirstName = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const id = req.body.id;
+    const id: string = req.body.id;
     const newFirstName = req.params.firstName;
     await Users.findByIdAndUpdate(id, { firstName: newFirstName });
   } catch (err) {
@@ -116,9 +142,13 @@ module.exports.updateFirstName = async (req, res, next) => {
   return res.send("Success! Your first name has been updated.");
 };
 
-module.exports.updateLastName = async (req, res, next) => {
+export const updateLastName = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const id = req.body.id;
+    const id: string = req.body.id;
     const newLastName = req.params.lastName;
     await Users.findByIdAndUpdate(id, { lastName: newLastName });
   } catch (err) {
@@ -127,9 +157,17 @@ module.exports.updateLastName = async (req, res, next) => {
   return res.send("Success! Your last name has been updated.");
 };
 
-module.exports.updatePassword = async (req, res, next) => {
+export const updatePassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id, currentPassword, newPassword } = req.body;
+    const {
+      id,
+      currentPassword,
+      newPassword,
+    }: { id: string; currentPassword: string; newPassword: string } = req.body;
     const user = await Users.findOne({ _id: id });
     if (user) {
       const match = await bcrypt.compare(currentPassword, user.password);
@@ -149,10 +187,14 @@ module.exports.updatePassword = async (req, res, next) => {
   }
 };
 
-module.exports.updateProfileImage = async (req, res, next) => {
+export const updateProfileImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.body;
-    const newFilePath = req.file.path;
+    const id: string = req.body.id;
+    const newFilePath = req.file!.path;
     await Users.findByIdAndUpdate(id, { profileImage: newFilePath });
     return res.send(newFilePath);
   } catch (err) {
