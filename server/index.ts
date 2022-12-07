@@ -63,7 +63,9 @@ io.on("connection", (socket) => {
 
   socket.on("send-message", (data) => {
     const sendUserToken = global.onlineUsers.get(data.toId);
-    if (!sendUserToken) socket.to(sendUserToken).emit("receive-message", data);
+    if (sendUserToken !== undefined) {
+      socket.to(sendUserToken).emit("receive-message", data);
+    }
   });
 });
 
