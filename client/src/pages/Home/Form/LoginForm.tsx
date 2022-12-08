@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { loginSchema } from "../../../schemas/schemas";
 import AuthContext from "../../../contexts/auth-context";
 import { useContext, useState } from "react";
-import { Button } from "../../../components/UI";
+import { Alert, Button } from "../../../components/UI";
 
 export const LoginForm = () => {
   const { login } = useContext(AuthContext);
@@ -58,7 +58,7 @@ export const LoginForm = () => {
             className={styles.error}
             name="password"
           />
-          {axiosError && <p className={styles["fetch-error"]}>{axiosError}</p>}
+          {axiosError && <Alert error>{axiosError}</Alert>}
           <Button
             disabled={isSubmitting}
             className={styles.button}

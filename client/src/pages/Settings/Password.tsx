@@ -54,10 +54,10 @@ export const Password = () => {
           }
         );
         setSuccess("Success! Your password has been changed.");
-      } catch (err: unknown) {
+      } catch (err) {
         setIsNewPasswordTouched(true);
-        axios.isAxiosError(err)
-          ? setError(err.message)
+        axios.isAxiosError(err) && err.response
+          ? setError(err.response.data as string)
           : setError("Something went wrong.");
       }
     }

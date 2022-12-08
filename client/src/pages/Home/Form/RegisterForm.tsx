@@ -3,11 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { registerSchema } from "../../../schemas/schemas";
 import AuthContext from "../../../contexts/auth-context";
 import { useContext, useState } from "react";
-import { Button, ImageInput } from "../../../components/UI";
+import { Alert, Button, ImageInput } from "../../../components/UI";
 
 export const RegisterForm = () => {
   const { register } = useContext(AuthContext);
-  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [axiosError, setAxiosError] = useState<string | null>(null);
   return (
     <Formik
       initialValues={{
@@ -19,14 +19,14 @@ export const RegisterForm = () => {
       }}
       validationSchema={registerSchema}
       onSubmit={async (values) => {
-        setFetchError(null);
+        setAxiosError(null);
         try {
           await register(values);
         } catch (err) {
           const errorMessage = (err as Error).message;
           errorMessage
-            ? setFetchError(errorMessage)
-            : setFetchError("Something went wrong.");
+            ? setAxiosError(errorMessage)
+            : setAxiosError("Something went wrong.");
         }
       }}
     >
@@ -102,7 +102,7 @@ export const RegisterForm = () => {
             name="lastName"
           />
 
-          {fetchError && <p className={styles["fetch-error"]}>{fetchError}</p>}
+          {axiosError && <Alert error>{axiosError}</Alert>}
           <Button
             disabled={isSubmitting}
             className={styles.button}

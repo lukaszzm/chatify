@@ -76,9 +76,12 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
       localStorage.setItem("id", id);
       setInfo({ firstName, lastName, profileImage, _id: id });
       navigate("/");
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) throw new Error(err.message);
-      throw new Error("Something went wrong.");
+    } catch (err) {
+      const errorMessage =
+        axios.isAxiosError(err) && err.response
+          ? (err.response.data as string)
+          : "Something went wrong.";
+      throw new Error(errorMessage);
     }
   };
 
@@ -118,9 +121,12 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
         _id: id,
       });
       navigate("/");
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) throw new Error(err.message);
-      throw new Error("Something went wrong.");
+    } catch (err) {
+      const errorMessage =
+        axios.isAxiosError(err) && err.response
+          ? (err.response.data as string)
+          : "Something went wrong.";
+      throw new Error(errorMessage);
     }
   };
 
