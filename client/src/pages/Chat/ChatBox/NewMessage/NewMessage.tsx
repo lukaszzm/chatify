@@ -16,8 +16,7 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
   const { _id, info } = useContext(AuthContext);
   const { socket } = useReactQuerySubscription();
   const [input, setInput] = useState("");
-  const [error, setError] = useState("");
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(
     (message: IMessage) => newMessage(message),
@@ -29,7 +28,6 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
         if (socket) socket.emit("send-message", message);
       },
       onError: () => {
-        setIsError(true);
         setError("Something went wrong. Try again later.");
       },
     }
@@ -37,8 +35,7 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.trim() !== "") {
-      setIsError(false);
-      setError("");
+      setError(null);
     }
     setInput(e.target.value);
   };
@@ -46,13 +43,11 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
   const sendMessageHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input.trim() === "") {
-      setIsError(true);
       setError("Message cannot be empty.");
       setInput("");
       return;
     }
     if (input.length > 250) {
-      setIsError(true);
       setError("Message cannot be longer than 250 characters.");
       return;
     }
@@ -81,14 +76,14 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
 
   return (
     <div className={styles.wrapper}>
-      {isError ? <p className={styles.error}>{error}</p> : null}
+      {error ? <p className={styles.error}>{error}</p> : null}
       <form className={styles.form} onSubmit={sendMessageHandler}>
         <Input
           className={styles.input}
           onChange={changeHandler}
           placeholder="Enter you message..."
           value={input}
-          isError={isError}
+          isError={error !== null}
         />
         <Button disabled={isLoading} className={styles.button}>
           <img src={sendIcon} className={styles.icon} alt="Send Icon." />
