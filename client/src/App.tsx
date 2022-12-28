@@ -20,7 +20,7 @@ import { Appearance } from "./pages/Settings/Appearance";
 import { Notes } from "./pages/Notes";
 import { NoteInfo } from "./pages/Notes/NoteInfo";
 
-const App = () => {
+export const App = () => {
   const { isLoggedIn } = useContext(AuthContext);
   return (
     <Routes>
@@ -51,5 +51,3 @@ const App = () => {
     </Routes>
   );
 };
-
-export default App;

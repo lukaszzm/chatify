@@ -1,15 +1,14 @@
 import { useContext, useState } from "react";
-import axios from "axios";
 import AuthContext from "../../contexts/auth-context";
-import { Button, Alert, ImageInput} from "../../components/UI";
+import { Button, Alert, ImageInput } from "../../components/UI";
+import { updateProfileImage } from "../../api/authApi";
 
 interface IChangeImageProps {
-  defaultImage: string,
-  url: string,
+  defaultImage: string;
 }
 
-export const ChangeImage: React.FC<IChangeImageProps> = ({ defaultImage, url }) => {
-  const { token, setUserInfo, _id, info } = useContext(AuthContext);
+export const ChangeImage: React.FC<IChangeImageProps> = ({ defaultImage }) => {
+  const { setUserInfo, _id, info } = useContext(AuthContext);
   const [isTouched, setIsTouched] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -24,20 +23,14 @@ export const ChangeImage: React.FC<IChangeImageProps> = ({ defaultImage, url }) 
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!_id || !selectedImage || !info ) return;
+    if (!_id || !selectedImage || !info) return;
     try {
-
       setIsTouched(false);
-      const formData = new FormData();
-      formData.append("id", _id);
-      formData.append("profileImage", selectedImage);
-      const request = await axios.patch(`${url}/update-profile-image/`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const newImage = await updateProfileImage(_id, selectedImage);
       const newInfo = {
         ...info,
-        profileImage: request.data
-      }
+        profileImage: newImage,
+      };
       setUserInfo(newInfo);
       setSuccess("Success! Your profile image has been changed.");
     } catch (err) {

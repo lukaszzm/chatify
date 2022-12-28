@@ -1,12 +1,11 @@
 import styles from "./SearchBar.module.css";
-import { useContext, useEffect, useState, useRef } from "react";
-import AuthContext from "../../../../contexts/auth-context";
-import axios from "axios";
+import { useEffect, useState, useRef } from "react";
 import { SearchedUser } from "../SearchedUser";
 import searchIcon from "../../../../assets/icons/search.svg";
 import { Input, LoadingSpinner } from "../../../../components/UI";
 import { useDebounce } from "../../../../hooks/useDebounce";
 import { IUser } from "../../../../interfaces/User.interface";
+import { searchUsers } from "../../../../api/authApi";
 
 export const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -15,7 +14,6 @@ export const SearchBar = () => {
   const [isError, setIsError] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
   const [result, setResult] = useState<IUser[]>([]);
-  const { token } = useContext(AuthContext);
   const debouncedValue = useDebounce(inputValue, 300);
 
   const changeHandler = () => {
@@ -32,16 +30,10 @@ export const SearchBar = () => {
   };
 
   useEffect(() => {
-    const searchUsers = async (input: string) => {
+    const searchUsersHandler = async (input: string) => {
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/auth/user-by-name/${input}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        const users = response.data;
+        const users = await searchUsers(input);
         users.length > 2 ? setResult(users.slice(0, 2)) : setResult(users);
       } catch {
         setIsError(true);
@@ -50,8 +42,8 @@ export const SearchBar = () => {
       }
     };
 
-    if (debouncedValue.trim() !== "") searchUsers(debouncedValue);
-  }, [debouncedValue, token]);
+    if (debouncedValue.trim() !== "") searchUsersHandler(debouncedValue);
+  }, [debouncedValue]);
 
   return (
     <>

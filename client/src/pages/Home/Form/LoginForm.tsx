@@ -8,6 +8,22 @@ import { Alert, Button } from "../../../components/UI";
 export const LoginForm = () => {
   const { login } = useContext(AuthContext);
   const [axiosError, setAxiosError] = useState<string | null>(null);
+
+  const handleFormSubmit = async (values: {
+    email: string;
+    password: string;
+  }) => {
+    setAxiosError(null);
+    try {
+      await login(values);
+    } catch (err) {
+      const errorMessage = (err as Error).message;
+      errorMessage
+        ? setAxiosError(errorMessage)
+        : setAxiosError("Something went wrong.");
+    }
+  };
+
   return (
     <Formik
       initialValues={{
@@ -16,15 +32,7 @@ export const LoginForm = () => {
       }}
       validationSchema={loginSchema}
       onSubmit={async (values) => {
-        setAxiosError(null);
-        try {
-          await login(values);
-        } catch (err) {
-          const errorMessage = (err as Error).message;
-          errorMessage
-            ? setAxiosError(errorMessage)
-            : setAxiosError("Something went wrong.");
-        }
+        await handleFormSubmit(values);
       }}
     >
       {({ errors, touched, isSubmitting }) => (

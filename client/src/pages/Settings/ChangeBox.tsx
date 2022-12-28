@@ -1,20 +1,18 @@
 import { useContext, useState } from "react";
-import axios from "axios";
 import AuthContext from "../../contexts/auth-context";
 import { Alert, Input, Button, Label } from "../../components/UI";
+import { updateName } from "../../api/authApi";
 
 interface IChangeBoxProps {
   initialValue: string;
   value: string;
-  url: string;
 }
 
 export const ChangeBox: React.FC<IChangeBoxProps> = ({
   initialValue,
   value,
-  url,
 }) => {
-  const { token, setUserInfo, info } = useContext(AuthContext);
+  const { setUserInfo, info } = useContext(AuthContext);
   const [isTouched, setIsTouched] = useState(false);
   const [inputValue, setInputValue] = useState(initialValue);
   const [error, setError] = useState<string | null>(null);
@@ -34,23 +32,24 @@ export const ChangeBox: React.FC<IChangeBoxProps> = ({
     if (fixedValue !== "") {
       if (!info) return;
       try {
-        await axios.patch(`${url}/${fixedValue}`, null, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (value === "First name")
+        if (value === "First name") {
+          await updateName("first", fixedValue);
           setUserInfo({
             firstName: fixedValue,
             lastName: info.lastName,
             profileImage: info.profileImage,
             _id: info._id,
           });
-        if (value === "Last name")
+        }
+        if (value === "Last name") {
+          await updateName("last", fixedValue);
           setUserInfo({
             firstName: info.firstName,
             lastName: fixedValue,
             profileImage: info.profileImage,
             _id: info._id,
           });
+        }
         setSuccess(`Success. Your ${value.toLowerCase()} was changed.`);
       } catch (err) {
         setError("Something went wrong. Try again.");

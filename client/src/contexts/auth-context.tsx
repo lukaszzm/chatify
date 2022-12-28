@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IUser } from "../interfaces/User.interface";
-
-const URL = `${process.env.REACT_APP_API_URL}/auth`;
+import { axiosConfig } from "../service/axiosConfig";
+import axios from "axios";
 
 interface Credentials {
   email: string;
@@ -22,7 +21,6 @@ interface AuthContextProviderProps {
 
 interface AuthContextInterface {
   isLoggedIn: boolean;
-  token: string | null;
   _id: string | null;
   info: IUser | null;
   setUserInfo: (user: IUser) => void;
@@ -39,7 +37,6 @@ interface AuthContextInterface {
 
 const AuthContext = React.createContext<AuthContextInterface>({
   isLoggedIn: false,
-  token: null,
   _id: null,
   info: null,
   setUserInfo: () => {
@@ -59,7 +56,6 @@ const AuthContext = React.createContext<AuthContextInterface>({
 export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
   children,
 }) => {
-  const [token, setToken] = useState<string | null>(null);
   const [id, setId] = useState<string | null>(null);
   const [info, setInfo] = useState<IUser | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -67,9 +63,11 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
 
   const login = async ({ email, password }: Credentials) => {
     try {
-      const response = await axios.post(`${URL}/login`, { email, password });
+      const response = await axiosConfig.post("/auth/login", {
+        email,
+        password,
+      });
       const { id, token, firstName, lastName, profileImage } = response.data;
-      setToken(token);
       setId(id);
       setIsLoggedIn(true);
       localStorage.setItem("token", token);
@@ -86,7 +84,6 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
   };
 
   const logout = () => {
-    setToken(null);
     setId(null);
     setIsLoggedIn(false);
     localStorage.removeItem("token");
@@ -107,9 +104,8 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
       if (profileImage) formData.append("profileImage", profileImage);
-      const response = await axios.post(`${URL}/register`, formData);
+      const response = await axiosConfig.post("auth/register", formData);
       const { id, token, profileImage: currentProfileImage } = response.data;
-      setToken(token);
       setId(id);
       setIsLoggedIn(true);
       localStorage.setItem("token", token);
@@ -131,25 +127,23 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
   };
 
   useEffect(() => {
-    const getUser = async (token: string, id: string) => {
+    const getUser = async (id: string) => {
       try {
-        const result = await axios.get(`/auth/user-by-id/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const result = await axiosConfig.get(`/auth/user-by-id/${id}`);
         const [user] = result.data;
         setInfo(user);
-        setToken(token);
         setId(id);
         setIsLoggedIn(true);
       } catch (err) {
         navigate("/");
       }
     };
+
     const localToken = localStorage.getItem("token");
     const localId = localStorage.getItem("id");
 
-    if (localToken !== null && localId !== null) getUser(localToken, localId);
-  }, [token, navigate]);
+    if (localToken !== null && localId !== null) getUser(localId);
+  }, [navigate]);
 
   const setUserInfo = (user: IUser) => {
     setInfo(user);
@@ -157,7 +151,6 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
 
   const authValue = {
     isLoggedIn,
-    token,
     _id: id,
     info,
     setUserInfo,

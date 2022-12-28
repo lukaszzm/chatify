@@ -1,6 +1,5 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
-import AuthContext from "../../contexts/auth-context";
 import {
   Topbar,
   Input,
@@ -9,11 +8,9 @@ import {
   Label,
   SettingsContainer,
 } from "../../components/UI";
-
-const URL = `${process.env.REACT_APP_API_URL}/auth/update-password`;
+import { updatePassword } from "../../api/authApi";
 
 export const Password = () => {
-  const { token } = useContext(AuthContext);
   const [isCurrentPasswordTouched, setIsCurrentPasswordTouched] =
     useState(false);
   const [isNewPasswordTouched, setIsNewPasswordTouched] = useState(false);
@@ -36,30 +33,26 @@ export const Password = () => {
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const currentPassword = currentPasswordRef.current!.value;
     const newPassword = newPasswordRef.current!.value;
+
     if (newPassword.length < 8) {
       setError("Your new password must be at least 8 characters long.");
       setIsNewPasswordTouched(false);
       return;
-    } else {
-      try {
-        setIsCurrentPasswordTouched(false);
-        setIsNewPasswordTouched(false);
-        await axios.patch(
-          URL,
-          { currentPassword: currentPassword, newPassword: newPassword },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setSuccess("Success! Your password has been changed.");
-      } catch (err) {
-        setIsNewPasswordTouched(true);
-        axios.isAxiosError(err) && err.response
-          ? setError(err.response.data as string)
-          : setError("Something went wrong.");
-      }
+    }
+
+    try {
+      setIsCurrentPasswordTouched(false);
+      setIsNewPasswordTouched(false);
+      await updatePassword(currentPassword, newPassword);
+      setSuccess("Success! Your password has been changed.");
+    } catch (err) {
+      setIsNewPasswordTouched(true);
+      axios.isAxiosError(err) && err.response
+        ? setError(err.response.data as string)
+        : setError("Something went wrong.");
     }
   };
   return (
