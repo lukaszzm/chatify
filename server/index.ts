@@ -5,7 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import path from "path";
 import fs from "fs";
-import { messagesRouter, authRouter, notesRouter } from "./routes";
+import { messagesRouter, authRouter, notesRouter, usersRouter } from "./routes";
 import { IMessage } from "./interfaces/IMessage.interface";
 
 const port = process.env.PORT || 8000;
@@ -31,6 +31,7 @@ mongoose
 app.use("/uploads/images", express.static(path.join("uploads", "images")));
 
 app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/messages", messagesRouter);
 app.use("/api/notes", notesRouter);
 

@@ -129,7 +129,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
   useEffect(() => {
     const getUser = async (id: string) => {
       try {
-        const result = await axiosConfig.get(`/auth/user-by-id/${id}`);
+        const result = await axiosConfig.get(`/users/id/${id}`);
         const [user] = result.data;
         setInfo(user);
         setId(id);
