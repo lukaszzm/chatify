@@ -49,7 +49,7 @@ export const addNote = async (
       createdAt: createdAt,
     });
     newNote.save();
-    res.send(newNote);
+    res.status(201).send(newNote);
   } catch (err) {
     next(err);
   }

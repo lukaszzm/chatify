@@ -69,24 +69,23 @@ export const login = async (
     let fixedEmail = email.toLowerCase();
     const user = await Users.findOne({ email: fixedEmail });
 
-    if (user) {
-      const match = await bcrypt.compare(password, user.password);
-      if (match) {
-        const id = user._id.toString();
-        let token;
-        try {
-          token = jwt.sign(id, JWT_TOKEN);
-        } catch (err) {
-          res.status(400).send("Something went wrong.");
-        }
-        const { firstName, lastName, profileImage } = user;
-        res.send({ id, token, firstName, lastName, profileImage });
-      } else {
-        res.status(400).send("Your password is incorrect.");
-      }
-    } else {
-      res.status(400).send("Your mail is incorrect.");
+    if (!user) return res.status(400).send("Your mail is incorrect.");
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) return res.status(400).send("Your password is incorrect.");
+
+    const id = user._id.toString();
+
+    let token;
+    try {
+      token = jwt.sign(id, JWT_TOKEN);
+    } catch (err) {
+      res.status(400).send("Something went wrong.");
     }
+
+    const { firstName, lastName, profileImage } = user;
+    res.send({ id, token, firstName, lastName, profileImage });
   } catch (err) {
     next(err);
   }
@@ -100,11 +99,13 @@ export const register = async (
   try {
     const email: string = req.body.email.toLowerCase();
     const user = await Users.findOne({ email: email });
+
     if (user) throw new Error("This email is already used!");
-    let profileImage = DEFAULT_PROFILE_PATH;
-    if (req.file) profileImage = req.file.path;
+
+    const profileImage = req.file ? req.file.path : DEFAULT_PROFILE_PATH;
 
     const { firstName, lastName }: IUser = req.body;
+
     const newUser = new Users({
       email: email,
       password: bcrypt.hashSync(req.body.password, 12),
@@ -115,12 +116,14 @@ export const register = async (
 
     newUser.save();
     const id = newUser._id.toString();
-    let token;
+
+    let token: string;
     try {
       token = jwt.sign(id, JWT_TOKEN);
     } catch (err) {
       return res.status(400).send("Something went wrong.");
     }
+
     return res.send({ id, token, firstName, lastName, profileImage });
   } catch (err) {
     next(err);
@@ -139,7 +142,7 @@ export const updateFirstName = async (
   } catch (err) {
     next(err);
   }
-  return res.send("Success! Your first name has been updated.");
+  return res.status(204);
 };
 
 export const updateLastName = async (
@@ -154,7 +157,7 @@ export const updateLastName = async (
   } catch (err) {
     next(err);
   }
-  return res.send("Success! Your last name has been updated.");
+  return res.status(204);
 };
 
 export const updatePassword = async (
@@ -175,7 +178,7 @@ export const updatePassword = async (
         await Users.findByIdAndUpdate(id, {
           password: bcrypt.hashSync(newPassword, 12),
         });
-        return res.send("Succesfull. Your password has been changed.");
+        return res.status(204);
       } else {
         return res.status(400).send("Your password is incorrect.");
       }

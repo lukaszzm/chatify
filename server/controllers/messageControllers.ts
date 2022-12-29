@@ -56,7 +56,7 @@ export const sendMessage = async (
       createdAt: Date.now(),
     });
 
-    if (data) return res.json(data);
+    if (data) return res.status(201).json(data);
   } catch (err) {
     next(err);
   }
