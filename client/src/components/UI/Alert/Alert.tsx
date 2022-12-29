@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "./Alert.module.css";
 
 interface AlertProps {
@@ -6,12 +7,13 @@ interface AlertProps {
 }
 
 export const Alert: React.FC<AlertProps> = ({ children, error }) => {
-  const classes = error
-    ? `${styles.alert} ${styles.error}`
-    : `${styles.alert} ${styles.success}`;
-
   return (
-    <div className={classes}>
+    <div
+      className={clsx(
+        `${styles.alert}`,
+        error ? `${styles.error}` : `${styles.success}`
+      )}
+    >
       <p>{children}</p>
     </div>
   );

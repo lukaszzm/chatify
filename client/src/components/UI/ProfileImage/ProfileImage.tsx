@@ -1,25 +1,27 @@
+import clsx from "clsx";
 import styles from "./ProfileImage.module.css";
 
 interface ProfileImageProps {
   src: string;
   className?: string;
-  size?: string;
+  large?: boolean;
   localFile?: boolean;
 }
 
 export const ProfileImage: React.FC<ProfileImageProps> = ({
   src,
   className,
-  size,
+  large,
   localFile,
 }) => {
-  const classes =
-    size === "large"
-      ? `${styles["image-container"]} ${styles.large} ${className}`
-      : `${styles["image-container"]} ${className}`;
-
   return (
-    <div className={classes}>
+    <div
+      className={clsx(
+        `${styles["image-container"]}`,
+        `${className}`,
+        large && `${styles.large}`
+      )}
+    >
       <img
         src={
           localFile

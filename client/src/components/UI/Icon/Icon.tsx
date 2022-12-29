@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "./Icon.module.css";
 
 interface IconProps {
@@ -12,9 +13,15 @@ export const Icon: React.FC<IconProps> = ({
   alt,
   noColor,
 }) => {
-  const classes = noColor
-    ? `${styles["no-color"]} ${styles.icon} ${className}`
-    : `${styles.icon} ${className}`;
-
-  return <img className={classes} src={icon} alt={alt} />;
+  return (
+    <img
+      className={clsx(
+        `${styles.icon}`,
+        `${className}`,
+        noColor && `${styles["no-color"]}`
+      )}
+      src={icon}
+      alt={alt}
+    />
+  );
 };

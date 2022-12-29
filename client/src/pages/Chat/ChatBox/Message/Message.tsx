@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import formatTime from "../../../../utils/format-time";
 import styles from "./Message.module.css";
 
@@ -13,14 +14,16 @@ export const Message: React.FC<MessageProps> = ({
   isMine,
   text,
 }) => {
-  const classes = isMine
-    ? `${styles.container} ${styles.mine}`
-    : `${styles.container} ${styles["not-mine"]}`;
-
   const formattedTime = formatTime(createdAt);
 
   return (
-    <div data-time={formattedTime} className={classes}>
+    <div
+      data-time={formattedTime}
+      className={clsx(
+        `${styles.container}`,
+        isMine ? `${styles.mine}` : `${styles["not-mine"]}`
+      )}
+    >
       <p className={styles.text}>{text}</p>
     </div>
   );

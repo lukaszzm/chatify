@@ -1,4 +1,5 @@
 import styles from "./Button.module.css";
+import clsx from "clsx";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -21,15 +22,15 @@ export const Button: React.FC<ButtonProps> = ({
   maxWidth,
   form,
 }) => {
-  const classes = outline
-    ? `${styles.button} ${styles.outline} ${className}`
-    : `${styles.button} ${className}`;
-
   return (
     <button
       disabled={disabled}
       onClick={onClick}
-      className={classes}
+      className={clsx(
+        `${styles.button}`,
+        `${className}`,
+        outline && `${styles.outline}`
+      )}
       type={type || "submit"}
       style={{ maxWidth: maxWidth }}
       form={form}

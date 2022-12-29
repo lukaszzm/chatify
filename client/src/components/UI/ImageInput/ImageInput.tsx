@@ -26,17 +26,13 @@ export const ImageInput: React.FC<ImageInputProps> = ({
       {selectedImage && (
         <ProfileImage
           localFile
-          size="large"
+          large
           className={styles.preview}
           src={URL.createObjectURL(selectedImage)}
         />
       )}
       {defaultImage && !selectedImage && (
-        <ProfileImage
-          size="large"
-          className={styles.preview}
-          src={defaultImage}
-        />
+        <ProfileImage large className={styles.preview} src={defaultImage} />
       )}
       <input
         type="file"

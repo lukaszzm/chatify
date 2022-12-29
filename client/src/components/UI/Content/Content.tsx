@@ -1,14 +1,16 @@
+import clsx from "clsx";
 import styles from "./Content.module.css";
 
 interface IContentProps {
   children: React.ReactNode;
-  position?: string;
+  onLeft?: boolean;
 }
-export const Content: React.FC<IContentProps> = ({ children, position }) => {
-  const classes =
-    position === "left"
-      ? `${styles.container} ${styles.left}`
-      : `${styles.container}`;
-
-  return <section className={classes}>{children}</section>;
+export const Content: React.FC<IContentProps> = ({ children, onLeft }) => {
+  return (
+    <section
+      className={clsx(`${styles.container}`, onLeft && `${styles.left}`)}
+    >
+      {children}
+    </section>
+  );
 };

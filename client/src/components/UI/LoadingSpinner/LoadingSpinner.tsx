@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "./LoadingSpinner.module.css";
 
 interface LoadingSpinnerProps {
@@ -5,12 +6,8 @@ interface LoadingSpinnerProps {
 }
 
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ center }) => {
-  const classes = center
-    ? `${styles.spinner} ${styles.centered}`
-    : `${styles.spinner}`;
-
   return (
-    <div className={classes}>
+    <div className={clsx(`${styles.spinner}`, center && `${styles.centered}`)}>
       <div></div>
       <div></div>
       <div></div>

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "./Card.module.css";
 
 interface CardProps {
@@ -11,9 +12,15 @@ export const Card: React.FC<CardProps> = ({
   isActive,
   className,
 }) => {
-  const classes = isActive
-    ? `${styles.wrapper} ${className} ${styles.active}`
-    : `${styles.wrapper} ${className}`;
-
-  return <div className={classes}>{children}</div>;
+  return (
+    <div
+      className={clsx(
+        `${styles.wrapper}`,
+        `${className}`,
+        isActive && `${styles.isActive}`
+      )}
+    >
+      {children}
+    </div>
+  );
 };
