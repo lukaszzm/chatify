@@ -11,7 +11,7 @@ import { auth } from "../middleware/auth";
 export const notesRouter = express.Router();
 
 notesRouter.use(auth);
-notesRouter.post("/add-note/", addNote);
-notesRouter.delete("/delete-note/:id", deleteNote);
-notesRouter.get("/get-all-notes/", getAllNotes);
-notesRouter.get("/get-note/:id", getNote);
+notesRouter.post("/notes/", addNote);
+notesRouter.delete("/notes/:id", deleteNote);
+notesRouter.get("/notes/", getAllNotes);
+notesRouter.get("/notes/:id", getNote);

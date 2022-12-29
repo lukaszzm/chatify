@@ -19,13 +19,13 @@ authRouter.post("/login/", login);
 authRouter.post("/register/", fileUpload.single("profileImage"), register);
 
 authRouter.use(auth);
-authRouter.get("/user-by-id/:id", getUserById);
-authRouter.get("/user-by-name/:input", getUserByName);
-authRouter.patch("/update-first-name/:firstName", updateFirstName);
-authRouter.patch("/update-last-name/:lastName", updateLastName);
-authRouter.patch("/update-password", updatePassword);
+authRouter.get("/users/id/:id", getUserById);
+authRouter.get("/users/name/:input", getUserByName);
+authRouter.patch("/users/first-name/:firstName", updateFirstName);
+authRouter.patch("/users/last-name/:lastName", updateLastName);
+authRouter.patch("/users/password", updatePassword);
 authRouter.patch(
-  "/update-profile-image",
+  "/users/profile-image/",
   fileUpload.single("profileImage"),
   updateProfileImage
 );
