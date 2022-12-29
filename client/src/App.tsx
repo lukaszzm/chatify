@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import AuthContext from "./contexts/auth-context";
 import { Layout } from "./layout";
 
 import { Chat } from "./pages/Chat";
@@ -19,14 +17,19 @@ import { Appearance } from "./pages/Settings/Appearance";
 
 import { Notes } from "./pages/Notes";
 import { NoteInfo } from "./pages/Notes/NoteInfo";
+import { useAuth } from "./hooks/useAuth";
+import { LoadingSpinner } from "./components/UI";
 
 export const App = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { authData, isLoading } = useAuth();
+
+  if (isLoading) return <LoadingSpinner />;
+
   return (
     <Routes>
       <Route
         path="/dashboard"
-        element={isLoggedIn ? <Layout /> : <Navigate to="/" />}
+        element={authData ? <Layout /> : <Navigate to="/" />}
       >
         <Route path="chat" element={<Chat />}>
           <Route path=":ID" element={<ChatBox />} />
@@ -42,7 +45,7 @@ export const App = () => {
       </Route>
       <Route
         path="/"
-        element={isLoggedIn ? <Navigate to="dashboard/chat" /> : <Home />}
+        element={authData ? <Navigate to="dashboard/chat" /> : <Home />}
       >
         <Route path="register" element={<Form />} />
         <Route path="" element={<Form isLogin />} />

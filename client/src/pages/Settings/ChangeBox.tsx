@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
-import AuthContext from "../../contexts/auth-context";
+import { useState } from "react";
 import { Alert, Input, Button, Label } from "../../components/UI";
-import { updateName } from "../../api/authApi";
+import { updateName } from "../../api/usersApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface IChangeBoxProps {
   initialValue: string;
@@ -12,7 +12,7 @@ export const ChangeBox: React.FC<IChangeBoxProps> = ({
   initialValue,
   value,
 }) => {
-  const { setUserInfo, info } = useContext(AuthContext);
+  const queryClient = useQueryClient();
   const [isTouched, setIsTouched] = useState(false);
   const [inputValue, setInputValue] = useState(initialValue);
   const [error, setError] = useState<string | null>(null);
@@ -30,26 +30,10 @@ export const ChangeBox: React.FC<IChangeBoxProps> = ({
     setIsTouched(false);
     const fixedValue = inputValue.trim();
     if (fixedValue !== "") {
-      if (!info) return;
       try {
-        if (value === "First name") {
-          await updateName("first", fixedValue);
-          setUserInfo({
-            firstName: fixedValue,
-            lastName: info.lastName,
-            profileImage: info.profileImage,
-            _id: info._id,
-          });
-        }
-        if (value === "Last name") {
-          await updateName("last", fixedValue);
-          setUserInfo({
-            firstName: info.firstName,
-            lastName: fixedValue,
-            profileImage: info.profileImage,
-            _id: info._id,
-          });
-        }
+        if (value === "First name") await updateName("first", fixedValue);
+        if (value === "Last name") await updateName("last", fixedValue);
+        queryClient.invalidateQueries(["auth"]);
         setSuccess(`Success. Your ${value.toLowerCase()} was changed.`);
       } catch (err) {
         setError("Something went wrong. Try again.");

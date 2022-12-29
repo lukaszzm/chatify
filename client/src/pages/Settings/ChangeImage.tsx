@@ -1,14 +1,16 @@
-import { useContext, useState } from "react";
-import AuthContext from "../../contexts/auth-context";
+import { useState } from "react";
 import { Button, Alert, ImageInput } from "../../components/UI";
-import { updateProfileImage } from "../../api/authApi";
+import { updateProfileImage } from "../../api/usersApi";
+import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "../../hooks/useAuth";
 
 interface IChangeImageProps {
   defaultImage: string;
 }
 
 export const ChangeImage: React.FC<IChangeImageProps> = ({ defaultImage }) => {
-  const { setUserInfo, _id, info } = useContext(AuthContext);
+  const queryClient = useQueryClient();
+  const { authData } = useAuth();
   const [isTouched, setIsTouched] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -23,15 +25,11 @@ export const ChangeImage: React.FC<IChangeImageProps> = ({ defaultImage }) => {
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!_id || !selectedImage || !info) return;
+    if (!authData || !selectedImage) return;
     try {
       setIsTouched(false);
-      const newImage = await updateProfileImage(_id, selectedImage);
-      const newInfo = {
-        ...info,
-        profileImage: newImage,
-      };
-      setUserInfo(newInfo);
+      await updateProfileImage(authData._id, selectedImage);
+      queryClient.invalidateQueries(["auth"]);
       setSuccess("Success! Your profile image has been changed.");
     } catch (err) {
       setError("Something went wrong.");

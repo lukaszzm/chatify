@@ -1,12 +1,14 @@
 import styles from "./LoginForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { loginSchema } from "../../../schemas/schemas";
-import AuthContext from "../../../contexts/auth-context";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Alert, Button } from "../../../components/UI";
+import { useAuth } from "../../../hooks/useAuth";
+import axios from "axios";
 
+// TODO: lepsze zarządzanie błędami
 export const LoginForm = () => {
-  const { login } = useContext(AuthContext);
+  const { loginMutation } = useAuth();
   const [axiosError, setAxiosError] = useState<string | null>(null);
 
   const handleFormSubmit = async (values: {
@@ -15,12 +17,13 @@ export const LoginForm = () => {
   }) => {
     setAxiosError(null);
     try {
-      await login(values);
+      await loginMutation.mutateAsync(values);
     } catch (err) {
-      const errorMessage = (err as Error).message;
-      errorMessage
-        ? setAxiosError(errorMessage)
-        : setAxiosError("Something went wrong.");
+      const errorMessage =
+        axios.isAxiosError(err) && err.response && err.response.data
+          ? (err.response.data as string)
+          : "Something went wrong.";
+      setAxiosError(errorMessage);
     }
   };
 

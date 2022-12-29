@@ -1,17 +1,17 @@
 import styles from "./Messages.module.css";
-import React, { useEffect, useContext, useRef } from "react";
-import AuthContext from "../../../../contexts/auth-context";
+import React, { useEffect, useRef } from "react";
 import { Message } from "../Message";
 import { LoadingSpinner } from "../../../../components/UI";
 import { useMessages } from "../../../../hooks/useMessages";
 import { scrollToEnd } from "../../../../utils/scroll-to-end";
+import { useAuth } from "../../../../hooks/useAuth";
 
 interface IMessagesProps {
   chatID: string;
 }
 
 export const Messages: React.FC<IMessagesProps> = ({ chatID }) => {
-  const { _id } = useContext(AuthContext);
+  const { authData } = useAuth();
   const messagesEnd = useRef<HTMLDivElement>(null);
   const { data, isLoading, isError } = useMessages(chatID);
 
@@ -33,7 +33,7 @@ export const Messages: React.FC<IMessagesProps> = ({ chatID }) => {
             <Message
               key={index}
               text={text}
-              isMine={fromId === _id}
+              isMine={fromId === authData?._id}
               createdAt={createdAt}
             />
           ))

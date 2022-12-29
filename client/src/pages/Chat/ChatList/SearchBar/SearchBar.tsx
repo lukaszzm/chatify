@@ -5,7 +5,7 @@ import searchIcon from "../../../../assets/icons/search.svg";
 import { Input, LoadingSpinner } from "../../../../components/UI";
 import { useDebounce } from "../../../../hooks/useDebounce";
 import { IUser } from "../../../../interfaces/User.interface";
-import { searchUsers } from "../../../../api/authApi";
+import { searchUsers } from "../../../../api/usersApi";
 
 export const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);

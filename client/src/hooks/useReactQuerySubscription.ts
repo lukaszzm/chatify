@@ -1,21 +1,21 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
-import AuthContext from "../contexts/auth-context";
 import { IMessage } from "../interfaces/Message.interface";
+import { useAuth } from "./useAuth";
 
 const SOCKET_URL = process.env.REACT_APP_URL as string;
 
 export const useReactQuerySubscription = () => {
   const [socket, setSocket] = useState<Socket>();
-  const { _id } = useContext(AuthContext);
+  const { authData } = useAuth();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     const socket = io(SOCKET_URL, {});
 
-    if (socket) {
-      socket.emit("add-user", _id);
+    if (socket && authData) {
+      socket.emit("add-user", authData._id);
       setSocket(socket);
     }
 
@@ -36,7 +36,7 @@ export const useReactQuerySubscription = () => {
     return () => {
       socket.close();
     };
-  }, [_id, queryClient, setSocket]);
+  }, [authData, queryClient, setSocket]);
 
   return { socket };
 };

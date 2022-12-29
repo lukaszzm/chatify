@@ -1,19 +1,19 @@
 import styles from "./NewMessage.module.css";
-import { useContext, useState } from "react";
-import AuthContext from "../../../../contexts/auth-context";
+import { useState } from "react";
 import sendIcon from "../../../../assets/icons/send.svg";
 import { Input, Button } from "../../../../components/UI";
 import { useReactQuerySubscription } from "../../../../hooks/useReactQuerySubscription";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { newMessage } from "../../../../api";
 import { IMessage } from "../../../../interfaces/Message.interface";
+import { useAuth } from "../../../../hooks/useAuth";
 
 interface NewMessageProps {
   chatID: string;
 }
 
 export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
-  const { _id, info } = useContext(AuthContext);
+  const { authData } = useAuth();
   const { socket } = useReactQuerySubscription();
   const [input, setInput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -50,20 +50,20 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
       return;
     }
 
-    if (!_id) return;
+    if (!authData) return;
 
     const message = {
-      _id: `${_id}${chatID}`,
+      _id: `${authData._id}${chatID}`,
       text: input,
-      fromId: _id,
+      fromId: authData._id,
       toId: chatID,
       createdAt: Date.now().toString(),
       userInfo: [
         {
-          _id: _id,
-          firstName: info!.firstName,
-          lastName: info!.lastName,
-          profileImage: info!.profileImage,
+          _id: authData._id,
+          firstName: authData.firstName,
+          lastName: authData.lastName,
+          profileImage: authData.profileImage,
         },
       ],
     };

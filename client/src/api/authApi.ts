@@ -1,33 +1,43 @@
 import { axiosConfig } from "../service/axiosConfig";
+import { getUserInfo } from "./chatApi";
+import {
+  Credentials,
+  RegisterCredentials,
+} from "../interfaces/Credentials.interface";
 
-export const searchUsers = async (input: string) => {
-  const response = await axiosConfig.get(`users/name/${input}`);
-  return response.data;
-};
-
-export const updatePassword = async (
-  currentPassword: string,
-  newPassword: string
-) => {
-  const response = await axiosConfig.patch("users/password", {
-    currentPassword,
-    newPassword,
+export const login = async ({ email, password }: Credentials) => {
+  const response = await axiosConfig.post("/auth/login", {
+    email,
+    password,
   });
   return response.data;
 };
 
-export const updateProfileImage = async (_id: string, image: File) => {
+export const register = async ({
+  email,
+  password,
+  firstName,
+  lastName,
+  profileImage,
+}: RegisterCredentials) => {
   const formData = new FormData();
-  formData.append("id", _id);
-  formData.append("profileImage", image);
-  const request = await axiosConfig.patch("users/profile-image/", formData);
-  return request.data;
+  formData.append("email", email);
+  formData.append("password", password);
+  formData.append("firstName", firstName);
+  formData.append("lastName", lastName);
+  if (profileImage) formData.append("profileImage", profileImage);
+
+  const response = await axiosConfig.post("auth/register", formData);
+  return response.data;
 };
 
-export const updateName = async (type: "first" | "last", value: string) => {
-  const response =
-    type == "first"
-      ? await axiosConfig.patch(`users/first-name/${value}`)
-      : await axiosConfig.patch(`users/last-name/${value}`);
-  return response.data;
+export const getLoggedInUser = async () => {
+  const localToken = localStorage.getItem("token");
+  const localId = localStorage.getItem("id");
+  if (localToken !== null && localId !== null) {
+    const response = await getUserInfo(localId);
+    return response[0];
+  } else {
+    return null;
+  }
 };

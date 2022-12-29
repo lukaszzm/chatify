@@ -1,7 +1,5 @@
 import styles from "./Navigation.module.css";
-import { useContext } from "react";
 import { useMatch } from "react-router-dom";
-import AuthContext from "../../contexts/auth-context";
 import logoIcon from "../../assets/logo.svg";
 import chatIcon from "../../assets/icons/chat.svg";
 import listIcon from "../../assets/icons/list.svg";
@@ -13,13 +11,15 @@ import { useModal } from "../../hooks/useModal";
 import { ProfileImage, Modal } from "../../components/UI";
 import { NavigationLink } from "./NavigationLink";
 import { NavigationButton } from "./NavigationButton";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Navigation = () => {
-  const { logout, info } = useContext(AuthContext);
   const isFirstNested = useMatch("dashboard/:id");
   const isMobile = useMediaQuery({ query: "(max-width:768px)" });
   const { isModalOpen, openModal, closeModal } = useModal();
+  const { authData, logout } = useAuth();
 
+  console.log(authData);
 
   return (
     <nav
@@ -39,10 +39,10 @@ export const Navigation = () => {
         />
       </div>
       <div className={styles.changers}>
-        {info ? (
+        {authData ? (
           <ProfileImage
             className={styles["profile-image"]}
-            src={info.profileImage}
+            src={authData.profileImage}
           />
         ) : null}
         <NavigationButton
@@ -52,7 +52,7 @@ export const Navigation = () => {
           isMobile={false}
         />
       </div>
-      {isModalOpen && 
+      {isModalOpen &&
         ReactDOM.createPortal(
           <Modal closeModal={closeModal} title="log out" onConfirm={logout}>
             <p>Are you sure are you want to log out</p>

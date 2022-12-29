@@ -8,7 +8,7 @@ import {
   Label,
   SettingsContainer,
 } from "../../components/UI";
-import { updatePassword } from "../../api/authApi";
+import { updatePassword } from "../../api/usersApi";
 
 export const Password = () => {
   const [isCurrentPasswordTouched, setIsCurrentPasswordTouched] =

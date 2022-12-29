@@ -1,14 +1,13 @@
-import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { RecentMessage } from "../RecentMessage";
-import AuthContext from "../../../../contexts/auth-context";
 import { Container, LoadingSpinner } from "../../../../components/UI";
 import { useQuery } from "@tanstack/react-query";
 import { getRecentMessages } from "../../../../api";
 import { IMessage } from "../../../../interfaces/Message.interface";
+import { useAuth } from "../../../../hooks/useAuth";
 
 export const RecentMessages = () => {
-  const { _id: userId } = useContext(AuthContext);
+  const { authData } = useAuth();
   const { ID } = useParams();
   const { data, isLoading, isError } = useQuery<IMessage[]>({
     queryKey: ["recent-messages"],
@@ -34,7 +33,7 @@ export const RecentMessages = () => {
             isActive={ID === userInfo[0]._id ? true : false}
             message={text}
             createdAt={createdAt}
-            isMine={fromId === userId ? true : false}
+            isMine={fromId === authData?._id ? true : false}
           />
         ))
       )}

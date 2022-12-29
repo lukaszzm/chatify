@@ -1,12 +1,12 @@
 import styles from "./LoginForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { registerSchema } from "../../../schemas/schemas";
-import AuthContext from "../../../contexts/auth-context";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Alert, Button, ImageInput } from "../../../components/UI";
+import { useAuth } from "../../../hooks/useAuth";
 
 export const RegisterForm = () => {
-  const { register } = useContext(AuthContext);
+  const { registerMutation } = useAuth();
   const [axiosError, setAxiosError] = useState<string | null>(null);
   return (
     <Formik
@@ -21,7 +21,7 @@ export const RegisterForm = () => {
       onSubmit={async (values) => {
         setAxiosError(null);
         try {
-          await register(values);
+          await registerMutation.mutateAsync(values);
         } catch (err) {
           const errorMessage = (err as Error).message;
           errorMessage
