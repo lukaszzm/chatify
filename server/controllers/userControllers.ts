@@ -66,7 +66,7 @@ export const updateFirstName = async (
   } catch (err) {
     next(err);
   }
-  return res.status(204);
+  return res.status(204).send();
 };
 
 export const updateLastName = async (
@@ -81,7 +81,7 @@ export const updateLastName = async (
   } catch (err) {
     next(err);
   }
-  return res.status(204);
+  return res.status(204).send();
 };
 
 export const updatePassword = async (
@@ -95,20 +95,17 @@ export const updatePassword = async (
       currentPassword,
       newPassword,
     }: { id: string; currentPassword: string; newPassword: string } = req.body;
+
     const user = await Users.findOne({ _id: id });
-    if (user) {
-      const match = await bcrypt.compare(currentPassword, user.password);
-      if (match) {
-        await Users.findByIdAndUpdate(id, {
-          password: bcrypt.hashSync(newPassword, 12),
-        });
-        return res.status(204);
-      } else {
-        return res.status(400).send("Your password is incorrect.");
-      }
-    } else {
-      return res.status(400).send("Something went wrong.");
-    }
+    if (!user) throw new Error("User not found.");
+
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match) return res.status(401).send("Your password is incorrect.");
+
+    await Users.findByIdAndUpdate(id, {
+      password: bcrypt.hashSync(newPassword, 12),
+    });
+    return res.status(204).send();
   } catch (err) {
     next(err);
   }

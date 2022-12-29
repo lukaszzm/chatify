@@ -69,7 +69,7 @@ export const deleteNote = async (
     if (note.fromId !== userId)
       throw new Error("This note does not belong to this user!");
     note.remove();
-    res.send("Success!");
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

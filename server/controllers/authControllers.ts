@@ -17,19 +17,19 @@ export const login = async (
     const fixedEmail = email.toLowerCase();
     const user = await Users.findOne({ email: fixedEmail });
 
-    if (!user) return res.status(400).send("Your mail is incorrect.");
+    if (!user) return res.status(401).send("Your mail is incorrect.");
 
     const match = await bcrypt.compare(password, user.password);
 
-    if (!match) return res.status(400).send("Your password is incorrect.");
+    if (!match) return res.status(401).send("Your password is incorrect.");
 
     const id = user._id.toString();
 
-    let token;
+    let token: string;
     try {
       token = jwt.sign(id, JWT_TOKEN);
     } catch (err) {
-      res.status(400).send("Something went wrong.");
+      throw new Error("Something went wrong.");
     }
 
     const { firstName, lastName, profileImage } = user;
@@ -69,10 +69,12 @@ export const register = async (
     try {
       token = jwt.sign(id, JWT_TOKEN);
     } catch (err) {
-      return res.status(400).send("Something went wrong.");
+      throw new Error("Something went wrong.");
     }
 
-    return res.send({ id, token, firstName, lastName, profileImage });
+    return res
+      .status(201)
+      .send({ id, token, firstName, lastName, profileImage });
   } catch (err) {
     next(err);
   }
