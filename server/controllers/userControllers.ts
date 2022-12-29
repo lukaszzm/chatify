@@ -66,7 +66,7 @@ export const login = async (
 ) => {
   try {
     const { email, password }: { email: string; password: string } = req.body;
-    let fixedEmail = email.toLowerCase();
+    const fixedEmail = email.toLowerCase();
     const user = await Users.findOne({ email: fixedEmail });
 
     if (!user) return res.status(400).send("Your mail is incorrect.");
