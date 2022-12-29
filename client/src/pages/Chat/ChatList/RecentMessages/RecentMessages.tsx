@@ -10,10 +10,10 @@ import { IMessage } from "../../../../interfaces/Message.interface";
 export const RecentMessages = () => {
   const { _id: userId } = useContext(AuthContext);
   const { ID } = useParams();
-  const { data, isLoading, isError } = useQuery<IMessage[]>(
-    ["recent-messages"],
-    getRecentMessages
-  );
+  const { data, isLoading, isError } = useQuery<IMessage[]>({
+    queryKey: ["recent-messages"],
+    queryFn: getRecentMessages,
+  });
 
   return (
     <Container>

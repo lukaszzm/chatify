@@ -3,13 +3,8 @@ import React, { useEffect, useContext, useRef } from "react";
 import AuthContext from "../../../../contexts/auth-context";
 import { Message } from "../Message";
 import { LoadingSpinner } from "../../../../components/UI";
-import { useQuery } from "@tanstack/react-query";
-import { getMessages } from "../../../../api";
-import { IMessage } from "../../../../interfaces/Message.interface";
-
-const scrollToEnd = (ref: React.RefObject<HTMLDivElement>) => {
-  ref.current!.scrollIntoView();
-};
+import { useMessages } from "../../../../hooks/useMessages";
+import { scrollToEnd } from "../../../../utils/scroll-to-end";
 
 interface IMessagesProps {
   chatID: string;
@@ -18,10 +13,7 @@ interface IMessagesProps {
 export const Messages: React.FC<IMessagesProps> = ({ chatID }) => {
   const { _id } = useContext(AuthContext);
   const messagesEnd = useRef<HTMLDivElement>(null);
-  const { data, isLoading, isError } = useQuery<IMessage[]>(
-    ["messages", chatID],
-    () => getMessages(chatID)
-  );
+  const { data, isLoading, isError } = useMessages(chatID);
 
   useEffect(() => {
     scrollToEnd(messagesEnd);

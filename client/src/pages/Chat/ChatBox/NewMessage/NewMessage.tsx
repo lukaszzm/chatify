@@ -18,20 +18,18 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
   const [input, setInput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const queryClient = useQueryClient();
-  const { mutate, isLoading } = useMutation(
-    (message: IMessage) => newMessage(message),
-    {
-      onSuccess: (message: IMessage) => {
-        queryClient.invalidateQueries(["recent-messages"]);
-        queryClient.invalidateQueries(["messages"]);
-        setInput("");
-        if (socket) socket.emit("send-message", message);
-      },
-      onError: () => {
-        setError("Something went wrong. Try again later.");
-      },
-    }
-  );
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (message: IMessage) => newMessage(message),
+    onSuccess: (message: IMessage) => {
+      queryClient.invalidateQueries(["recent-messages"]);
+      queryClient.invalidateQueries(["messages"]);
+      setInput("");
+      if (socket) socket.emit("send-message", message);
+    },
+    onError: () => {
+      setError("Something went wrong. Try again later.");
+    },
+  });
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.trim() !== "") {
@@ -68,7 +66,6 @@ export const NewMessage: React.FC<NewMessageProps> = ({ chatID }) => {
           profileImage: info!.profileImage,
         },
       ],
-      test: "test",
     };
 
     mutate(message);

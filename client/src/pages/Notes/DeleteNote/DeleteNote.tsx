@@ -14,15 +14,13 @@ export const DeleteNote: React.FC<DeleteNoteProps> = ({
 }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { mutate, isLoading, isError } = useMutation(
-    (ID: string) => deleteNote(ID),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["notes"]);
-        navigate("/dashboard/notes/");
-      },
-    }
-  );
+  const { mutate, isLoading, isError } = useMutation({
+    mutationFn: (ID: string) => deleteNote(ID),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["notes"]);
+      navigate("/dashboard/notes/");
+    },
+  });
 
   return (
     <Modal
@@ -31,9 +29,7 @@ export const DeleteNote: React.FC<DeleteNoteProps> = ({
       isDisabledConfirm={isLoading}
       closeModal={closeModal}
     >
-      <p>
-        Are you sure are you want to delete this note
-      </p>
+      <p>Are you sure are you want to delete this note</p>
       {isError && <Alert error>Something went wrong. Try again later.</Alert>}
     </Modal>
   );

@@ -18,7 +18,10 @@ export const NotesList = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const { ID } = useParams();
 
-  const { data, isLoading, isError } = useQuery<INote[]>(["notes"], getNotes);
+  const { data, isLoading, isError } = useQuery<INote[]>({
+    queryKey: ["notes"],
+    queryFn: getNotes,
+  });
 
   return (
     <Sidebar>

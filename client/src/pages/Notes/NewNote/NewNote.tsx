@@ -12,15 +12,13 @@ interface NewNoteProps {
 
 export const NewNote: React.FC<NewNoteProps> = ({ closeModal }) => {
   const queryClient = useQueryClient();
-  const { mutate, isLoading, isError } = useMutation(
-    (note: INote) => newNote(note),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(["notes"]);
-        closeModal();
-      },
-    }
-  );
+  const { mutate, isLoading, isError } = useMutation({
+    mutationFn: (note: INote) => newNote(note),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["notes"]);
+      closeModal();
+    },
+  });
 
   return (
     <Modal

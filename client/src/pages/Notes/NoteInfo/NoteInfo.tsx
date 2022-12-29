@@ -9,14 +9,15 @@ import ReactDOM from "react-dom";
 import { Topbar, LoadingSpinner, Icon, Button } from "../../../components/UI";
 
 interface INoteInfoProps {
-  noteId: string
+  noteId: string;
 }
 
-export const NoteInfo: React.FC<INoteInfoProps> = ( { noteId }) => {
+export const NoteInfo: React.FC<INoteInfoProps> = ({ noteId }) => {
   const { isModalOpen, openModal, closeModal } = useModal();
-  const { data, isLoading, isError } = useQuery(["note", noteId], () =>
-    getNoteInfo(noteId)
-  );
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["note", noteId],
+    queryFn: () => getNoteInfo(noteId),
+  });
 
   return isLoading ? (
     <LoadingSpinner center />
@@ -27,16 +28,17 @@ export const NoteInfo: React.FC<INoteInfoProps> = ( { noteId }) => {
       <Topbar backTo="/dashboard/notes">
         <h3>{data.title}</h3>
         <Button className={styles.button} onClick={openModal}>
-          <Icon className={styles["delete-icon"]} icon={deleteIcon} alt="delete" />
+          <Icon
+            className={styles["delete-icon"]}
+            icon={deleteIcon}
+            alt="delete"
+          />
         </Button>
       </Topbar>
       <NoteContent text={data.text} createdAt={data.createdAt} />
       {isModalOpen
         ? ReactDOM.createPortal(
-            <DeleteNote
-              noteId={noteId}
-              closeModal={closeModal}
-            />,
+            <DeleteNote noteId={noteId} closeModal={closeModal} />,
             document.getElementById("modals") as HTMLElement
           )
         : null}

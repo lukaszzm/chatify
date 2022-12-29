@@ -1,16 +1,22 @@
 import styles from "./ChatInfo.module.css";
-import { LoadingImage, LoadingText, ProfileImage, Topbar } from "../../../../components/UI";
+import {
+  LoadingImage,
+  LoadingText,
+  ProfileImage,
+  Topbar,
+} from "../../../../components/UI";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfo } from "../../../../api";
 
 interface IChatInfoProps {
-  chatID: string
+  chatID: string;
 }
 
 export const ChatInfo: React.FC<IChatInfoProps> = ({ chatID }) => {
-  const { data, isLoading, isError } = useQuery(["chat-info", chatID], () =>
-    getUserInfo(chatID)
-  );
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["chat-info", chatID],
+    queryFn: () => getUserInfo(chatID),
+  });
 
   return (
     <Topbar backTo="/dashboard/chat">
