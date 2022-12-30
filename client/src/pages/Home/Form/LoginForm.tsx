@@ -4,9 +4,8 @@ import { loginSchema } from "../../../schemas/schemas";
 import { useState } from "react";
 import { Alert, Button } from "../../../components/UI";
 import { useAuth } from "../../../hooks/useAuth";
-import axios from "axios";
+import { AxiosError } from "axios";
 
-// TODO: lepsze zarządzanie błędami
 export const LoginForm = () => {
   const { loginMutation } = useAuth();
   const [axiosError, setAxiosError] = useState<string | null>(null);
@@ -19,11 +18,8 @@ export const LoginForm = () => {
     try {
       await loginMutation.mutateAsync(values);
     } catch (err) {
-      const errorMessage =
-        axios.isAxiosError(err) && err.response && err.response.data
-          ? (err.response.data as string)
-          : "Something went wrong.";
-      setAxiosError(errorMessage);
+      const error = err as AxiosError;
+      setAxiosError(error.response?.data as string);
     }
   };
 

@@ -8,7 +8,6 @@ interface MessageProps {
   createdAt: string | Date;
 }
 
-// TODO: fix displaying time
 export const Message: React.FC<MessageProps> = ({
   createdAt,
   isMine,

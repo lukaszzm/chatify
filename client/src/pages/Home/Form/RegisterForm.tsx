@@ -4,6 +4,7 @@ import { registerSchema } from "../../../schemas/schemas";
 import { useState } from "react";
 import { Alert, Button, ImageInput } from "../../../components/UI";
 import { useAuth } from "../../../hooks/useAuth";
+import { AxiosError } from "axios";
 
 export const RegisterForm = () => {
   const { registerMutation } = useAuth();
@@ -23,10 +24,8 @@ export const RegisterForm = () => {
         try {
           await registerMutation.mutateAsync(values);
         } catch (err) {
-          const errorMessage = (err as Error).message;
-          errorMessage
-            ? setAxiosError(errorMessage)
-            : setAxiosError("Something went wrong.");
+          const error = err as AxiosError;
+          setAxiosError(error.response?.data as string);
         }
       }}
     >

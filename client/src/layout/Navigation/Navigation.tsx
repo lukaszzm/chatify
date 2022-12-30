@@ -19,8 +19,6 @@ export const Navigation = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
   const { authData, logout } = useAuth();
 
-  console.log(authData);
-
   return (
     <nav
       className={styles["navigation-panel"]}

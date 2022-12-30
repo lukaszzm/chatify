@@ -5,7 +5,6 @@ import {
   RegisterCredentials,
 } from "../interfaces/Credentials.interface";
 import { useNavigate } from "react-router-dom";
-import axios, { AxiosError } from "axios";
 import { IUser } from "../interfaces/User.interface";
 
 export const useAuth = () => {
@@ -20,9 +19,9 @@ export const useAuth = () => {
   const loginMutation = useMutation({
     mutationFn: ({ email, password }: Credentials) =>
       login({ email, password }),
-    onSuccess: (values) => {
-      localStorage.setItem("token", values.token);
-      localStorage.setItem("id", values.id);
+    onSuccess: ({ token, id }) => {
+      localStorage.setItem("token", token);
+      localStorage.setItem("id", id);
       navigate("/dashboard/chat");
     },
   });
@@ -36,17 +35,10 @@ export const useAuth = () => {
       profileImage,
     }: RegisterCredentials) =>
       register({ email, password, firstName, lastName, profileImage }),
-    onSuccess: (values) => {
-      localStorage.setItem("token", values.token);
-      localStorage.setItem("id", values.id);
+    onSuccess: ({ token, id }) => {
+      localStorage.setItem("token", token);
+      localStorage.setItem("id", id);
       navigate("/dashboard/chat");
-    },
-    onError: (err: AxiosError) => {
-      const errorMessage =
-        axios.isAxiosError(err) && err.response
-          ? (err.response.data as string)
-          : "Something went wrong.";
-      throw new Error(errorMessage);
     },
   });
 
@@ -57,5 +49,5 @@ export const useAuth = () => {
     navigate("/");
   };
 
-  return { authData, loginMutation, logout, registerMutation, ...rest };
+  return { authData, loginMutation, registerMutation, logout, ...rest };
 };
