@@ -18,12 +18,12 @@ import { Appearance } from "./pages/Settings/Appearance";
 import { Notes } from "./pages/Notes";
 import { NoteInfo } from "./pages/Notes/NoteInfo";
 import { useAuth } from "./hooks/useAuth";
-import { LoadingSpinner } from "./components/UI";
+import { FullScreenLoader } from "./components/UI";
 
 export const App = () => {
   const { authData, isLoading } = useAuth();
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <FullScreenLoader />;
 
   return (
     <Routes>
